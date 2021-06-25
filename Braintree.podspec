@@ -66,6 +66,17 @@ Pod::Spec.new do |s|
     s.dependency "Braintree/PayPalDataCollector"
   end
 
+  s.subspec "PayPalNative" do |s|
+    s.source_files = "Sources/BraintreePayPalNative/**/*.{swift}"
+    s.dependency "Braintree/Core"
+    s.dependency "Braintree/PayPal"
+    s.dependency "PayPalCheckout"
+
+    s.pod_target_xcconfig = {
+      "SWIFT_OBJC_BRIDGING_HEADER" => "Sources/BraintreePayPalNative/Public/BraintreePayPalNative/BTPayPalNative-Bridging-Header.h"
+    }
+  end
+
   s.subspec "PayPalDataCollector" do |s|
     s.source_files = "Sources/PayPalDataCollector/**/*.{swift}"
     s.vendored_frameworks = "Frameworks/PPRiskMagnes.xcframework"

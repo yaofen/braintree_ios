@@ -1,4 +1,3 @@
-import BraintreeCore
 
 protocol BTPayPalNativeRequest {
     var payPalReturnURL: String { get }

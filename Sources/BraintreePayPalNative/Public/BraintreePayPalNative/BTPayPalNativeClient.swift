@@ -1,5 +1,8 @@
+#if canImport(BraintreeCore)
 import BraintreeCore
 import BraintreePayPal
+#endif
+
 import PayPalCheckout
 
 /**
