@@ -4,7 +4,7 @@ class AppSwitcher {
 
     static var openVenmoURL: URL?
 
-    static var successURL: URL? {
+    static var successURLWithoutPaymentContext: URL? {
         var successComponents = openVenmoURL
             .flatMap({ URLComponents(url: $0, resolvingAgainstBaseURL: false)})?
             .queryItems?
@@ -15,6 +15,23 @@ class AppSwitcher {
         successComponents?.queryItems = [
             URLQueryItem(name: "x-source", value: "Venmo"),
             URLQueryItem(name: "username", value: "@fake-venmo-username"),
+            URLQueryItem(name: "paymentMethodNonce", value: "fake-venmo-account-nonce")
+        ]
+
+        return successComponents?.url
+    }
+
+    static var successURLWithPaymentContext: URL? {
+        var successComponents = openVenmoURL
+            .flatMap({ URLComponents(url: $0, resolvingAgainstBaseURL: false)})?
+            .queryItems?
+            .first(where: { $0.name == "x-success" })?
+            .value
+            .flatMap({ URLComponents(string: $0) })
+
+        successComponents?.queryItems = [
+            URLQueryItem(name: "username", value: "@fake-venmo-username"),
+            URLQueryItem(name: "resource_id", value: "fake-resource-id"),
             URLQueryItem(name: "paymentMethodNonce", value: "fake-venmo-account-nonce")
         ]
 

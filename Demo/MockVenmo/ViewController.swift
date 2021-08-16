@@ -2,8 +2,13 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBAction func didTapSuccess(_ sender: UIButton) {
-        guard let successURL = AppSwitcher.successURL else { return }
+    @IBAction func didTapSuccess_withoutPaymentContext(_ sender: UIButton) {
+        guard let successURL = AppSwitcher.successURLWithoutPaymentContext else { return }
+        UIApplication.shared.open(successURL, options: [:], completionHandler: nil)
+    }
+
+    @IBAction func didTapSuccess_withPaymentContext(_ sender: UIButton) {
+        guard let successURL = AppSwitcher.successURLWithPaymentContext else { return }
         UIApplication.shared.open(successURL, options: [:], completionHandler: nil)
     }
 
