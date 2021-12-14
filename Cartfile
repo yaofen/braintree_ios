@@ -1,2 +1,2 @@
 binary "https://assets.braintreegateway.com/mobile/ios/carthage-frameworks/cardinal-mobile/CardinalMobile.json" == 2.2.5-2-xcframework-only-update
-binary "file:///Desktop/MyFramework.json" == 5.3.0
+binary "file:///Users/skoop/source/MyFramework.json" ~> 5.3.0
