@@ -44,7 +44,7 @@ import BraintreeCore
         if (self is BTAppContextSwitchDriver) {
             BTAppContextSwitcher.sharedInstance().register(BTVenmoDriverSwift.self as! BTAppContextSwitchDriver.Type)
             BTPaymentMethodNonceParser.shared().registerType("VenmoAccount") { venmoJSON in
-                return BTVenmoAccountNonce.venmoAccount(with: venmoJSON)
+                return BTVenmoAccountNonce(venmoAccountJSON: venmoJSON)
             }
         }
     }

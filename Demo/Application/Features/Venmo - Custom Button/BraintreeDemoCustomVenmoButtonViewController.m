@@ -26,18 +26,18 @@
 
 - (void)tappedCustomVenmo {
     self.progressBlock(@"Tapped Venmo - initiating Venmo auth");
-    BTVenmoRequest *venmoRequest = [[BTVenmoRequest alloc] initWithPaymentMethodUsage: BTVenmoPaymentMethodUsageMultiUse];
-    [self.venmoDriver tokenizeVenmoAccountWithVenmoRequest:venmoRequest completion:^(BTVenmoAccountNonce * _Nullable venmoAccount, NSError * _Nullable error) {
-        if (venmoAccount) {
-            self.progressBlock(@"Got a nonce 💎!");
-            NSLog(@"%@", [venmoAccount debugDescription]);
-            self.completionBlock(venmoAccount);
-        } else if (error) {
-            self.progressBlock(error.localizedDescription);
-        } else {
-            self.progressBlock(@"Canceled 🔰");
-        }
-    }];
+//    BTVenmoRequest *venmoRequest = [[BTVenmoRequest alloc] initWithPaymentMethodUsage: BTVenmoPaymentMethodUsageMultiUse];
+//    [self.venmoDriver tokenizeVenmoAccountWithVenmoRequest:venmoRequest completion:^(BTVenmoAccountNonce * _Nullable venmoAccount, NSError * _Nullable error) {
+//        if (venmoAccount) {
+//            self.progressBlock(@"Got a nonce 💎!");
+//            NSLog(@"%@", [venmoAccount debugDescription]);
+//            self.completionBlock(venmoAccount);
+//        } else if (error) {
+//            self.progressBlock(error.localizedDescription);
+//        } else {
+//            self.progressBlock(@"Canceled 🔰");
+//        }
+//    }];
 }
 
 @end
