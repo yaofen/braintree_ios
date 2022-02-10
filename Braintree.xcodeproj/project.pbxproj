@@ -153,6 +153,9 @@
 		9CF5DA0A27B571C1008A44D8 /* BTVenmoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF5DA0927B571C1008A44D8 /* BTVenmoRequest.swift */; };
 		9CF5DA0C27B57666008A44D8 /* BTVenmoDriverSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF5DA0B27B57666008A44D8 /* BTVenmoDriverSwift.swift */; };
 		9CF5DA0E27B5854E008A44D8 /* BTVenmoError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF5DA0D27B5854E008A44D8 /* BTVenmoError.swift */; };
+		9CF5DA1027B5B164008A44D8 /* BTVenmoAppSwitchRequestURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF5DA0F27B5B164008A44D8 /* BTVenmoAppSwitchRequestURL.swift */; };
+		9CF5DA1227B5B4B1008A44D8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF5DA1127B5B4B1008A44D8 /* Constants.swift */; };
+		9CF5DA1427B5BA59008A44D8 /* BTVenmoAppSwitchReturnURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF5DA1327B5BA59008A44D8 /* BTVenmoAppSwitchReturnURL.swift */; };
 		A07FA48D21B5C54E0026FF0E /* BTPayPalLineItem.h in Headers */ = {isa = PBXBuildFile; fileRef = A07FA48B21B5C54E0026FF0E /* BTPayPalLineItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A07FA48E21B5C54E0026FF0E /* BTPayPalLineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A07FA48C21B5C54E0026FF0E /* BTPayPalLineItem.m */; };
 		A5F444AE1E89906700B2B4F7 /* BTPayPalCreditFinancing.h in Headers */ = {isa = PBXBuildFile; fileRef = A5F444AD1E89903E00B2B4F7 /* BTPayPalCreditFinancing.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -171,10 +174,6 @@
 		A77346261B7AA4F10083EC8D /* BTErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = A77346251B7AA4F10083EC8D /* BTErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A77426581CA20793003CACBA /* BTCardCapabilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A77426561CA20793003CACBA /* BTCardCapabilities.m */; };
 		A774265A1CA207AE003CACBA /* BTCardCapabilities.h in Headers */ = {isa = PBXBuildFile; fileRef = A77426591CA207AE003CACBA /* BTCardCapabilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A77AA2A61B618CFB00217B73 /* BTVenmoAppSwitchRequestURL.h in Headers */ = {isa = PBXBuildFile; fileRef = A7F96D0A1B604C1C005A4A09 /* BTVenmoAppSwitchRequestURL.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		A77AA2A71B618CFB00217B73 /* BTVenmoAppSwitchRequestURL.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F96D0B1B604C1C005A4A09 /* BTVenmoAppSwitchRequestURL.m */; };
-		A77AA2A81B618CFB00217B73 /* BTVenmoAppSwitchReturnURL.h in Headers */ = {isa = PBXBuildFile; fileRef = A7F96D0C1B604C1C005A4A09 /* BTVenmoAppSwitchReturnURL.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		A77AA2A91B618CFB00217B73 /* BTVenmoAppSwitchReturnURL.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F96D0D1B604C1C005A4A09 /* BTVenmoAppSwitchReturnURL.m */; };
 		A77AA2AA1B618CFB00217B73 /* BraintreeVenmo.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C889F11B5F0B30007A0E9C /* BraintreeVenmo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A77AA2AB1B618CFB00217B73 /* BTVenmoDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C889FA1B5F0C00007A0E9C /* BTVenmoDriver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A77AA2AC1B618CFB00217B73 /* BTVenmoDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C889FB1B5F0C00007A0E9C /* BTVenmoDriver.m */; };
@@ -858,6 +857,9 @@
 		9CF5DA0927B571C1008A44D8 /* BTVenmoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTVenmoRequest.swift; sourceTree = "<group>"; };
 		9CF5DA0B27B57666008A44D8 /* BTVenmoDriverSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTVenmoDriverSwift.swift; sourceTree = "<group>"; };
 		9CF5DA0D27B5854E008A44D8 /* BTVenmoError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTVenmoError.swift; sourceTree = "<group>"; };
+		9CF5DA0F27B5B164008A44D8 /* BTVenmoAppSwitchRequestURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTVenmoAppSwitchRequestURL.swift; sourceTree = "<group>"; };
+		9CF5DA1127B5B4B1008A44D8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		9CF5DA1327B5BA59008A44D8 /* BTVenmoAppSwitchReturnURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTVenmoAppSwitchReturnURL.swift; sourceTree = "<group>"; };
 		A01720162216272000DAA838 /* BTThreeDSecureV2Provider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTThreeDSecureV2Provider.h; sourceTree = "<group>"; };
 		A01720172216272000DAA838 /* BTThreeDSecureV2Provider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BTThreeDSecureV2Provider.m; sourceTree = "<group>"; };
 		A044377322AFFBD10084E2C1 /* CardinalMobile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CardinalMobile.framework; path = Frameworks/CardinalMobile.framework; sourceTree = "<group>"; };
@@ -982,10 +984,6 @@
 		A7E93E571B601EE900957223 /* BTURLUtils_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTURLUtils_Tests.swift; sourceTree = "<group>"; };
 		A7F96D061B6043B7005A4A09 /* BTVenmoAccountNonce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTVenmoAccountNonce.h; sourceTree = "<group>"; };
 		A7F96D071B6043B7005A4A09 /* BTVenmoAccountNonce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTVenmoAccountNonce.m; sourceTree = "<group>"; };
-		A7F96D0A1B604C1C005A4A09 /* BTVenmoAppSwitchRequestURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BTVenmoAppSwitchRequestURL.h; sourceTree = "<group>"; };
-		A7F96D0B1B604C1C005A4A09 /* BTVenmoAppSwitchRequestURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTVenmoAppSwitchRequestURL.m; sourceTree = "<group>"; };
-		A7F96D0C1B604C1C005A4A09 /* BTVenmoAppSwitchReturnURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTVenmoAppSwitchReturnURL.h; sourceTree = "<group>"; };
-		A7F96D0D1B604C1C005A4A09 /* BTVenmoAppSwitchReturnURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTVenmoAppSwitchReturnURL.m; sourceTree = "<group>"; };
 		A903E1A624F9D34000C314E1 /* BraintreeTestShared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BraintreeTestShared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A903E1A824F9D34000C314E1 /* BraintreeTestShared.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BraintreeTestShared.h; sourceTree = "<group>"; };
 		A903E1A924F9D34000C314E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1869,16 +1867,15 @@
 				A7B1C1461B66D94600ED063C /* BTConfiguration+Venmo.m */,
 				03D294FE1BE835C8004F90DA /* BTVenmoAccountNonce_Internal.h */,
 				A7F96D071B6043B7005A4A09 /* BTVenmoAccountNonce.m */,
-				A7F96D0A1B604C1C005A4A09 /* BTVenmoAppSwitchRequestURL.h */,
-				A7F96D0B1B604C1C005A4A09 /* BTVenmoAppSwitchRequestURL.m */,
-				A7F96D0C1B604C1C005A4A09 /* BTVenmoAppSwitchReturnURL.h */,
-				A7F96D0D1B604C1C005A4A09 /* BTVenmoAppSwitchReturnURL.m */,
 				A77AA2B51B61936A00217B73 /* BTVenmoDriver_Internal.h */,
 				A7C889FB1B5F0C00007A0E9C /* BTVenmoDriver.m */,
 				41777D471B8D028C0026F987 /* Public */,
 				9CF5DA0927B571C1008A44D8 /* BTVenmoRequest.swift */,
 				9CF5DA0B27B57666008A44D8 /* BTVenmoDriverSwift.swift */,
 				9CF5DA0D27B5854E008A44D8 /* BTVenmoError.swift */,
+				9CF5DA0F27B5B164008A44D8 /* BTVenmoAppSwitchRequestURL.swift */,
+				9CF5DA1127B5B4B1008A44D8 /* Constants.swift */,
+				9CF5DA1327B5BA59008A44D8 /* BTVenmoAppSwitchReturnURL.swift */,
 			);
 			path = BraintreeVenmo;
 			sourceTree = "<group>";
@@ -2225,8 +2222,6 @@
 				A77AA2AD1B618CFB00217B73 /* BTVenmoAccountNonce.h in Headers */,
 				A7B1C1471B66D94600ED063C /* BTConfiguration+Venmo.h in Headers */,
 				A77AA2AB1B618CFB00217B73 /* BTVenmoDriver.h in Headers */,
-				A77AA2A81B618CFB00217B73 /* BTVenmoAppSwitchReturnURL.h in Headers */,
-				A77AA2A61B618CFB00217B73 /* BTVenmoAppSwitchRequestURL.h in Headers */,
 				A77AA2AA1B618CFB00217B73 /* BraintreeVenmo.h in Headers */,
 				03D294FF1BE835C8004F90DA /* BTVenmoAccountNonce_Internal.h in Headers */,
 				A77AA2B61B61936A00217B73 /* BTVenmoDriver_Internal.h in Headers */,
@@ -3276,12 +3271,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A77AA2A71B618CFB00217B73 /* BTVenmoAppSwitchRequestURL.m in Sources */,
 				9CF5DA0A27B571C1008A44D8 /* BTVenmoRequest.swift in Sources */,
+				9CF5DA1027B5B164008A44D8 /* BTVenmoAppSwitchRequestURL.swift in Sources */,
 				9CF5DA0E27B5854E008A44D8 /* BTVenmoError.swift in Sources */,
 				A77AA2AC1B618CFB00217B73 /* BTVenmoDriver.m in Sources */,
+				9CF5DA1227B5B4B1008A44D8 /* Constants.swift in Sources */,
 				9CF5DA0C27B57666008A44D8 /* BTVenmoDriverSwift.swift in Sources */,
-				A77AA2A91B618CFB00217B73 /* BTVenmoAppSwitchReturnURL.m in Sources */,
+				9CF5DA1427B5BA59008A44D8 /* BTVenmoAppSwitchReturnURL.swift in Sources */,
 				A77AA2AE1B618CFB00217B73 /* BTVenmoAccountNonce.m in Sources */,
 				A7B1C1481B66D94600ED063C /* BTConfiguration+Venmo.m in Sources */,
 			);

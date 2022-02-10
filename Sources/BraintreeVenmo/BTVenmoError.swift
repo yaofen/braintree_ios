@@ -35,24 +35,20 @@ enum BTVenmoError: Error, CustomNSError, LocalizedError {
         switch self {
         case .unknown:
             return 0
-            switch self {
-            case .unknown:
-                return 0
-            case .disabled:
-                return 1
-            case .appNotAvailable:
-                return 2
-            case .bundleDisplayNameMissing:
-                return 3
-            case .appSwitchFailed:
-                return 4
-            case .invalidReturnURL:
-                return 5
-            case .integration:
-                return 6
-            case .invalidRequestURL:
-                return 7
-            }
+        case .disabled:
+            return 1
+        case .appNotAvailable:
+            return 2
+        case .bundleDisplayNameMissing:
+            return 3
+        case .appSwitchFailed:
+            return 4
+        case .invalidReturnURL:
+            return 5
+        case .integration:
+            return 6
+        case .invalidRequestURL:
+            return 7
         }
     }
 
@@ -72,7 +68,7 @@ enum BTVenmoError: Error, CustomNSError, LocalizedError {
         case .invalidReturnURL:
             return "Failed to parse a Venmo paymentContextID while constructing the requestURL. Please contact support."
         case .integration:
-            return "BTVenmoDriver failed because BTVenmoRequest is nil."
+            return "BTVenmoDriver failed because BTAPIClient is nil."
         case .invalidRequestURL:
             return "Failed to create Venmo app switch request URL."
         }

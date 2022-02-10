@@ -39,7 +39,7 @@ import BraintreeCore
     private var appSwitchCompletionBlock: (BTVenmoAccountNonce?, Error?)
     
     var appSwitchDriver: BTVenmoDriver
-
+    
     func load () {
         if (self is BTAppContextSwitchDriver) {
             BTAppContextSwitcher.sharedInstance().register(BTVenmoDriverSwift.self as! BTAppContextSwitchDriver.Type)
@@ -66,10 +66,65 @@ import BraintreeCore
         cancellation, you will receive `nil` for both parameters.
     */
     public func tokenizeVenmoAccount(venmoRequest: BTVenmoRequest, completion: @escaping (BTVenmoAccountNonce?, Error?) -> Void) {
-        guard let venmoRequest = venmoRequest else {
-            let error = 
+        apiClient.fetchOrReturnRemoteConfiguration { configuration, configurationError in
+            
+            if let error = configurationError {
+                completion(nil, error)
+                return
+            }
+            
+            if let configuration = configuration {
+                if let error = self.verifyAppSwitch(configuration: configuration) {
+                    completion(nil, error)
+                    return
+                }
+                
+                let merchantProfileID = venmoRequest.profileID != nil ? venmoRequest.profileID : configuration.venmoMerchantID
+                
+                let bundleDisplayName = self.bundle.object(forInfoDictionaryKey: "CFBundleDisplayName")
+                
+//                var metadata = self.apiClient.metadata.mutableCopy()
+//                (metadata as Any).source = BTClientMetadataSourceType.venmoApp
+                
+                var inputParams = [
+                    "paymentMethodUsage": venmoRequest.paymentMethodUsageAsString,
+                    "merchantProfileId": merchantProfileID,
+                    "customerClient": "MOBILE_APP",
+                    "intent": "CONTINUE"
+                ]
+                
+                if let displayName = venmoRequest.displayName {
+                    inputParams["displayName"] = displayName
+                }
+                
+                let params = [
+                    "query": "mutation CreateVenmoPaymentContext($input: CreateVenmoPaymentContextInput!) { createVenmoPaymentContext(input: $input) { venmoPaymentContext { id } } }",
+                    "variables": [
+                        "input": inputParams
+                    ] as [String : Any]
+                ] as [String : Any]
+                
+                self.apiClient.post("", parameters: params, httpType: .graphQLAPI) { body, response, error in
+                    if error != nil {
+                        completion(nil, BTVenmoError.invalidRequestURL)
+                        return
+                    }
+                    
+                    if let body = body {
+                        let paymentContextID = body["data"]["createVenmoPaymentContext"]["venmoPaymentContext"]["id"]
+                        
+//                        if paymentContextID == nil {
+//                            completion(nil, BTVenmoError.invalidRequestURL)
+//                            return
+//                        }
+                        
+                        let appSwitchURL = BTVenmoAppSwitchRequestURL.appSwitch(forMerchantID: <#T##String#>, accessToken: <#T##String#>, returnURLScheme: <#T##String#>, bundleDisplayName: <#T##String#>, environment: <#T##String#>, paymentContextID: <#T##String?#>, metadata: <#T##BTClientMetadata#>)
+                        
+                    }
+                }
+            }
+            
         }
-        
     }
     
     /**
@@ -81,4 +136,24 @@ import BraintreeCore
      Switches to the iTunes App Store to download the Venmo app.
      */
     public func openVenmoAppPageInAppStore() {}
+    
+    func verifyAppSwitch(configuration: BTConfiguration) -> Error? {
+        var error: Error?
+        if !configuration.isVenmoEnabled {
+            apiClient.sendAnalyticsEvent("ios.pay-with-venmo.appswitch.initiate.error.disabled")
+            if error != nil {
+                error = BTVenmoError.disabled
+            }
+        }
+        
+        if !isiOSAppAvailableForAppSwitch() {
+            apiClient.sendAnalyticsEvent("ios.pay-with-venmo.appswitch.initiate.error.unavailable")
+            error = BTVenmoError.disabled
+        }
+        
+        guard bundle.object(forInfoDictionaryKey: "CFBundleDisplayName") != nil else {
+            error = BTVenmoError.bundleDisplayNameMissing
+        }
+        return error
+    }
 }
