@@ -1,6 +1,6 @@
 import Foundation
 
-@objcMembers class BTVenmoAccountNonce: BTPaymentMethodNonce {
+@objcMembers public class BTVenmoAccountNonce: BTPaymentMethodNonce {
     
     /**
      :nodoc:
@@ -36,10 +36,6 @@ import Foundation
      The username associated with the Venmo account
     */
     var username: String?
-    
-    init(json: BTJSON) {
-
-    }
     
     convenience init?(paymentContextJSON: BTJSON) {
         self.init(paymentMethodNonce: paymentContextJSON["data"]["node"]["paymentMethodId"].asString() ?? "", username: paymentContextJSON["data"]["node"]["userName"].asString() ?? "", isDefault: false)

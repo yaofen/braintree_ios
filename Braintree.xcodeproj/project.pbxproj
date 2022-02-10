@@ -75,7 +75,7 @@
 		41472F951CB6D52200AFA75C /* BTConfiguration+UnionPay.m in Sources */ = {isa = PBXBuildFile; fileRef = 41472F921CB6D52200AFA75C /* BTConfiguration+UnionPay.m */; };
 		41472F971CB6D53400AFA75C /* BTConfiguration+UnionPay.h in Headers */ = {isa = PBXBuildFile; fileRef = 41472F961CB6D53400AFA75C /* BTConfiguration+UnionPay.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		415924B21BA0F2A900C095F6 /* BTPaymentMethodNonceParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 415924B01BA0F2A900C095F6 /* BTPaymentMethodNonceParser.m */; };
-		415924B41BA0F2D800C095F6 /* BTPaymentMethodNonceParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 415924B31BA0F2D800C095F6 /* BTPaymentMethodNonceParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		415924B41BA0F2D800C095F6 /* BTPaymentMethodNonceParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 415924B31BA0F2D800C095F6 /* BTPaymentMethodNonceParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4164B9B01C9B6690006AE861 /* BraintreeUnionPay.h in Headers */ = {isa = PBXBuildFile; fileRef = 4164B9AF1C9B6690006AE861 /* BraintreeUnionPay.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4164B9B11C9B68CC006AE861 /* BraintreeCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C889901B5F043B007A0E9C /* BraintreeCard.framework */; };
 		4164B9BA1C9B6988006AE861 /* BTCardClient+UnionPay.h in Headers */ = {isa = PBXBuildFile; fileRef = 4164B9B81C9B6988006AE861 /* BTCardClient+UnionPay.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -150,7 +150,7 @@
 		9C3F55EF275E80DA00C21C8A /* BTAmericanExpressError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3F55EE275E80DA00C21C8A /* BTAmericanExpressError.swift */; };
 		9CE8C7FA275ABDE700FB11F9 /* BTAmericanExpressClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE8C7F9275ABDE700FB11F9 /* BTAmericanExpressClient.swift */; };
 		9CF5DA0A27B571C1008A44D8 /* BTVenmoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF5DA0927B571C1008A44D8 /* BTVenmoRequest.swift */; };
-		9CF5DA0C27B57666008A44D8 /* BTVenmoDriverSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF5DA0B27B57666008A44D8 /* BTVenmoDriverSwift.swift */; };
+		9CF5DA0C27B57666008A44D8 /* BTVenmoDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF5DA0B27B57666008A44D8 /* BTVenmoDriver.swift */; };
 		9CF5DA0E27B5854E008A44D8 /* BTVenmoError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF5DA0D27B5854E008A44D8 /* BTVenmoError.swift */; };
 		9CF5DA1027B5B164008A44D8 /* BTVenmoAppSwitchRequestURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF5DA0F27B5B164008A44D8 /* BTVenmoAppSwitchRequestURL.swift */; };
 		9CF5DA1227B5B4B1008A44D8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF5DA1127B5B4B1008A44D8 /* Constants.swift */; };
@@ -175,9 +175,6 @@
 		A77426581CA20793003CACBA /* BTCardCapabilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A77426561CA20793003CACBA /* BTCardCapabilities.m */; };
 		A774265A1CA207AE003CACBA /* BTCardCapabilities.h in Headers */ = {isa = PBXBuildFile; fileRef = A77426591CA207AE003CACBA /* BTCardCapabilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A77AA2AA1B618CFB00217B73 /* BraintreeVenmo.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C889F11B5F0B30007A0E9C /* BraintreeVenmo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A77AA2AB1B618CFB00217B73 /* BTVenmoDriver.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C889FA1B5F0C00007A0E9C /* BTVenmoDriver.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A77AA2AC1B618CFB00217B73 /* BTVenmoDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C889FB1B5F0C00007A0E9C /* BTVenmoDriver.m */; };
-		A77AA2B61B61936A00217B73 /* BTVenmoDriver_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = A77AA2B51B61936A00217B73 /* BTVenmoDriver_Internal.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A78BF95D1CC6F32100DED8AA /* BraintreeUnionPay_IntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A78BF95C1CC6F32100DED8AA /* BraintreeUnionPay_IntegrationTests.m */; };
 		A7ABD6791B702FF000A1223C /* BTAPIClient_IntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A7ABD65E1B702FF000A1223C /* BTAPIClient_IntegrationTests.m */; };
 		A7ABD67C1B702FF000A1223C /* BTHTTP_SSLPinning_IntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A7ABD6611B702FF000A1223C /* BTHTTP_SSLPinning_IntegrationTests.m */; };
@@ -852,7 +849,7 @@
 		9C3F55EE275E80DA00C21C8A /* BTAmericanExpressError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTAmericanExpressError.swift; sourceTree = "<group>"; };
 		9CE8C7F9275ABDE700FB11F9 /* BTAmericanExpressClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTAmericanExpressClient.swift; sourceTree = "<group>"; };
 		9CF5DA0927B571C1008A44D8 /* BTVenmoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTVenmoRequest.swift; sourceTree = "<group>"; };
-		9CF5DA0B27B57666008A44D8 /* BTVenmoDriverSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTVenmoDriverSwift.swift; sourceTree = "<group>"; };
+		9CF5DA0B27B57666008A44D8 /* BTVenmoDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTVenmoDriver.swift; sourceTree = "<group>"; };
 		9CF5DA0D27B5854E008A44D8 /* BTVenmoError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTVenmoError.swift; sourceTree = "<group>"; };
 		9CF5DA0F27B5B164008A44D8 /* BTVenmoAppSwitchRequestURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTVenmoAppSwitchRequestURL.swift; sourceTree = "<group>"; };
 		9CF5DA1127B5B4B1008A44D8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -901,7 +898,6 @@
 		A77426561CA20793003CACBA /* BTCardCapabilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTCardCapabilities.m; sourceTree = "<group>"; };
 		A77426591CA207AE003CACBA /* BTCardCapabilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCardCapabilities.h; sourceTree = "<group>"; };
 		A77AA29C1B618C7700217B73 /* BraintreeVenmo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BraintreeVenmo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A77AA2B51B61936A00217B73 /* BTVenmoDriver_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTVenmoDriver_Internal.h; sourceTree = "<group>"; };
 		A78BF95C1CC6F32100DED8AA /* BraintreeUnionPay_IntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BraintreeUnionPay_IntegrationTests.m; sourceTree = "<group>"; };
 		A79033971B45C968004C8234 /* BTCard_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTCard_Tests.swift; sourceTree = "<group>"; };
 		A79033A51B4AF360004C8234 /* BTJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BTJSON.h; sourceTree = "<group>"; };
@@ -969,8 +965,6 @@
 		A7C889D71B5F0ACB007A0E9C /* BTCardNonce_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCardNonce_Internal.h; sourceTree = "<group>"; };
 		A7C889F11B5F0B30007A0E9C /* BraintreeVenmo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BraintreeVenmo.h; sourceTree = "<group>"; };
 		A7C889F81B5F0B6A007A0E9C /* Braintree-Version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Braintree-Version.h"; sourceTree = "<group>"; };
-		A7C889FA1B5F0C00007A0E9C /* BTVenmoDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTVenmoDriver.h; sourceTree = "<group>"; };
-		A7C889FB1B5F0C00007A0E9C /* BTVenmoDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTVenmoDriver.m; sourceTree = "<group>"; };
 		A7CB42D21B73E629002CCFDD /* BraintreePayPal_IntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BraintreePayPal_IntegrationTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		A7CCE2AD1B67F26C006EA661 /* BTAppContextSwitcher_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTAppContextSwitcher_Tests.swift; sourceTree = "<group>"; };
 		A7D4630B1B4B16C100A09C46 /* BTHTTPTestProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTHTTPTestProtocol.h; sourceTree = "<group>"; };
@@ -1527,7 +1521,6 @@
 			children = (
 				A7C889F11B5F0B30007A0E9C /* BraintreeVenmo.h */,
 				A7B1C1451B66D94600ED063C /* BTConfiguration+Venmo.h */,
-				A7C889FA1B5F0C00007A0E9C /* BTVenmoDriver.h */,
 			);
 			path = BraintreeVenmo;
 			sourceTree = "<group>";
@@ -1860,11 +1853,9 @@
 			isa = PBXGroup;
 			children = (
 				A7B1C1461B66D94600ED063C /* BTConfiguration+Venmo.m */,
-				A77AA2B51B61936A00217B73 /* BTVenmoDriver_Internal.h */,
-				A7C889FB1B5F0C00007A0E9C /* BTVenmoDriver.m */,
 				41777D471B8D028C0026F987 /* Public */,
 				9CF5DA0927B571C1008A44D8 /* BTVenmoRequest.swift */,
-				9CF5DA0B27B57666008A44D8 /* BTVenmoDriverSwift.swift */,
+				9CF5DA0B27B57666008A44D8 /* BTVenmoDriver.swift */,
 				9CF5DA0D27B5854E008A44D8 /* BTVenmoError.swift */,
 				9CF5DA0F27B5B164008A44D8 /* BTVenmoAppSwitchRequestURL.swift */,
 				9CF5DA1127B5B4B1008A44D8 /* Constants.swift */,
@@ -2163,9 +2154,9 @@
 				2DE12F461B59C36900EA1BCF /* BTAPIClient.h in Headers */,
 				2DE12F5A1B59C36900EA1BCF /* BTPaymentMethodNonce.h in Headers */,
 				418456E81BE42F1600C32391 /* BTViewControllerPresentingDelegate.h in Headers */,
-				415924B41BA0F2D800C095F6 /* BTPaymentMethodNonceParser.h in Headers */,
 				2DE12F431B59C36900EA1BCF /* BTAnalyticsMetadata.h in Headers */,
 				B6D950061EA0212C00BB42F2 /* BTAPIHTTP.h in Headers */,
+				415924B41BA0F2D800C095F6 /* BTPaymentMethodNonceParser.h in Headers */,
 				2DE12F541B59C36900EA1BCF /* BTLogger_Internal.h in Headers */,
 				412A51B2201FD0C400A5B302 /* BTGraphQLHTTP.h in Headers */,
 				2DE12F521B59C36900EA1BCF /* BTKeychain.h in Headers */,
@@ -2214,9 +2205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7B1C1471B66D94600ED063C /* BTConfiguration+Venmo.h in Headers */,
-				A77AA2AB1B618CFB00217B73 /* BTVenmoDriver.h in Headers */,
 				A77AA2AA1B618CFB00217B73 /* BraintreeVenmo.h in Headers */,
-				A77AA2B61B61936A00217B73 /* BTVenmoDriver_Internal.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3266,9 +3255,8 @@
 				9CF5DA0A27B571C1008A44D8 /* BTVenmoRequest.swift in Sources */,
 				9CF5DA1027B5B164008A44D8 /* BTVenmoAppSwitchRequestURL.swift in Sources */,
 				9CF5DA0E27B5854E008A44D8 /* BTVenmoError.swift in Sources */,
-				A77AA2AC1B618CFB00217B73 /* BTVenmoDriver.m in Sources */,
 				9CF5DA1227B5B4B1008A44D8 /* Constants.swift in Sources */,
-				9CF5DA0C27B57666008A44D8 /* BTVenmoDriverSwift.swift in Sources */,
+				9CF5DA0C27B57666008A44D8 /* BTVenmoDriver.swift in Sources */,
 				9CF5DA1427B5BA59008A44D8 /* BTVenmoAppSwitchReturnURL.swift in Sources */,
 				9CF5DA1627B5BEA9008A44D8 /* BTVenmoAccountNonce.swift in Sources */,
 				A7B1C1481B66D94600ED063C /* BTConfiguration+Venmo.m in Sources */,

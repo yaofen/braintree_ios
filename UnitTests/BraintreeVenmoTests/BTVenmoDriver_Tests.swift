@@ -1,7 +1,7 @@
 import XCTest
 import UIKit
 import BraintreeTestShared
-import BraintreeVenmo
+@testable import BraintreeVenmo
 import BraintreeCore.Private
 
 class BTVenmoDriver_Tests: XCTestCase {

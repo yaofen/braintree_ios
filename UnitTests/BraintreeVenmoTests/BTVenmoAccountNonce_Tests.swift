@@ -1,5 +1,5 @@
 import XCTest
-import BraintreeVenmo
+@testable import BraintreeVenmo
 
 class BTVenmoAccountNonce_Tests: XCTestCase {
 

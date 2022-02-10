@@ -3,8 +3,9 @@ import BraintreeCore
 
 @objcMembers class BTVenmoAppSwitchRequestURL {
     
-    let kXCallbackTemplate = "scheme://x-callback-url/path"
-    let kVenmoScheme = "com.venmo.touch.v2"
+    static let kXCallbackTemplate = "scheme://x-callback-url/path"
+    
+    static let kVenmoScheme = "com.venmo.touch.v2"
     
     class func baseAppSwitchURL() -> URL? {
         return appSwitchBaseURLComponents()?.url

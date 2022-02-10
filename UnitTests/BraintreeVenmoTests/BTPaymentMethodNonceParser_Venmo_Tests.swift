@@ -1,4 +1,5 @@
 import XCTest
+@testable import BraintreeVenmo
 
 class BTPaymentMethodNonceParser_PayPal_Tests: XCTestCase {
     func testSharedParser_whenTypeIsVenmo_returnsVenmoAccountNonce() {
