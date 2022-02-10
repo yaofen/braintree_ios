@@ -3,7 +3,6 @@
 #import <Braintree/BTVenmoRequest.h>
 #else
 #import <BraintreeCore/BraintreeCore.h>
-#import <BraintreeVenmo/BTVenmoRequest.h>
 #endif
 
 @class BTVenmoAccountNonce;

@@ -44,4 +44,7 @@
 */
 @property (nonatomic, nullable, readonly, copy) NSString *username;
 
++ (instancetype _Nonnull )venmoAccountWithJSON:(BTJSON *)venmoAccountJSON;
+
+
 @end

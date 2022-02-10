@@ -54,6 +54,12 @@ typedef NS_ENUM(NSInteger, BTAPIClientHTTPType) {
 @interface BTAPIClient : NSObject
 
 /**
+ Client metadata that is used for tracking the client session
+*/
+// TODO: make it internal after conversion to Swift
+@property (nonatomic, readonly, strong) BTClientMetadata *metadata;
+
+/**
  Initialize a new API client.
 
  @param authorization Your tokenization key, client token, or PayPal ID Token. Passing an invalid value may return `nil`.
