@@ -229,8 +229,8 @@ NSString * const BTAnalyticsServiceErrorDomain = @"com.braintreepayments.BTAnaly
                 [self.http POST:@"/" parameters:postParameters completion:^(__unused BTJSON *body, __unused NSHTTPURLResponse *response, NSError *error) {
                     if (error != nil) {
                         [[BTLogger sharedLogger] warning:@"Failed to flush analytics events: %@", error.localizedDescription];
+                        if (completionBlock) completionBlock(error);
                     }
-                    if (completionBlock) completionBlock(error);
                 }];
             }
 

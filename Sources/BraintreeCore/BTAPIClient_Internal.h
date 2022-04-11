@@ -44,6 +44,8 @@ typedef NS_ENUM(NSInteger, BTAPIClientAuthorizationType) {
 */
 - (void)sendAnalyticsEvent:(NSString *)eventName;
 
+- (void)sendAnalyticsEvent:(NSString *)eventKind completion:(void(^)(NSError *error))completionBlock;
+
 /**
  Queues an analytics event to be sent.
  */

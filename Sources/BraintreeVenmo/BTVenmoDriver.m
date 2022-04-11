@@ -210,10 +210,18 @@ static BTVenmoDriver *appSwitchedDriver;
               parameters:params
               completion:^(BTJSON *body, __unused NSHTTPURLResponse *response, NSError *error) {
                   if (error) {
-                      [self.apiClient sendAnalyticsEvent:@"ios.pay-with-venmo.vault.failure"];
+                      [self.apiClient sendAnalyticsEvent:@"ios.pay-with-venmo.vault.failure" completion: ^(NSError *error) {
+                          if (error != nil) {
+                              self.appSwitchCompletionBlock(nil, error);
+                          }
+                      }];
                       self.appSwitchCompletionBlock(nil, error);
                   } else {
-                      [self.apiClient sendAnalyticsEvent:@"ios.pay-with-venmo.vault.success"];
+                      [self.apiClient sendAnalyticsEvent:@"ios.pay-with-venmo.vault.success" completion: ^(NSError *error) {
+                          if (error != nil) {
+                              self.appSwitchCompletionBlock(nil, error);
+                          }
+                      }];
                       BTJSON *venmoAccountJson = body[@"venmoAccounts"][0];
                       self.appSwitchCompletionBlock([BTVenmoAccountNonce venmoAccountWithJSON:venmoAccountJson], venmoAccountJson.asError);
                   }
@@ -243,9 +251,17 @@ static BTVenmoDriver *appSwitchedDriver;
     if (success) {
         self.appSwitchCompletionBlock = completionBlock;
         appSwitchedDriver = self;
-        [self.apiClient sendAnalyticsEvent:@"ios.pay-with-venmo.appswitch.initiate.success"];
+        [self.apiClient sendAnalyticsEvent:@"ios.pay-with-venmo.appswitch.initiate.success" completion: ^(NSError *error) {
+            if (error != nil) {
+                self.appSwitchCompletionBlock(nil, error);
+            }
+        }];
     } else {
-        [self.apiClient sendAnalyticsEvent:@"ios.pay-with-venmo.appswitch.initiate.error.failure"];
+        [self.apiClient sendAnalyticsEvent:@"ios.pay-with-venmo.appswitch.initiate.error.failure" completion: ^(NSError *error) {
+            if (error != nil) {
+                self.appSwitchCompletionBlock(nil, error);
+            }
+        }];
         NSError *error = [NSError errorWithDomain:BTVenmoDriverErrorDomain
                                     code:BTVenmoDriverErrorTypeAppSwitchFailed
                                 userInfo:@{NSLocalizedDescriptionKey: @"UIApplication failed to perform app switch to Venmo."}];
@@ -280,14 +296,22 @@ static BTVenmoDriver *appSwitchedDriver;
 
             [self.apiClient POST:@"" parameters:params httpType:BTAPIClientHTTPTypeGraphQLAPI completion:^(BTJSON *body, __unused NSHTTPURLResponse *response, NSError *error) {
                 if (error) {
-                    [self.apiClient sendAnalyticsEvent:@"ios.pay-with-venmo.appswitch.handle.client-failure"];
+                    [self.apiClient sendAnalyticsEvent:@"ios.pay-with-venmo.appswitch.handle.client-failure" completion:^(NSError * _Nonnull error) {
+                        if (error != nil) {
+                            self.appSwitchCompletionBlock(nil, error);
+                        }
+                    }];
                     self.appSwitchCompletionBlock(nil, error);
                     self.appSwitchCompletionBlock = nil;
                     return;
                 }
 
                 BTVenmoAccountNonce *venmoAccountNonce = [[BTVenmoAccountNonce alloc] initWithPaymentContextJSON:body];
-                [self.apiClient sendAnalyticsEvent:@"ios.pay-with-venmo.appswitch.handle.success"];
+                [self.apiClient sendAnalyticsEvent:@"ios.pay-with-venmo.appswitch.handle.success" completion:^(NSError * _Nonnull error) {
+                    if (error != nil) {
+                        self.appSwitchCompletionBlock(nil, error);
+                    }
+                }];
 
                 if (self.shouldVault && self.apiClient.clientToken != nil) {
                     [self vaultVenmoAccountNonce:venmoAccountNonce.nonce];
@@ -308,13 +332,21 @@ static BTVenmoDriver *appSwitchedDriver;
             }
 
             if (error) {
-                [self.apiClient sendAnalyticsEvent:@"ios.pay-with-venmo.appswitch.handle.client-failure"];
+                [self.apiClient sendAnalyticsEvent:@"ios.pay-with-venmo.appswitch.handle.client-failure" completion:^(NSError * _Nonnull error) {
+                    if (error != nil) {
+                        self.appSwitchCompletionBlock(nil, error);
+                    }
+                }];
                 self.appSwitchCompletionBlock(nil, error);
                 self.appSwitchCompletionBlock = nil;
                 return;
             }
 
-            [self.apiClient sendAnalyticsEvent:@"ios.pay-with-venmo.appswitch.handle.success"];
+            [self.apiClient sendAnalyticsEvent:@"ios.pay-with-venmo.appswitch.handle.success" completion:^(NSError * _Nonnull error) {
+                if (error != nil) {
+                    self.appSwitchCompletionBlock(nil, error);
+                }
+            }];
 
             if (self.shouldVault && self.apiClient.clientToken != nil) {
                 [self vaultVenmoAccountNonce:returnURL.nonce];
@@ -331,13 +363,21 @@ static BTVenmoDriver *appSwitchedDriver;
             break;
         }
         case BTVenmoAppSwitchReturnURLStateFailed: {
-            [self.apiClient sendAnalyticsEvent:@"ios.pay-with-venmo.appswitch.handle.failed"];
+            [self.apiClient sendAnalyticsEvent:@"ios.pay-with-venmo.appswitch.handle.failed" completion:^(NSError * _Nonnull error) {
+                if (error != nil) {
+                    self.appSwitchCompletionBlock(nil, error);
+                }
+            }];
             self.appSwitchCompletionBlock(nil, returnURL.error);
             self.appSwitchCompletionBlock = nil;
             break;
         }
         case BTVenmoAppSwitchReturnURLStateCanceled: {
-            [self.apiClient sendAnalyticsEvent:@"ios.pay-with-venmo.appswitch.handle.cancel"];
+            [self.apiClient sendAnalyticsEvent:@"ios.pay-with-venmo.appswitch.handle.cancel" completion:^(NSError * _Nonnull error) {
+                if (error != nil) {
+                    self.appSwitchCompletionBlock(nil, error);
+                }
+            }];
             self.appSwitchCompletionBlock(nil, nil);
             self.appSwitchCompletionBlock = nil;
             break;
@@ -352,7 +392,11 @@ static BTVenmoDriver *appSwitchedDriver;
 
 - (void)openVenmoAppPageInAppStore {
     NSURL *venmoAppStoreUrl = [NSURL URLWithString:BTVenmoAppStoreUrl];
-    [self.apiClient sendAnalyticsEvent:@"ios.pay-with-venmo.app-store.invoked"];
+    [self.apiClient sendAnalyticsEvent:@"ios.pay-with-venmo.app-store.invoked" completion:^(NSError * _Nonnull error) {
+        if (error != nil) {
+            self.appSwitchCompletionBlock(nil, error);
+        }
+    }];
     [self.application openURL:venmoAppStoreUrl
                       options:[NSDictionary dictionary]
             completionHandler:nil];
