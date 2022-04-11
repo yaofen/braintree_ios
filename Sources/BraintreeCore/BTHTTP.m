@@ -157,7 +157,7 @@
             cachedResponse = nil;
         }
 
-        if (cachedResponse != nil) {
+        if (cachedResponse != nil && cachedResponse.data.length != 0) {
             [self handleRequestCompletion:cachedResponse.data request:nil shouldCache:NO response:cachedResponse.response error:nil completionBlock:completionBlock];
         } else {
             NSURLSessionTask *task = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {

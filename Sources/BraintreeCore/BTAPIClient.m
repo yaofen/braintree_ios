@@ -287,10 +287,10 @@ NSString *const BTAPIClientErrorDomain = @"com.braintreepayments.BTAPIClientErro
     // Note: Uses dispatch_semaphore to block the configuration queue when the configuration fetch
     //       request is waiting to return. In this context, it is OK to block, as the configuration
     //       queue is a background queue to guarantee atomic access to the remote configuration resource.
-    dispatch_async(self.configurationQueue, ^{
+//    dispatch_async(self.configurationQueue, ^{
         __block NSError *fetchError;
 
-        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+//        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         __block BTConfiguration *configuration;
         NSString *configPath = @"v1/configuration"; // Default for tokenizationKey
         if (self.clientToken) {
@@ -298,6 +298,7 @@ NSString *const BTAPIClientErrorDomain = @"com.braintreepayments.BTAPIClientErro
         }
         [self.configurationHTTP GET:configPath parameters:@{ @"configVersion": @"3" } shouldCache:YES completion:^(BTJSON * _Nullable body, NSHTTPURLResponse * _Nullable response, NSError * _Nullable error) {
             if (error) {
+                NSLog(@"RESPONSE %@", response);
                 fetchError = error;
             } else if (response.statusCode != 200) {
                 NSError *configurationDomainError =
@@ -331,17 +332,18 @@ NSString *const BTAPIClientErrorDomain = @"com.braintreepayments.BTAPIClientErro
                     }
                 }
             }
+            completionBlock(configuration, fetchError);
 
             // Important: Unlock semaphore in all cases
-            dispatch_semaphore_signal(semaphore);
+//            dispatch_semaphore_signal(semaphore);
         }];
-
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            completionBlock(configuration, fetchError);
-        });
-    });
+//
+//        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+//
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            completionBlock(configuration, fetchError);
+//        });
+//    });
 }
 
 #pragma mark - Analytics
@@ -460,8 +462,6 @@ NSString *const BTAPIClientErrorDomain = @"com.braintreepayments.BTAPIClientErro
     if (self.graphQL && self.graphQL.session) {
         [self.graphQL.session finishTasksAndInvalidate];
     }
-    
-    [self.configurationHTTP.session.configuration.URLCache removeAllCachedResponses];
 }
 
 @end
