@@ -124,6 +124,8 @@
 		42FC22FF25CE01D60047C49A /* BTPayPalCheckoutRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 42FC22FD25CE01D60047C49A /* BTPayPalCheckoutRequest.m */; };
 		42FC234325CE0A400047C49A /* BTPayPalCheckoutRequest_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 42FC234225CE0A400047C49A /* BTPayPalCheckoutRequest_Internal.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		42FC237125CE0E110047C49A /* BTPayPalCheckoutRequest_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FC237025CE0E110047C49A /* BTPayPalCheckoutRequest_Tests.swift */; };
+		57584451286371C90022D3F2 /* TempLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 57584450286371C90022D3F2 /* TempLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		57584455286371D20022D3F2 /* TempLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5758442428636B170022D3F2 /* TempLogger.swift */; };
 		800FC544257FDC5100DEE132 /* BTApplePayCardNonce_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800FC543257FDC5100DEE132 /* BTApplePayCardNonce_Tests.swift */; };
 		8016A87D2509185C00DB5EF3 /* BTPaymentFlow_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8016A87C2509185C00DB5EF3 /* BTPaymentFlow_Tests.swift */; };
 		80252BD627299FE0002E0D84 /* PPRiskMagnes.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C36BD4226B30AA600F0A559 /* PPRiskMagnes.xcframework */; };
@@ -815,6 +817,16 @@
 		42FC237025CE0E110047C49A /* BTPayPalCheckoutRequest_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTPayPalCheckoutRequest_Tests.swift; sourceTree = "<group>"; };
 		4492A6A241F04CCEFE7C0625 /* Pods-Tests-IntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests-IntegrationTests.debug.xcconfig"; path = "Target Support Files/Pods-Tests-IntegrationTests/Pods-Tests-IntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
 		55BF6AC8D7291439E78C300F /* Pods-Tests-UnitTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests-UnitTests.debug.xcconfig"; path = "Target Support Files/Pods-Tests-UnitTests/Pods-Tests-UnitTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5758440E286368200022D3F2 /* TempLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TempLogger.h; sourceTree = "<group>"; };
+		5758440F286368200022D3F2 /* TempLogger.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = TempLogger.docc; sourceTree = "<group>"; };
+		5758441A286368200022D3F2 /* TempLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempLoggerTests.swift; sourceTree = "<group>"; };
+		5758442428636B170022D3F2 /* TempLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempLogger.swift; sourceTree = "<group>"; };
+		5758442B28636CCB0022D3F2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		575844342863717F0022D3F2 /* f.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = f.h; sourceTree = "<group>"; };
+		575844352863717F0022D3F2 /* f.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = f.docc; sourceTree = "<group>"; };
+		575844402863717F0022D3F2 /* fTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fTests.swift; sourceTree = "<group>"; };
+		5758444E286371C90022D3F2 /* TempLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TempLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		57584450286371C90022D3F2 /* TempLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TempLogger.h; sourceTree = "<group>"; };
 		587BD47952A3B29E7950C52A /* Pods-Tests-UnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests-UnitTests.release.xcconfig"; path = "Target Support Files/Pods-Tests-UnitTests/Pods-Tests-UnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		80036F7B21F7BAC6003A9F5C /* BTConfiguration+ThreeDSecure.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BTConfiguration+ThreeDSecure.h"; sourceTree = "<group>"; };
 		80036F7C21F7BB7F003A9F5C /* BTConfiguration+ThreeDSecure.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "BTConfiguration+ThreeDSecure.m"; sourceTree = "<group>"; };
@@ -1104,6 +1116,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				4164B9B11C9B68CC006AE861 /* BraintreeCard.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5758444B286371C90022D3F2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1603,6 +1622,57 @@
 			path = BraintreeDataCollector;
 			sourceTree = "<group>";
 		};
+		5758440D286368200022D3F2 /* TempLogger */ = {
+			isa = PBXGroup;
+			children = (
+				5758440E286368200022D3F2 /* TempLogger.h */,
+				5758440F286368200022D3F2 /* TempLogger.docc */,
+			);
+			path = TempLogger;
+			sourceTree = "<group>";
+		};
+		57584419286368200022D3F2 /* TempLoggerTests */ = {
+			isa = PBXGroup;
+			children = (
+				5758441A286368200022D3F2 /* TempLoggerTests.swift */,
+			);
+			path = TempLoggerTests;
+			sourceTree = "<group>";
+		};
+		5758442328636B060022D3F2 /* TempLogger */ = {
+			isa = PBXGroup;
+			children = (
+				5758442B28636CCB0022D3F2 /* Info.plist */,
+				5758442428636B170022D3F2 /* TempLogger.swift */,
+			);
+			path = TempLogger;
+			sourceTree = "<group>";
+		};
+		575844332863717F0022D3F2 /* f */ = {
+			isa = PBXGroup;
+			children = (
+				575844342863717F0022D3F2 /* f.h */,
+				575844352863717F0022D3F2 /* f.docc */,
+			);
+			path = f;
+			sourceTree = "<group>";
+		};
+		5758443F2863717F0022D3F2 /* fTests */ = {
+			isa = PBXGroup;
+			children = (
+				575844402863717F0022D3F2 /* fTests.swift */,
+			);
+			path = fTests;
+			sourceTree = "<group>";
+		};
+		5758444F286371C90022D3F2 /* TempLogger */ = {
+			isa = PBXGroup;
+			children = (
+				57584450286371C90022D3F2 /* TempLogger.h */,
+			);
+			path = TempLogger;
+			sourceTree = "<group>";
+		};
 		6A50887E9E10BEB122A9F45D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1646,6 +1716,7 @@
 		80824659252C19F5000AD8FF /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				5758442328636B060022D3F2 /* TempLogger */,
 				0357C47D1F96869600E63851 /* BraintreeAmericanExpress */,
 				A7C889751B5EF5DE007A0E9C /* BraintreeApplePay */,
 				A7C889911B5F043B007A0E9C /* BraintreeCard */,
@@ -1735,6 +1806,11 @@
 				80824659252C19F5000AD8FF /* Sources */,
 				808249F8252C1F97000AD8FF /* UnitTests */,
 				A7ABD6541B702FD800A1223C /* IntegrationTests */,
+				5758440D286368200022D3F2 /* TempLogger */,
+				57584419286368200022D3F2 /* TempLoggerTests */,
+				575844332863717F0022D3F2 /* f */,
+				5758443F2863717F0022D3F2 /* fTests */,
+				5758444F286371C90022D3F2 /* TempLogger */,
 				A75DA3531921394200D997A2 /* Frameworks */,
 				6A50887E9E10BEB122A9F45D /* Pods */,
 				A75DA3521921394200D997A2 /* Products */,
@@ -1769,6 +1845,7 @@
 				A91E1EAB24FEEF21007540E5 /* BraintreeThreeDSecure.framework */,
 				A91E1EF224FEF2E3007540E5 /* BraintreeThreeDSecureTests.xctest */,
 				A9B241FC2507D156000FAA3F /* PayPalDataCollectorTests.xctest */,
+				5758444E286371C90022D3F2 /* TempLogger.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2232,6 +2309,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		57584449286371C90022D3F2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57584451286371C90022D3F2 /* TempLogger.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A76D7BFD1BB1CAB00000FA6A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -2438,6 +2523,24 @@
 			name = BraintreeUnionPay;
 			productName = BraintreeCard;
 			productReference = 4164B9AC1C9B658E006AE861 /* BraintreeUnionPay.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		5758444D286371C90022D3F2 /* TempLogger */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 57584452286371C90022D3F2 /* Build configuration list for PBXNativeTarget "TempLogger" */;
+			buildPhases = (
+				57584449286371C90022D3F2 /* Headers */,
+				5758444A286371C90022D3F2 /* Sources */,
+				5758444B286371C90022D3F2 /* Frameworks */,
+				5758444C286371C90022D3F2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TempLogger;
+			productName = TempLogger;
+			productReference = 5758444E286371C90022D3F2 /* TempLogger.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		A76D7BFF1BB1CAB00000FA6A /* BraintreeDataCollector */ = {
@@ -2821,7 +2924,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = BT;
-				LastSwiftUpdateCheck = 1200;
+				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1200;
 				TargetAttributes = {
 					03502C831E9C0A1700F15EE6 = {
@@ -2837,6 +2940,9 @@
 					};
 					2DE12F081B59BE0100EA1BCF = {
 						CreatedOnToolsVersion = 7.0;
+					};
+					5758444D286371C90022D3F2 = {
+						CreatedOnToolsVersion = 13.4.1;
 					};
 					A76D7BFF1BB1CAB00000FA6A = {
 						CreatedOnToolsVersion = 7.0;
@@ -2937,6 +3043,7 @@
 				A7B462E01C3D9C2200048423 /* PayPalDataCollector */,
 				A9B241FB2507D156000FAA3F /* PayPalDataCollectorTests */,
 				A7ABD6521B702FD800A1223C /* IntegrationTests */,
+				5758444D286371C90022D3F2 /* TempLogger */,
 			);
 		};
 /* End PBXProject section */
@@ -2971,6 +3078,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4164B9A81C9B658E006AE861 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5758444C286371C90022D3F2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3286,6 +3400,14 @@
 				4164B9BB1C9B6988006AE861 /* BTCardClient+UnionPay.m in Sources */,
 				A77426581CA20793003CACBA /* BTCardCapabilities.m in Sources */,
 				41472F951CB6D52200AFA75C /* BTConfiguration+UnionPay.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5758444A286371C90022D3F2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57584455286371D20022D3F2 /* TempLogger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4360,6 +4482,112 @@
 				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		57584453286371C90022D3F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/$(PRODUCT_NAME)/Info.plist";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.braintree.TempLogger;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		57584454286371C90022D3F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/$(PRODUCT_NAME)/Info.plist";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.braintree.TempLogger;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -6464,6 +6692,15 @@
 			buildConfigurations = (
 				4164B9AA1C9B658E006AE861 /* Debug */,
 				4164B9AB1C9B658E006AE861 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		57584452286371C90022D3F2 /* Build configuration list for PBXNativeTarget "TempLogger" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57584453286371C90022D3F2 /* Debug */,
+				57584454286371C90022D3F2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
