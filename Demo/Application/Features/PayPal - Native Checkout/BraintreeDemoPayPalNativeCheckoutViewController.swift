@@ -35,18 +35,14 @@ class BraintreeDemoPayPalNativeCheckoutViewController: BraintreeDemoPaymentButto
         sender.isEnabled = false
 
         let request = BTPayPalNativeCheckoutRequest(amount: "4.30")
-        let shippingOptions = BTPayPalNativeCheckoutShippingOptions()
-        shippingOptions.id = ""
-        shippingOptions.label = "test"
-        shippingOptions.selected = false
-        shippingOptions.type = .shipping
+        let shippingOptions = BTPayPalNativeCheckoutShippingChangeCallback()
         
         let patchRequest = shippingOptions.patchRequest
         request.isShippingAddressEditable = true
         request.isShippingAddressRequired = true
         request.onShippingChange = { change, action in
-            action.patch(request: patchRequest) { _, _ in }
-            shippingOptions.replaceShippingOptions()
+//            action.patch(request: patchRequest) { _, _ in }
+            action.
         }
 
         payPalNativeCheckoutClient.tokenizePayPalAccount(with: request) { nonce, error in
