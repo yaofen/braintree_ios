@@ -35,14 +35,25 @@ class BraintreeDemoPayPalNativeCheckoutViewController: BraintreeDemoPaymentButto
         sender.isEnabled = false
 
         let request = BTPayPalNativeCheckoutRequest(amount: "4.30")
-        let shippingOptions = BTPayPalNativeCheckoutShippingChangeCallback()
-        
-        let patchRequest = shippingOptions.patchRequest
+        let btPatchRequest = BTPayPalNativeCheckoutPatchRequest()
+        let btShippingName = BTPayPalNativeCheckoutPatchRequest.BTShippingName(fullName: "test")
+        let btOrderAddress = BTPayPalNativeCheckoutPatchRequest.BTOrderAddress(countryCode: "US")
+        let btShippingOptions = BTPayPalNativeCheckoutPatchRequest.BTShippingOptions(
+            id: "1",
+            label: "Shipping",
+            selected: true,
+            shippingType: .shipping,
+            currencyCode: .usd,
+            value: "1.23"
+        )
+
         request.isShippingAddressEditable = true
         request.isShippingAddressRequired = true
         request.onShippingChange = { change, action in
-//            action.patch(request: patchRequest) { _, _ in }
-            action.
+            action.patch(request: btPatchRequest.patchRequest) { _, _ in }
+            btPatchRequest.patchRequest.add(shippingAddress: btOrderAddress.createOrderAddress())
+            btPatchRequest.patchRequest.add(shippingOptions: [btShippingOptions.createShippingMethod()])
+            btPatchRequest.patchRequest.add(shippingName: btShippingName.createShippingName())
         }
 
         payPalNativeCheckoutClient.tokenizePayPalAccount(with: request) { nonce, error in
