@@ -1,5 +1,8 @@
 name: Build
 on: [pull_request, workflow_dispatch]
+concurrency:
+  group: build-${{ github.event.number }} 
+  cancel-in-progress: true
 jobs:
   cocoapods:
     name: CocoaPods (Xcode 12.5)
@@ -90,7 +93,7 @@ jobs:
       - name: Run carthage build without --use-xcframeworks
         run: |
           ./carthage.sh build --no-skip-current
-          ./carthage.sh archive "BraintreeAmericanExpress" "BraintreeApplePay" "BraintreeCard" "BraintreeCore" "BraintreeDataCollector" "BraintreePaymentFlow" "BraintreePayPal" "BraintreeThreeDSecure" "BraintreeUnionPay" "BraintreeVenmo" "PayPalDataCollector" "BraintreePayPalNativeCheckout" --output Braintree.framework.zip
+          ./carthage.sh archive "BraintreeAmericanExpress" "BraintreeApplePay" "BraintreeCard" "BraintreeCore" "BraintreeDataCollector" "BraintreePaymentFlow" "BraintreePayPal" "BraintreeSEPADirectDebit" "BraintreeThreeDSecure" "BraintreeUnionPay" "BraintreeVenmo" "PayPalDataCollector" "BraintreePayPalNativeCheckout" --output Braintree.framework.zip
   spm_xcode_13:
     name: SPM (Xcode 13)
     runs-on: macOS-11

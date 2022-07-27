@@ -36,8 +36,6 @@ import PayPalCheckout
             return
         }
 
-        let onShippingChange = (request as? BTPayPalNativeCheckoutRequest)?.onShippingChange
-
         let orderCreationClient = BTPayPalNativeOrderCreationClient(with: apiClient)
         orderCreationClient.createOrder(with: request) { [weak self] result in
             switch result {
@@ -57,7 +55,6 @@ import PayPalCheckout
                     onApprove: { [weak self] approval in
                         self?.tokenize(approval: approval, request: request, completion: completion)
                     },
-                    onShippingChange: onShippingChange,
                     onCancel: {
                         completion(nil, BTPayPalNativeError.canceled)
                     },
@@ -68,8 +65,7 @@ import PayPalCheckout
                 )
 
                 PayPalCheckout.Checkout.set(config: payPalNativeConfig)
-                PayPalCheckout.Checkout.start(onShippingChange: onShippingChange)
-
+                PayPalCheckout.Checkout.start()
             case .failure(let error):
                 completion(nil, error)
             }
@@ -78,7 +74,7 @@ import PayPalCheckout
 
     private func tokenize(approval: PayPalCheckout.Approval, request: BTPayPalRequest, completion: @escaping (BTPayPalNativeCheckoutAccountNonce?, Error?) -> Void) {
         let tokenizationClient = BTPayPalNativeTokenizationClient(apiClient: apiClient)
-        tokenizationClient.tokenize(request: request) { result in
+        tokenizationClient.tokenize(request: request, returnURL: approval.data.returnURL!.absoluteString) { result in
             switch result {
             case .success(let nonce):
                 completion(nonce, nil)
