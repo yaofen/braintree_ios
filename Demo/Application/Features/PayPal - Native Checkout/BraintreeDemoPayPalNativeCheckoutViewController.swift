@@ -35,25 +35,38 @@ class BraintreeDemoPayPalNativeCheckoutViewController: BraintreeDemoPaymentButto
         sender.isEnabled = false
 
         let request = BTPayPalNativeCheckoutRequest(amount: "4.30")
-        let btPatchRequest = BTPayPalNativeCheckoutPatchRequest()
-        let btShippingName = BTPayPalNativeCheckoutPatchRequest.BTShippingName(fullName: "test")
-        let btOrderAddress = BTPayPalNativeCheckoutPatchRequest.BTOrderAddress(countryCode: "US")
-        let btShippingOptions = BTPayPalNativeCheckoutPatchRequest.BTShippingOptions(
-            id: "1",
-            label: "Shipping",
-            selected: true,
-            shippingType: .shipping,
-            currencyCode: .usd,
-            value: "1.23"
-        )
+        let btPatchRequest = BTPayPalNativeCheckoutPatchRequest().patchRequest
+        let btShippingName = BTPayPalNativeCheckoutPatchRequest.BTShippingName()
+        let btOrderAddress = BTPayPalNativeCheckoutPatchRequest.BTOrderAddress()
+        let btShippingOptions = BTPayPalNativeCheckoutPatchRequest.BTShippingOptions()
 
         request.isShippingAddressEditable = true
         request.isShippingAddressRequired = true
+        
         request.onShippingChange = { change, action in
-            action.patch(request: btPatchRequest.patchRequest) { _, _ in }
-            btPatchRequest.patchRequest.add(shippingAddress: btOrderAddress.createOrderAddress())
-            btPatchRequest.patchRequest.add(shippingOptions: [btShippingOptions.createShippingMethod()])
-            btPatchRequest.patchRequest.add(shippingName: btShippingName.createShippingName())
+            action.patch(request: btPatchRequest) { _, _ in }
+            btPatchRequest.add(
+                shippingAddress: btOrderAddress.createOrderAddress(
+                    countryCode: "US",
+                    addressLine1: nil,
+                    addressLine2: nil,
+                    adminArea1: nil,
+                    adminArea2: nil,
+                    postalCode: nil
+                )
+            )
+            btPatchRequest.replace(
+                shippingOptions: [
+                    btShippingOptions.createShippingMethod(
+                        id: "123",
+                        label: "test",
+                        selected: true,
+                        shippingType: .shipping,
+                        currencyCode: .aud,
+                        value: "1.23")
+                ]
+            )
+            btPatchRequest.add(shippingName: btShippingName.createShippingName(fullName: "test"))
         }
 
         payPalNativeCheckoutClient.tokenizePayPalAccount(with: request) { nonce, error in
