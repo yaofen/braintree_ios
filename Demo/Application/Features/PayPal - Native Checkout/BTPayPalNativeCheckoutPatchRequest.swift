@@ -23,6 +23,15 @@ public class BTPayPalNativeCheckoutPatchRequest {
         }
     }
 
+//    public class BTPurchaseUnit {
+//        public init() {}
+//
+//        public func createNewTotal(currencyCode: String, orderAmount: String) -> PayPalCheckout.PurchaseUnit.Amount {
+//            let newTotal = String(Double(orderAmount) ?? 0 + )
+//
+//        }
+//    }
+
     public class BTOrderAddress {
         private let countryCode: String = ""
         private let addressLine1: String? = nil
@@ -47,35 +56,56 @@ public class BTPayPalNativeCheckoutPatchRequest {
         }
     }
     
-    public class BTShippingOptions {
+    public class BTShippingMethods {
+        public let patchRequest = PatchRequest()
+
         public enum ShippingType: Int {
             case shipping
             case pickup
             case none
         }
 
-        private let id: String = ""
-        private let label: String = ""
-        private let selected: Bool = true
-        private let shippingType: ShippingType = .shipping
-        private let currencyCode: CurrencyCode = .usd
-        private let value: String = ""
-
         public init() {}
+        public var shippingMethod = PayPalCheckout.ShippingMethod()
 
-        public func createShippingMethod(id: String, label: String, selected: Bool, shippingType: ShippingType, currencyCode: CurrencyCode, value: String) -> ShippingMethod {
+        public var testShippingMethod: [ShippingMethod] = []
+        public func availableShippingMethod(
+            id: String,
+            label: String,
+            selected: Bool,
+            shippingType: ShippingType,
+            currencyCode: CurrencyCode,
+            value: String
+        ) -> ShippingMethod {
             let shippingType = PayPalCheckout.ShippingType(rawValue: shippingType.rawValue)
             let shippingMethod = PayPalCheckout.ShippingMethod(
                 id: id,
                 label: label,
                 selected: selected,
                 type: shippingType ?? .none,
-                amount: PayPalCheckout.UnitAmount(
-                    currencyCode: currencyCode,
-                    value: value
-                )
+                amount: UnitAmount(currencyCode: currencyCode, value: value)
             )
             return shippingMethod
+        }
+
+        public func patchAmountAndShippingOptions(
+            shippingMethods: [ShippingMethod],
+            action: ShippingChangeAction,
+            currencyCode: CurrencyCode,
+            amountValue: String
+        ) {
+            let selectedMethod = shippingMethods.first { $0.selected }
+            let selectedMethodPrice = Double(selectedMethod?.amount?.value ?? "0") ?? 0
+            let newTotal = String(Double(amountValue) ?? 0 + selectedMethodPrice)
+
+            patchRequest.replace(
+                amount: PayPalCheckout.PurchaseUnit.Amount(
+                    currencyCode: currencyCode, value: newTotal
+                )
+            )
+            patchRequest.replace(shippingOptions: shippingMethods)
+
+            action.patch(request: patchRequest) { _, _ in }
         }
     }
 }

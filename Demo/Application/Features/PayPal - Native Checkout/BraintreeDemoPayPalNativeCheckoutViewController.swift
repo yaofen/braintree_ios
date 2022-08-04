@@ -28,7 +28,51 @@ class BraintreeDemoPayPalNativeCheckoutViewController: BraintreeDemoPaymentButto
 
         return stackView
     }
-    
+
+    func shippingMethods(for city: String?) -> [ShippingMethod] {
+        let btShippingMethods = BTPayPalNativeCheckoutPatchRequest.BTShippingMethods()
+        switch city {
+            // Cities manually added by merchant
+        case "San Fransisco":
+            [btShippingMethods.availableShippingMethod(
+                    id: "Pickup",
+                    label: "Pickup in store",
+                    selected: false,
+                    shippingType: .pickup,
+                    currencyCode: .usd,
+                    value: "1.23"
+                ),
+                btShippingMethods.availableShippingMethod(
+                    id: "Shipping",
+                    label: "Free shipping",
+                    selected: true,
+                    shippingType: .shipping,
+                    currencyCode: .usd,
+                    value: "1.23"
+                ),
+            ]
+        default:
+            // Defaults to 1 pickup and 1 shipping. Shipping selected.
+            [btShippingMethods.availableShippingMethod(
+                    id: "Pickup1",
+                    label: "Pickup in store",
+                    selected: false,
+                    shippingType: .pickup,
+                    currencyCode: .usd,
+                    value: "1.23"
+                ),
+                btShippingMethods.availableShippingMethod(
+                    id: "Shipping2",
+                    label: "Free shipping",
+                    selected: false,
+                    shippingType: .shipping,
+                    currencyCode: .usd,
+                    value: "0.00"
+                ),
+            ]
+        }
+    }
+
     @objc func tappedPayPalCheckout(_ sender: UIButton) {
         progressBlock("Tapped PayPal - Native Checkout using BTPayPalNativeCheckout")
         sender.setTitle("Processing...", for: .disabled)
@@ -36,37 +80,49 @@ class BraintreeDemoPayPalNativeCheckoutViewController: BraintreeDemoPaymentButto
 
         let request = BTPayPalNativeCheckoutRequest(amount: "4.30")
         let btPatchRequest = BTPayPalNativeCheckoutPatchRequest().patchRequest
-        let btShippingName = BTPayPalNativeCheckoutPatchRequest.BTShippingName()
-        let btOrderAddress = BTPayPalNativeCheckoutPatchRequest.BTOrderAddress()
-        let btShippingOptions = BTPayPalNativeCheckoutPatchRequest.BTShippingOptions()
+        let btShippingMethods = BTPayPalNativeCheckoutPatchRequest.BTShippingMethods()
+        let sampleShippingMethods = [
+            btShippingMethods.availableShippingMethod(
+                id: "Pickup1",
+                label: "Pickup in store",
+                selected: false,
+                shippingType: .pickup,
+                currencyCode: .usd,
+                value: "1.23"
+            ),
+            btShippingMethods.availableShippingMethod(
+                id: "Shipping2",
+                label: "Free shipping",
+                selected: false,
+                shippingType: .shipping,
+                currencyCode: .usd,
+                value: "0.00"
+            ),
+        ]
 
         request.isShippingAddressEditable = true
         request.isShippingAddressRequired = true
-        
+
         request.onShippingChange = { change, action in
-            action.patch(request: btPatchRequest) { _, _ in }
-            btPatchRequest.add(
-                shippingAddress: btOrderAddress.createOrderAddress(
-                    countryCode: "US",
-                    addressLine1: nil,
-                    addressLine2: nil,
-                    adminArea1: nil,
-                    adminArea2: nil,
-                    postalCode: nil
-                )
-            )
-            btPatchRequest.replace(
-                shippingOptions: [
-                    btShippingOptions.createShippingMethod(
-                        id: "123",
-                        label: "test",
-                        selected: true,
-                        shippingType: .shipping,
-                        currencyCode: .aud,
-                        value: "1.23")
-                ]
-            )
-            btPatchRequest.add(shippingName: btShippingName.createShippingName(fullName: "test"))
+            switch change.type {
+            case .shippingAddress:
+                // If user selected new address, fetch available shipping methods for the address
+                let availableShippingMethods = self.shippingMethods(for: change.selectedShippingAddress.city)
+
+                if !availableShippingMethods.isEmpty {
+                    // The order's new total will be the order amount value `amountValue` + default shipping option price
+                    // The default shipping option is the option where `selected == true`
+                    btShippingMethods.patchAmountAndShippingOptions(shippingMethods: availableShippingMethods, action: action, currencyCode: .usd, amountValue: request.amount)
+                }
+                else {
+                    // Don't support this address if no shipping methods available
+                    action.reject()
+                }
+
+            case .shippingMethod:
+                // The order's new total will be the order amount value `amountValue` + the selected shipping option's price
+                btShippingMethods.patchAmountAndShippingOptions(shippingMethods: sampleShippingMethods, action: action, currencyCode: .usd, amountValue: request.amount)
+            }
         }
 
         payPalNativeCheckoutClient.tokenizePayPalAccount(with: request) { nonce, error in
