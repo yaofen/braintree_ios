@@ -11,7 +11,7 @@ class BTClientToken_Tests: XCTestCase {
             XCTAssertNil(clientToken)
         } catch let error as NSError {
             XCTAssertEqual(error.domain, BTClientTokenError.errorDomain)
-            XCTAssertEqual(error.code, 3)
+            XCTAssertEqual(error.code, 2)
             XCTAssertEqual(error.localizedDescription, BTClientTokenError.unsupportedVersion.localizedDescription)
         }
     }
@@ -46,7 +46,7 @@ class BTClientToken_Tests: XCTestCase {
             XCTAssertNil(clientToken)
         } catch let error as NSError {
             XCTAssertEqual(error.domain, BTClientTokenError.errorDomain)
-            XCTAssertEqual(error.code, 2)
+            XCTAssertEqual(error.code, 1)
             XCTAssertEqual(error.localizedDescription, "Invalid client token format. Please ensure your server is generating a valid Braintree ClientToken. Invalid JSON. Expected to find an object at JSON root.")
         }
     }
@@ -58,7 +58,7 @@ class BTClientToken_Tests: XCTestCase {
             XCTAssertNil(clientToken)
         } catch let error as NSError {
             XCTAssertEqual(error.domain, BTClientTokenError.errorDomain)
-            XCTAssertEqual(error.code, 2)
+            XCTAssertEqual(error.code, 1)
             XCTAssertEqual(error.localizedDescription, "Invalid client token format. Please ensure your server is generating a valid Braintree ClientToken. Invalid version number. Expected to find an integer for key \"version\".")
         }
     }
@@ -71,7 +71,7 @@ class BTClientToken_Tests: XCTestCase {
             XCTAssertNil(clientToken)
         } catch let error as NSError {
             XCTAssertEqual(error.domain, BTClientTokenError.errorDomain)
-            XCTAssertEqual(error.code, 4)
+            XCTAssertEqual(error.code, 3)
             XCTAssertEqual(error.localizedDescription, "Failed to decode client token. UTF8 encoding is required for Client Token version 1.")
         }
     }
@@ -84,7 +84,7 @@ class BTClientToken_Tests: XCTestCase {
             XCTAssertNil(clientToken)
         } catch let error as NSError {
             XCTAssertEqual(error.domain, BTClientTokenError.errorDomain)
-            XCTAssertEqual(error.code, 4)
+            XCTAssertEqual(error.code, 3)
             XCTAssertEqual(error.localizedDescription, "Failed to decode client token. Base64 encoding is required for Client Token versions 2 & 3.")
         }
     }
@@ -98,8 +98,8 @@ class BTClientToken_Tests: XCTestCase {
             XCTAssertNil(clientToken)
         } catch let error as NSError {
             XCTAssertEqual(error.domain, BTClientTokenError.errorDomain)
-            XCTAssertEqual(error.code, 1)
-            XCTAssertEqual(error.localizedDescription, BTClientTokenError.invalidConfigURL.localizedDescription)
+            XCTAssertEqual(error.code, 0)
+            XCTAssertEqual(error.localizedDescription, "Invalid value in client token. Please ensure your server is generating a valid Braintree ClientToken. Value for key \"configUrl\" was not present or invalid.")
         }
     }
 
@@ -111,7 +111,7 @@ class BTClientToken_Tests: XCTestCase {
         } catch let error as NSError {
             XCTAssertEqual(error.domain, BTClientTokenError.errorDomain)
             XCTAssertEqual(error.code, 0)
-            XCTAssertEqual(error.localizedDescription, BTClientTokenError.invalidAuthorizationFingerprint.localizedDescription)
+            XCTAssertEqual(error.localizedDescription, "Invalid value in client token. Please ensure your server is generating a valid Braintree ClientToken. Value for key \"authorizationFingerprint\" was not present or invalid.")
         }
     }
 
@@ -123,7 +123,7 @@ class BTClientToken_Tests: XCTestCase {
         } catch let error as NSError {
             XCTAssertEqual(error.domain, BTClientTokenError.errorDomain)
             XCTAssertEqual(error.code, 0)
-            XCTAssertEqual(error.localizedDescription, BTClientTokenError.invalidAuthorizationFingerprint.localizedDescription)
+            XCTAssertEqual(error.localizedDescription, "Invalid value in client token. Please ensure your server is generating a valid Braintree ClientToken. Value for key \"authorizationFingerprint\" was not present or invalid.")
         }
     }
 
@@ -191,7 +191,6 @@ class BTClientToken_Tests: XCTestCase {
         let copiedClientToken = clientToken.copy() as? BTClientToken
 
         XCTAssertEqual(copiedClientToken?.configURL, clientToken.configURL)
-        XCTAssertEqual(copiedClientToken?.json.asDictionary(), clientToken.json.asDictionary())
         XCTAssertEqual(copiedClientToken?.authorizationFingerprint, clientToken.authorizationFingerprint)
         XCTAssertEqual(copiedClientToken?.originalValue, clientToken.originalValue)
     }

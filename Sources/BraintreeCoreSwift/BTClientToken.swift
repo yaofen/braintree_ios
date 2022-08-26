@@ -6,9 +6,6 @@ import Foundation
     // TODO: resolve public access modifiers once rest of core is in Swift
     // MARK: - Public Properties
 
-    /// The client token as a BTJSON object
-    public let json: BTJSON
-
     /// The extracted authorization fingerprint
     public let authorizationFingerprint: String
 
@@ -17,6 +14,17 @@ import Foundation
 
     /// The original string used to initialize this instance
     public let originalValue: String
+    
+    /// The URL for the Client API
+    public let clientAPIURL: URL
+    
+    /// Client token version, possible values 1, 2 ,or 3
+    public let version: Int
+    
+    // MARK: - Private Properties
+    
+    /// The client token as a BTJSON object
+    private let json: BTJSON
 
     // MARK: - Initializers
 
@@ -29,16 +37,22 @@ import Foundation
         
         guard let authorizationFingerprint = json["authorizationFingerprint"].asString(),
               !authorizationFingerprint.isEmpty else {
-            throw BTClientTokenError.invalidAuthorizationFingerprint
+            throw BTClientTokenError.invalidJSONValue("authorizationFingerprint")
         }
         
         guard let configURL = json["configUrl"].asURL() else {
-            throw BTClientTokenError.invalidConfigURL
+            throw BTClientTokenError.invalidJSONValue("configUrl")
+        }
+        
+        guard let clientAPIURL = json["clientApiUrl"].asURL() else {
+            throw BTClientTokenError.invalidJSONValue("clientApiUrl")
         }
         
         self.authorizationFingerprint = authorizationFingerprint
         self.configURL = configURL
         self.originalValue = clientToken
+        self.clientAPIURL = clientAPIURL
+        self.version = json["version"].asIntegerOrZero()
     }
     
     // MARK: - Internal helper functions

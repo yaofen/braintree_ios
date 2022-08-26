@@ -3,11 +3,8 @@ import Foundation
 ///  Error codes associated with a client token.
 enum BTClientTokenError: Error, CustomNSError, LocalizedError {
 
-    /// 0. Authorization fingerprint was not present or invalid
-    case invalidAuthorizationFingerprint
-
-    /// 1. Config URL was missing or invalid
-    case invalidConfigURL
+    /// 0. A field was invalid
+    case invalidJSONValue(String)
 
     /// 2. Invalid client token format
     case invalidFormat(String)
@@ -24,25 +21,21 @@ enum BTClientTokenError: Error, CustomNSError, LocalizedError {
 
     var errorCode: Int {
         switch self {
-        case .invalidAuthorizationFingerprint:
+        case .invalidJSONValue:
             return 0
-        case .invalidConfigURL:
-            return 1
         case .invalidFormat:
-            return 2
+            return 1
         case .unsupportedVersion:
-            return 3
+            return 2
         case .failedDecoding:
-            return 4
+            return 3
         }
     }
     
     var errorDescription: String? {
         switch self {
-        case .invalidAuthorizationFingerprint:
-            return "Invalid client token. Please ensure your server is generating a valid Braintree ClientToken. Authorization fingerprint was not present or invalid."
-        case .invalidConfigURL:
-            return "Invalid client token: config URL was missing or invalid. Please ensure your server is generating a valid Braintree ClientToken."
+        case .invalidJSONValue(let key):
+            return "Invalid value in client token. Please ensure your server is generating a valid Braintree ClientToken. Value for key \"\(key)\" was not present or invalid."
         case .invalidFormat(let description):
             return "Invalid client token format. Please ensure your server is generating a valid Braintree ClientToken. \(description)"
         case .unsupportedVersion:
