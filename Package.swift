@@ -101,12 +101,7 @@ let package = Package(
         ),
         .target(
             name: "BraintreePayPalNativeCheckout",
-            dependencies: [
-                "BraintreeCore",
-                "BraintreePayPal",
-                "PayPalCheckout",
-            ],
-            path: "Sources/BraintreePayPalNativeCheckout"
+            dependencies: ["BraintreeCore", "BraintreePayPal", "PayPalCheckout"]
         ),
         .binaryTarget(
             name: "PayPalCheckout",
@@ -114,8 +109,7 @@ let package = Package(
         ),
         .target(
             name: "BraintreeSEPADirectDebit",
-            dependencies: ["BraintreeCore"],
-            path: "Sources/BraintreeSEPADirectDebit"
+            dependencies: ["BraintreeCore"]
         ),
         .target(
             name: "BraintreeThreeDSecure",
@@ -143,8 +137,7 @@ let package = Package(
         ),
         .target(
             name: "PayPalDataCollector",
-            dependencies: ["BraintreeCore", "PPRiskMagnes"],
-            path: "Sources/PayPalDataCollector"
+            dependencies: ["BraintreeCore", "PPRiskMagnes"]
         ),
         .binaryTarget(
             name: "PPRiskMagnes",
