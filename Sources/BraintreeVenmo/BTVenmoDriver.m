@@ -111,6 +111,7 @@ static BTVenmoDriver *appSwitchedDriver;
 
     if (self.returnURLScheme == nil || [self.returnURLScheme isEqualToString:@""]) {
         [[BTLogger sharedLogger] critical:@"Venmo requires a return URL scheme to be configured via [BTAppContextSwitcher setReturnURLScheme:]"];
+        [self.apiClient sendAnalyticsEvent:@"ios.pay-with-venmo.appswitch.initiate.error.failure"];
         NSError *error = [NSError errorWithDomain:BTVenmoDriverErrorDomain
                                              code:BTVenmoDriverErrorTypeAppNotAvailable
                                          userInfo:@{NSLocalizedDescriptionKey: @"UIApplication failed to perform app switch to Venmo."}];
