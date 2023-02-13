@@ -6,11 +6,11 @@ import BraintreeCore
 #endif
 
 /// Used to integrate with SEPA Direct Debit.
-@objcMembers public class BTSEPADirectDebitClient: NSObject {
+@objcMembers public class BTSEPADirectDebitClient: BTWebAuthenticationSessionClient {
 
     let apiClient: BTAPIClient
     
-    var webAuthenticationSession: WebAuthenticationSession
+    var webAuthenticationSession: BTWebAuthenticationSession
         
     var sepaDirectDebitAPI: SEPADirectDebitAPI
 
@@ -20,11 +20,11 @@ import BraintreeCore
     public init(apiClient: BTAPIClient) {
         self.apiClient = apiClient
         self.sepaDirectDebitAPI = SEPADirectDebitAPI(apiClient: apiClient)
-        self.webAuthenticationSession =  WebAuthenticationSession()
+        self.webAuthenticationSession =  BTWebAuthenticationSession()
     }
     
     /// Internal for testing.
-    init(apiClient: BTAPIClient, webAuthenticationSession: WebAuthenticationSession, sepaDirectDebitAPI: SEPADirectDebitAPI) {
+    init(apiClient: BTAPIClient, webAuthenticationSession: BTWebAuthenticationSession, sepaDirectDebitAPI: SEPADirectDebitAPI) {
         self.apiClient = apiClient
         self.webAuthenticationSession = webAuthenticationSession
         self.sepaDirectDebitAPI = sepaDirectDebitAPI
@@ -156,16 +156,16 @@ import BraintreeCore
 
 // MARK: - ASWebAuthenticationPresentationContextProviding conformance
 
-extension BTSEPADirectDebitClient: ASWebAuthenticationPresentationContextProviding {
-
-    public func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-        if #available(iOS 15, *) {
-            let firstScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-            let window = firstScene?.windows.first { $0.isKeyWindow }
-            return window ?? ASPresentationAnchor()
-        } else {
-            let window = UIApplication.shared.windows.first { $0.isKeyWindow }
-            return window ?? ASPresentationAnchor()
-        }
-    }
-}
+//extension BTSEPADirectDebitClient: ASWebAuthenticationPresentationContextProviding {
+//
+//    public func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+//        if #available(iOS 15, *) {
+//            let firstScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+//            let window = firstScene?.windows.first { $0.isKeyWindow }
+//            return window ?? ASPresentationAnchor()
+//        } else {
+//            let window = UIApplication.shared.windows.first { $0.isKeyWindow }
+//            return window ?? ASPresentationAnchor()
+//        }
+//    }
+//}

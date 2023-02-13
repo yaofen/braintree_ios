@@ -9,12 +9,15 @@ import BraintreeCore
 import BraintreeDataCollector
 #endif
 
-@objcMembers public class BTPayPalClient: NSObject {
+@objcMembers public class BTPayPalClient: BTWebAuthenticationSessionClient {
     
     // MARK: - Internal Properties
 
     /// Exposed for testing to get the instance of BTAPIClient
     var apiClient: BTAPIClient
+
+    /// Exposed for testing, the ASWebAuthenticationSession instance used for the PayPal flow
+    var webAuthenticationSession: BTWebAuthenticationSession
     
     /// Exposed for testing the approvalURL construction
     var approvalURL: URL? = nil
@@ -25,9 +28,6 @@ import BraintreeDataCollector
     /// Exposed for testing the intent associated with this request
     var payPalRequest: BTPayPalRequest? = nil
 
-    /// Exposed for testing, the ASWebAuthenticationSession instance used for the PayPal flow
-    var authenticationSession: ASWebAuthenticationSession? = nil
-    
     /// Exposed for testing, for determining if ASWebAuthenticationSession was started
     var isAuthenticationSessionStarted: Bool = false
 
@@ -42,6 +42,7 @@ import BraintreeDataCollector
     @objc(initWithAPIClient:)
     public init(apiClient: BTAPIClient) {
         self.apiClient = apiClient
+        self.webAuthenticationSession =  BTWebAuthenticationSession()
         super.init()
         NotificationCenter.default.addObserver(
             self,
@@ -49,6 +50,13 @@ import BraintreeDataCollector
             name: UIApplication.didBecomeActiveNotification,
             object: nil
         )
+    }
+
+    /// Internal for testing.
+    // TODO: look into if PPTests even need this
+    init(apiClient: BTAPIClient, webAuthenticationSession: BTWebAuthenticationSession) {
+        self.apiClient = apiClient
+        self.webAuthenticationSession = webAuthenticationSession
     }
 
     // MARK: - Public Methods
@@ -269,41 +277,65 @@ import BraintreeDataCollector
         completion: @escaping (BTPayPalAccountNonce?, Error?) -> Void
     ) {
         approvalURL = appSwitchURL
-        authenticationSession = ASWebAuthenticationSession(
-            url: appSwitchURL,
-            callbackURLScheme: BTCoreConstants.callbackURLScheme
-        ) { callbackURL, error in
-                // Required to avoid memory leak for BTPayPalClient
-                self.authenticationSession = nil
-                if let error = error as? NSError {
-                    if error.domain == ASWebAuthenticationSessionError.errorDomain,
-                       error.code == ASWebAuthenticationSessionError.canceledLogin.rawValue {
-                        if self.returnedToAppAfterPermissionAlert == true {
-                            // User tapped system cancel button in browser
-                            let eventName = "ios.\(paymentType.stringValue).authsession.browser.cancel"
-                            self.apiClient.sendAnalyticsEvent(eventName)
-                        } else {
-                            // User tapped system cancel button on permission alert
-                            let eventName = "ios.\(paymentType.stringValue).authsession.alert.cancel"
-                            self.apiClient.sendAnalyticsEvent(eventName)
-                        }
+        webAuthenticationSession.start(url: appSwitchURL, context: self) { callbackURL, error in
+            if let error = error as? NSError {
+                if error.domain == ASWebAuthenticationSessionError.errorDomain,
+                   error.code == ASWebAuthenticationSessionError.canceledLogin.rawValue {
+                    if self.returnedToAppAfterPermissionAlert == true {
+                        // User tapped system cancel button in browser
+                        let eventName = "ios.\(paymentType.stringValue).authsession.browser.cancel"
+                        self.apiClient.sendAnalyticsEvent(eventName)
+                    } else {
+                        // User tapped system cancel button on permission alert
+                        let eventName = "ios.\(paymentType.stringValue).authsession.alert.cancel"
+                        self.apiClient.sendAnalyticsEvent(eventName)
                     }
-                    
-                    // User canceled by breaking out of the PayPal browser switch flow
-                    // (e.g. System "Cancel" button on permission alert or browser during ASWebAuthenticationSession)
-                    completion(nil, BTPayPalError.canceled)
-                    return
                 }
 
-                self.handleBrowserSwitchReturn(callbackURL, paymentType: paymentType, completion: completion)
+                // User canceled by breaking out of the PayPal browser switch flow
+                // (e.g. System "Cancel" button on permission alert or browser during ASWebAuthenticationSession)
+                completion(nil, BTPayPalError.canceled)
+                return
             }
-        
-        authenticationSession?.presentationContextProvider = self
-        returnedToAppAfterPermissionAlert = false
-        isAuthenticationSessionStarted = authenticationSession?.start() ?? false
 
-        let authenticationSessionStatus = isAuthenticationSessionStarted ? "succeeded" : "failed"
-        apiClient.sendAnalyticsEvent("ios.\(paymentType.stringValue).authsession.start.\(authenticationSessionStatus)")
+            // TODO: needs an audit of analytics and params
+            self.handleBrowserSwitchReturn(callbackURL, paymentType: paymentType, completion: completion)
+        }
+//        webAuthenticationSession = ASWebAuthenticationSession(
+//            url: appSwitchURL,
+//            callbackURLScheme: BTCoreConstants.callbackURLScheme
+//        ) { callbackURL, error in
+//                // Required to avoid memory leak for BTPayPalClient
+//                self.authenticationSession = nil
+//                if let error = error as? NSError {
+//                    if error.domain == ASWebAuthenticationSessionError.errorDomain,
+//                       error.code == ASWebAuthenticationSessionError.canceledLogin.rawValue {
+//                        if self.returnedToAppAfterPermissionAlert == true {
+//                            // User tapped system cancel button in browser
+//                            let eventName = "ios.\(paymentType.stringValue).authsession.browser.cancel"
+//                            self.apiClient.sendAnalyticsEvent(eventName)
+//                        } else {
+//                            // User tapped system cancel button on permission alert
+//                            let eventName = "ios.\(paymentType.stringValue).authsession.alert.cancel"
+//                            self.apiClient.sendAnalyticsEvent(eventName)
+//                        }
+//                    }
+//
+//                    // User canceled by breaking out of the PayPal browser switch flow
+//                    // (e.g. System "Cancel" button on permission alert or browser during ASWebAuthenticationSession)
+//                    completion(nil, BTPayPalError.canceled)
+//                    return
+//                }
+//
+//                self.handleBrowserSwitchReturn(callbackURL, paymentType: paymentType, completion: completion)
+//            }
+        
+//        webAuthenticationSession?.presentationContextProvider = self
+        returnedToAppAfterPermissionAlert = false
+//        isAuthenticationSessionStarted = webAuthenticationSession?.start() ?? false
+
+//        let authenticationSessionStatus = isAuthenticationSessionStarted ? "succeeded" : "failed"
+//        apiClient.sendAnalyticsEvent("ios.\(paymentType.stringValue).authsession.start.\(authenticationSessionStatus)")
     }
     
     private func decorate(approvalURL: URL, for request: BTPayPalRequest) -> URL {
@@ -411,16 +443,16 @@ import BraintreeDataCollector
 
 // MARK: - ASWebAuthenticationPresentationContextProviding conformance
 
-extension BTPayPalClient: ASWebAuthenticationPresentationContextProviding {
-
-    public func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-        if #available(iOS 15, *) {
-            let firstScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-            let window = firstScene?.windows.first { $0.isKeyWindow }
-            return window ?? ASPresentationAnchor()
-        } else {
-            let window = UIApplication.shared.windows.first { $0.isKeyWindow }
-            return window ?? ASPresentationAnchor()
-        }
-    }
-}
+//extension BTPayPalClient: ASWebAuthenticationPresentationContextProviding {
+//
+//    public func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+//        if #available(iOS 15, *) {
+//            let firstScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+//            let window = firstScene?.windows.first { $0.isKeyWindow }
+//            return window ?? ASPresentationAnchor()
+//        } else {
+//            let window = UIApplication.shared.windows.first { $0.isKeyWindow }
+//            return window ?? ASPresentationAnchor()
+//        }
+//    }
+//}

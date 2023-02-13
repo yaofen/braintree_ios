@@ -24,6 +24,7 @@
 #import <BraintreeCore/BraintreeCore-Swift.h>
 #endif
 
+/// This should be renamed to BTLocalPaymentNonce
 @implementation BTLocalPaymentResult
 
 - (instancetype)initWithNonce:(NSString *)nonce

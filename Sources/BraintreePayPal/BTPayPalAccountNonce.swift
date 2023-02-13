@@ -5,6 +5,12 @@ import BraintreeCore
 #endif
 
 /// Contains information about a PayPal payment method
+/// This would now need to conform to BTPaymentFlowResult instead of BTPaymentMethodNonce since we can only have 1 superclass
+/// This would require us to duplicate BTPaymentMethodNonce logic... which defeats the purpose of BTPaymentMethodNonce
+/// Additionally BTPaymentFlowResult is just an empty class that conforms to NSObject so is significantly less useful
+/// This seems to break the pattern that we have been moving to over the years - it seems like a better approach to bring PaymentFlow
+/// and 3DS into the patterns that we use currently as they are both outdated (as an example BTLocalPaymentResult and
+/// BTThreeDSecureResult is actually a nonce under the hood)
 @objcMembers public class BTPayPalAccountNonce: BTPaymentMethodNonce {
     
     /// Payer's email address.

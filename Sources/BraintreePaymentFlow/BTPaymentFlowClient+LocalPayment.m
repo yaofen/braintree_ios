@@ -11,6 +11,7 @@
 
 #endif
 
+/// This should handle the LPM specific logic for the strongly typed start method
 @implementation BTPaymentFlowClient (LocalPayment)
 
 @end

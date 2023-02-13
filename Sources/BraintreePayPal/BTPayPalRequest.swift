@@ -170,3 +170,30 @@ import BraintreeCore
         return parameters
     }
 }
+
+/// The conformance to BTPaymentFlowRequestDelegate is certainly possible but again breaks the patterns that we have establish
+/// for example passing around completions vs how these protocol methods behave currently.
+/// This pattern also seems off for the request to handle this and not the client?
+/// Should we go with a protocol approach? update some now and some later? Do something else?
+/// Ideally these internal methods would probably take in a more specific request and return a nonce type
+/// Additionally, the clients should be more strongly typed to the clients like so:
+/// PaymentFlowClient: func performAppSwitchRequest(appSwitchURL: URL, paymentType: String, completion: @escaping (BTPaymentMethodNonce?, Error?) -> Void)
+/// PaypalClient.appSwitch()
+/// ThreeDSecureClient.appSwitch()
+/// LocalPaymentMethod.appSwitch()
+/// We can also create individual clients vs making merchants use our somewhat abstract PaymentFlowClient
+//extension BTPayPalRequest: BTPaymentFlowRequestDelegate {
+//
+//    public func paymentFlowName() -> String {
+//        // TODO: implement
+//        return ""
+//    }
+//
+//    public func handleOpen(_ url: URL) {
+//        // TODO: implement
+//    }
+//
+//    public func handle(_ request: BTPaymentFlowRequest, client apiClient: BTAPIClient, paymentClientDelegate delegate: BTPaymentFlowClientDelegate) {
+//        // TODO: implement
+//    }
+//}

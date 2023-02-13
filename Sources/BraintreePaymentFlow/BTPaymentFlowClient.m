@@ -36,6 +36,17 @@
 #import <BraintreeCore/BraintreeCore-Swift.h>
 #endif
 
+/// This should now be our abstract class for anything that needs to present an ASWeb. Any other logic needs to be extracted into their
+/// dependent classes that use this super class. We will want to have a BTLocalPaymentClient and a BTThreeDSecure client when we convert this
+/// to Swift. This abstract class should remove as much of the confusing logic as possible as this flow is very hard to follow.
+/// This class should remove passing around the URL and error and instead pass around a completion.
+/// This class in the future house our generic methods:
+/// BTPaymentFlowClient.start(delegate, completion: nonce, error) // the delegate here can be anything we want but is representing an abstract for internal use
+/// BTLocalPaymentClient.start(BTPaymentFlowRequest, completion: nonce, error)
+/// BTThreeDSecureClient.start(BTThreeDSecureRequest, completion: nonce, error)
+/// BTPayPalClient.start(BTPayPalRequest, completion: nonce, error)
+/// BTSEPADirectDebitClient.start(BTSEPADirectDebitRequest, completion: nonce, error)
+/// Each client should now be strongly typed vs using the abstracts
 @interface BTPaymentFlowClient () <ASWebAuthenticationPresentationContextProviding>
 
 @property (nonatomic, copy) void (^paymentFlowCompletionBlock)(BTPaymentFlowResult *, NSError *);
