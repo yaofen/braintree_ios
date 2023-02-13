@@ -939,6 +939,7 @@
 		BEBC6F3429380BA6004E25A0 /* BTExceptionCatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTExceptionCatcher.h; sourceTree = "<group>"; };
 		BEC3F11028A43F500074DF0F /* BTHTTPError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTHTTPError.swift; sourceTree = "<group>"; };
 		BEC3F11228A4401E0074DF0F /* BTHTTPErrorCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTHTTPErrorCode.swift; sourceTree = "<group>"; };
+		BECA6F4F299AAAC70060FCFE /* BraintreeCore.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = BraintreeCore.modulemap; sourceTree = "<group>"; };
 		BECE564828F99FD2001B0F25 /* BTAnalyticsMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTAnalyticsMetadata.swift; sourceTree = "<group>"; };
 		BECE564A28F9B306001B0F25 /* BTAnalyticsMetadata_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTAnalyticsMetadata_Tests.swift; sourceTree = "<group>"; };
 		BED00CAD28A5419900D74AEC /* BTBinData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTBinData.swift; sourceTree = "<group>"; };
@@ -1366,6 +1367,7 @@
 				BE32ACBD2907753D00A61FED /* BTViewControllerPresentingDelegate.swift */,
 				BE7FA4C5291AC9B6003C6B63 /* Info.plist */,
 				BEBC6E5D2927CF59004E25A0 /* Braintree.h */,
+				BECA6F4F299AAAC70060FCFE /* BraintreeCore.modulemap */,
 			);
 			path = BraintreeCore;
 			sourceTree = "<group>";
@@ -3901,6 +3903,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULEMAP_FILE = Sources/BraintreeCore/BraintreeCore.modulemap;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.braintreepayments.BraintreeCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3963,6 +3966,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULEMAP_FILE = Sources/BraintreeCore/BraintreeCore.modulemap;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.braintreepayments.BraintreeCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
