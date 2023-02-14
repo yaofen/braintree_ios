@@ -2,20 +2,20 @@ import Foundation
 
 /// This class acts as the entry point for accessing the Braintree APIs via common HTTP methods performed on API endpoints.
 /// - Note: It also manages authentication via tokenization key and provides access to a merchant's gateway configuration.
-@objcMembers public class BTAPIClient: NSObject {
+@objc public class BTAPIClient: NSObject {
 
-    public typealias RequestCompletion = (BTJSON?, HTTPURLResponse?, Error?) -> Void
+//    @objc public typealias RequestCompletion = (BTJSON?, HTTPURLResponse?, Error?) -> Void
 
     // MARK: - Public Properties
 
     /// The tokenization key used to authorize the APIClient
-    public var tokenizationKey: String?
+    @objc public var tokenizationKey: String?
 
     /// The client token used to authorize the APIClient
-    public var clientToken: BTClientToken?
+    @objc public var clientToken: BTClientToken?
 
     /// Client metadata that is used for tracking the client session
-    public private(set) var metadata: BTClientMetadata
+    @objc public private(set) var metadata: BTClientMetadata
 
     // MARK: - Internal Properties
 
@@ -250,7 +250,7 @@ import Foundation
     ///   HTTP response and `error` will be `nil`; on failure, `body` and `response` will be
     ///   `nil` and `error` will contain the error that occurred.
     @objc(GET:parameters:completion:)
-    public func get(_ path: String, parameters: [String: String]? = nil, completion: @escaping RequestCompletion) {
+    public func get(_ path: String, parameters: [String: String]? = nil, completion: @escaping (BTJSON?, HTTPURLResponse?, Error?) -> Void) {
         get(path, parameters: parameters, httpType: .gateway, completion: completion)
     }
 
@@ -264,13 +264,13 @@ import Foundation
     ///   HTTP response and `error` will be `nil`; on failure, `body` and `response` will be
     ///   `nil` and `error` will contain the error that occurred.
     @objc(POST:parameters:completion:)
-    public func post(_ path: String, parameters: [String: Any]? = nil, completion: @escaping RequestCompletion) {
+    public func post(_ path: String, parameters: [String: Any]? = nil, completion: @escaping (BTJSON?, HTTPURLResponse?, Error?) -> Void) {
         post(path, parameters: parameters, httpType: .gateway, completion: completion)
     }
 
     /// :nodoc:
     @objc(GET:parameters:httpType:completion:)
-    public func get(_ path: String, parameters: [String: String]? = nil, httpType: BTAPIClientHTTPService, completion: @escaping RequestCompletion) {
+    public func get(_ path: String, parameters: [String: String]? = nil, httpType: BTAPIClientHTTPService, completion: @escaping (BTJSON?, HTTPURLResponse?, Error?) -> Void) {
         fetchOrReturnRemoteConfiguration { [weak self] configuration, error in
             guard let self else { return }
 
@@ -285,7 +285,7 @@ import Foundation
 
     /// :nodoc:
     @objc(POST:parameters:httpType:completion:)
-    public func post(_ path: String, parameters: [String: Any]? = nil, httpType: BTAPIClientHTTPService, completion: @escaping RequestCompletion) {
+    public func post(_ path: String, parameters: [String: Any]? = nil, httpType: BTAPIClientHTTPService, completion: @escaping (BTJSON?, HTTPURLResponse?, Error?) -> Void) {
         fetchOrReturnRemoteConfiguration { [weak self] configuration, error in
             guard let self else { return }
 
