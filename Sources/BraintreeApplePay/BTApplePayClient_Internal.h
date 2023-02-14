@@ -4,6 +4,10 @@
 #import <BraintreeApplePay/BTApplePayClient.h>
 #endif
 
+#if SWIFT_PACKAGE
+@import BraintreeCore;
+#endif
+
 @interface BTApplePayClient ()
 /**
  Exposed for testing to get the instance of BTAPIClient

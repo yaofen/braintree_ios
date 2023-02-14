@@ -4,6 +4,10 @@
 @class PKPayment;
 @class PKPaymentRequest;
 
+#if SWIFT_PACKAGE
+@import BraintreeCore;
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**
