@@ -295,6 +295,7 @@
 		BEC3F11128A43F500074DF0F /* BTHTTPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC3F11028A43F500074DF0F /* BTHTTPError.swift */; };
 		BEC3F11328A4401E0074DF0F /* BTHTTPErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC3F11228A4401E0074DF0F /* BTHTTPErrorCode.swift */; };
 		BEC66DBE2901CC9E0030B6B2 /* BraintreeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 570B93AC285397520041BAFE /* BraintreeCore.framework */; };
+		BECA6F50299BDA140060FCFE /* BraintreeCore.framework in Resources */ = {isa = PBXBuildFile; fileRef = 570B93AC285397520041BAFE /* BraintreeCore.framework */; };
 		BECE564928F99FD2001B0F25 /* BTAnalyticsMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECE564828F99FD2001B0F25 /* BTAnalyticsMetadata.swift */; };
 		BECE564B28F9B306001B0F25 /* BTAnalyticsMetadata_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECE564A28F9B306001B0F25 /* BTAnalyticsMetadata_Tests.swift */; };
 		BED00CAC28A4504E00D74AEC /* BraintreeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 570B93AC285397520041BAFE /* BraintreeCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -2699,6 +2700,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BECA6F50299BDA140060FCFE /* BraintreeCore.framework in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4716,6 +4718,7 @@
 					"@loader_path/Frameworks",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.braintreepayments.BraintreeApplePay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4771,6 +4774,7 @@
 					"@loader_path/Frameworks",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.braintreepayments.BraintreeApplePay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
