@@ -62,10 +62,7 @@ let package = Package(
         .target(
             name: "BraintreeApplePay",
             dependencies: ["BraintreeCore"],
-            publicHeadersPath: "Public",
-            cSettings: [
-                .headerSearchPath(".")
-            ]
+            publicHeadersPath: "Public"
         ),
         .target(
             name: "BraintreeCard",
@@ -75,7 +72,8 @@ let package = Package(
         .target(
             name: "BraintreeCore",
             path: "Sources/BraintreeCore",
-            exclude: ["Info.plist"]
+            exclude: ["Info.plist"],
+            publicHeadersPath: "BraintreeCore.modulemap"
         ),
         .target(
             name: "BraintreeDataCollector",
