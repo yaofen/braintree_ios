@@ -13,7 +13,7 @@ let package = Package(
         ),
         .library(
             name: "BraintreeApplePay",
-            targets: ["BraintreeApplePay"]
+            targets: ["BraintreeApplePay", "BraintreeCore"]
         ),
         .library(
             name: "BraintreeCard",
