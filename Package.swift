@@ -13,7 +13,7 @@ let package = Package(
         ),
         .library(
             name: "BraintreeApplePay",
-            targets: ["BraintreeApplePay", "BraintreeCore"]
+            targets: ["BraintreeApplePay"]
         ),
         .library(
             name: "BraintreeCard",
@@ -62,7 +62,7 @@ let package = Package(
         .target(
             name: "BraintreeApplePay",
             dependencies: ["BraintreeCore"],
-            publicHeadersPath: "Public"
+            publicHeadersPath: "."
         ),
         .target(
             name: "BraintreeCard",
