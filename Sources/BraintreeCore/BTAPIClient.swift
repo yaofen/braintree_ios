@@ -132,7 +132,7 @@ import Foundation
     /// - Note: This method is asynchronous because it requires a network call to fetch the
     /// configuration for a merchant account from Braintree servers. This configuration is
     /// cached on subsequent calls for better performance.
-    public func fetchOrReturnRemoteConfiguration(_ completion: @escaping (BTConfiguration?, Error?) -> Void) {
+    @objc public func fetchOrReturnRemoteConfiguration(_ completion: @escaping (BTConfiguration?, Error?) -> Void) {
         // Fetches or returns the configuration and caches the response in the GET BTHTTP call if successful
         //
         // Rules:
@@ -198,7 +198,7 @@ import Foundation
     /// Fetches a customer's vaulted payment method nonces.
     /// Must be using client token with a customer ID specified.
     ///  - Parameter completion: Callback that returns either an array of payment method nonces or an error
-    public func fetchPaymentMethodNonces(_ completion: @escaping ([BTPaymentMethodNonce]?, Error?) -> Void) {
+    @objc public func fetchPaymentMethodNonces(_ completion: @escaping ([BTPaymentMethodNonce]?, Error?) -> Void) {
         fetchPaymentMethodNonces(false, completion: completion)
     }
 
@@ -207,7 +207,7 @@ import Foundation
     ///  - Parameters:
     ///   - defaultFirst: Specifies whether to sort the fetched payment method nonces with the default payment method or the most recently used payment method first
     ///   - completion: Callback that returns either an array of payment method nonces or an error
-    public func fetchPaymentMethodNonces(_ defaultFirst: Bool, completion: @escaping ([BTPaymentMethodNonce]?, Error?) -> Void) {
+    @objc public func fetchPaymentMethodNonces(_ defaultFirst: Bool, completion: @escaping ([BTPaymentMethodNonce]?, Error?) -> Void) {
         if clientToken == nil {
             completion(nil, BTAPIClientError.notAuthorized)
             return
@@ -300,7 +300,7 @@ import Foundation
     }
 
     ///  :nodoc: This method is exposed for internal Braintree use only. Do not use. It is not covered by Semantic Versioning and may change or be removed at any time.
-    public func sendAnalyticsEvent(_ eventName: String) {
+    @objc public func sendAnalyticsEvent(_ eventName: String) {
         analyticsService?.sendAnalyticsEvent(eventName, completion: { _ in})
     }
 
