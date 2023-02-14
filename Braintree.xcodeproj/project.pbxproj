@@ -296,9 +296,10 @@
 		BEC3F11328A4401E0074DF0F /* BTHTTPErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC3F11228A4401E0074DF0F /* BTHTTPErrorCode.swift */; };
 		BEC66DBE2901CC9E0030B6B2 /* BraintreeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 570B93AC285397520041BAFE /* BraintreeCore.framework */; };
 		BECA6F50299BDA140060FCFE /* BraintreeCore.framework in Resources */ = {isa = PBXBuildFile; fileRef = 570B93AC285397520041BAFE /* BraintreeCore.framework */; };
+		BECA6F52299BDE630060FCFE /* BraintreeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 570B93AC285397520041BAFE /* BraintreeCore.framework */; };
+		BECA6F53299BDE630060FCFE /* BraintreeCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 570B93AC285397520041BAFE /* BraintreeCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BECE564928F99FD2001B0F25 /* BTAnalyticsMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECE564828F99FD2001B0F25 /* BTAnalyticsMetadata.swift */; };
 		BECE564B28F9B306001B0F25 /* BTAnalyticsMetadata_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECE564A28F9B306001B0F25 /* BTAnalyticsMetadata_Tests.swift */; };
-		BED00CAC28A4504E00D74AEC /* BraintreeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 570B93AC285397520041BAFE /* BraintreeCore.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		BED00CAE28A5419900D74AEC /* BTBinData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED00CAD28A5419900D74AEC /* BTBinData.swift */; };
 		BED00CB028A579D700D74AEC /* BTClientToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED00CAF28A579D700D74AEC /* BTClientToken.swift */; };
 		BED00CB228A57AD400D74AEC /* BTClientTokenError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED00CB128A57AD400D74AEC /* BTClientTokenError.swift */; };
@@ -617,6 +618,17 @@
 			dstSubfolderSpec = 10;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BECA6F54299BDE630060FCFE /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				BECA6F53299BDE630060FCFE /* BraintreeCore.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -1044,7 +1056,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BED00CAC28A4504E00D74AEC /* BraintreeCore.framework in Frameworks */,
+				BECA6F52299BDE630060FCFE /* BraintreeCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2229,6 +2241,7 @@
 				A7C889701B5EF5DE007A0E9C /* Frameworks */,
 				A7C889711B5EF5DE007A0E9C /* Headers */,
 				A7C889721B5EF5DE007A0E9C /* Resources */,
+				BECA6F54299BDE630060FCFE /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
