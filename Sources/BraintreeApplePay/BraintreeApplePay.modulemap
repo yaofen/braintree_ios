@@ -1,8 +1,0 @@
-framework module BraintreeApplePay {
-    umbrella header "BraintreeApplePay.h"
-    export *
-    module * { export * }
-
-    link framework "BraintreeCore"
-    use BraintreeCore
-}

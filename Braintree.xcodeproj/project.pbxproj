@@ -615,6 +615,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BECA6F57299C30E70060FCFE /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -933,7 +942,7 @@
 		BEBC6F3429380BA6004E25A0 /* BTExceptionCatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTExceptionCatcher.h; sourceTree = "<group>"; };
 		BEC3F11028A43F500074DF0F /* BTHTTPError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTHTTPError.swift; sourceTree = "<group>"; };
 		BEC3F11228A4401E0074DF0F /* BTHTTPErrorCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTHTTPErrorCode.swift; sourceTree = "<group>"; };
-		BECA6F56299C2E6E0060FCFE /* BraintreeApplePay.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = BraintreeApplePay.modulemap; sourceTree = "<group>"; };
+		BECA6F56299C2E6E0060FCFE /* BraintreeCore.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = BraintreeCore.modulemap; sourceTree = "<group>"; };
 		BECE564828F99FD2001B0F25 /* BTAnalyticsMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTAnalyticsMetadata.swift; sourceTree = "<group>"; };
 		BECE564A28F9B306001B0F25 /* BTAnalyticsMetadata_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTAnalyticsMetadata_Tests.swift; sourceTree = "<group>"; };
 		BED00CAD28A5419900D74AEC /* BTBinData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTBinData.swift; sourceTree = "<group>"; };
@@ -1485,6 +1494,7 @@
 		A75DA343192138F000D997A2 = {
 			isa = PBXGroup;
 			children = (
+				BECA6F59299C36470060FCFE /* include */,
 				57108A0E2832E1DE004EB870 /* Package.swift */,
 				A75DA3531921394200D997A2 /* Frameworks */,
 				A7ABD6541B702FD800A1223C /* IntegrationTests */,
@@ -1587,7 +1597,6 @@
 		A7C889751B5EF5DE007A0E9C /* BraintreeApplePay */ = {
 			isa = PBXGroup;
 			children = (
-				BECA6F56299C2E6E0060FCFE /* BraintreeApplePay.modulemap */,
 				A7C8897F1B5EF62C007A0E9C /* BTApplePayCardNonce.m */,
 				412FE0561B9799EE008AAABE /* BTApplePayClient_Internal.h */,
 				A7C8897D1B5EF62C007A0E9C /* BTApplePayClient.m */,
@@ -1844,6 +1853,14 @@
 				BEFE6DA927E28A0B002BE9C8 /* MockViewController.swift */,
 			);
 			path = BraintreeSEPADirectDebitTests;
+			sourceTree = "<group>";
+		};
+		BECA6F59299C36470060FCFE /* include */ = {
+			isa = PBXGroup;
+			children = (
+				BECA6F56299C2E6E0060FCFE /* BraintreeCore.modulemap */,
+			);
+			path = include;
 			sourceTree = "<group>";
 		};
 		BECE564728F99FAD001B0F25 /* Recovered References */ = {
@@ -2211,6 +2228,7 @@
 				A7C889701B5EF5DE007A0E9C /* Frameworks */,
 				A7C889711B5EF5DE007A0E9C /* Headers */,
 				A7C889721B5EF5DE007A0E9C /* Resources */,
+				BECA6F57299C30E70060FCFE /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -3891,6 +3909,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULEMAP_FILE = "$(SRCROOT)/include/BraintreeCore.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.braintreepayments.BraintreeCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3953,6 +3972,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULEMAP_FILE = "$(SRCROOT)/include/BraintreeCore.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.braintreepayments.BraintreeCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4701,7 +4721,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MODULEMAP_FILE = "$(SRCROOT)/Sources/BraintreeApplePay/BraintreeApplePay.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.braintreepayments.BraintreeApplePay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4756,7 +4775,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MODULEMAP_FILE = "$(SRCROOT)/Sources/BraintreeApplePay/BraintreeApplePay.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.braintreepayments.BraintreeApplePay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
