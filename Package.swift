@@ -71,9 +71,8 @@ let package = Package(
         ),
         .target(
             name: "BraintreeCore",
-            path: "Sources/BraintreeCore",
-            exclude: ["Info.plist"],
-            publicHeadersPath: "BraintreeCore.modulemap"
+            path: "Sources/BraintreeCore/*",
+            exclude: ["Info.plist"]
         ),
         .target(
             name: "BraintreeDataCollector",

@@ -1368,7 +1368,7 @@
 				BE32ACBD2907753D00A61FED /* BTViewControllerPresentingDelegate.swift */,
 				BE7FA4C5291AC9B6003C6B63 /* Info.plist */,
 				BEBC6E5D2927CF59004E25A0 /* Braintree.h */,
-				BECA6F4F299AAAC70060FCFE /* BraintreeCore.modulemap */,
+				BECA6F51299BDCBE0060FCFE /* include */,
 			);
 			path = BraintreeCore;
 			sourceTree = "<group>";
@@ -1854,6 +1854,14 @@
 				BEFE6DA927E28A0B002BE9C8 /* MockViewController.swift */,
 			);
 			path = BraintreeSEPADirectDebitTests;
+			sourceTree = "<group>";
+		};
+		BECA6F51299BDCBE0060FCFE /* include */ = {
+			isa = PBXGroup;
+			children = (
+				BECA6F4F299AAAC70060FCFE /* BraintreeCore.modulemap */,
+			);
+			path = include;
 			sourceTree = "<group>";
 		};
 		BECE564728F99FAD001B0F25 /* Recovered References */ = {
@@ -3905,7 +3913,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MODULEMAP_FILE = Sources/BraintreeCore/BraintreeCore.modulemap;
+				MODULEMAP_FILE = Sources/BraintreeCore/include/BraintreeCore.modulemap;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.braintreepayments.BraintreeCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3968,7 +3976,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MODULEMAP_FILE = Sources/BraintreeCore/BraintreeCore.modulemap;
+				MODULEMAP_FILE = Sources/BraintreeCore/include/BraintreeCore.modulemap;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.braintreepayments.BraintreeCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
