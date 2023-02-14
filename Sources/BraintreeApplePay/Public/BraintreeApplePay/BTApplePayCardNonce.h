@@ -1,3 +1,4 @@
+#import <BraintreeCore/BraintreeCore-Swift.h>
 NS_ASSUME_NONNULL_BEGIN
 
 @class BTJSON;
