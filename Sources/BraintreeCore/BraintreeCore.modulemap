@@ -1,6 +1,0 @@
-framework module BraintreeCore {
-    umbrella header "Braintree.h"
-
-  export *
-  module * { export * }
-}

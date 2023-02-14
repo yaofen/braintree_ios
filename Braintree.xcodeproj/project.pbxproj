@@ -286,7 +286,7 @@
 		BE9FB82D28984ADE00D6FE2F /* BTPaymentMethodNonceParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9FB82C28984ADE00D6FE2F /* BTPaymentMethodNonceParser.swift */; };
 		BEBC222728D25BB400D83186 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80DBE69423A931A600373230 /* Helpers.swift */; };
 		BEBC6E4B29258FD4004E25A0 /* BraintreeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 570B93AC285397520041BAFE /* BraintreeCore.framework */; };
-		BEBC6E5E2927CF59004E25A0 /* Braintree.h in Headers */ = {isa = PBXBuildFile; fileRef = BEBC6E5D2927CF59004E25A0 /* Braintree.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BEBC6E5E2927CF59004E25A0 /* Braintree.h in Headers */ = {isa = PBXBuildFile; fileRef = BEBC6E5D2927CF59004E25A0 /* Braintree.h */; };
 		BEBC6F262937A510004E25A0 /* BTClientMetadata_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBC6F252937A510004E25A0 /* BTClientMetadata_Tests.swift */; };
 		BEBC6F282937BD1F004E25A0 /* BTGraphQLHTTP_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBC6F272937BD1F004E25A0 /* BTGraphQLHTTP_Tests.swift */; };
 		BEBC6F2D2937DE1A004E25A0 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBC6F2C2937DE1A004E25A0 /* String+Extension.swift */; };
@@ -298,6 +298,7 @@
 		BECA6F50299BDA140060FCFE /* BraintreeCore.framework in Resources */ = {isa = PBXBuildFile; fileRef = 570B93AC285397520041BAFE /* BraintreeCore.framework */; };
 		BECA6F52299BDE630060FCFE /* BraintreeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 570B93AC285397520041BAFE /* BraintreeCore.framework */; };
 		BECA6F53299BDE630060FCFE /* BraintreeCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 570B93AC285397520041BAFE /* BraintreeCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BECA6F55299C11390060FCFE /* Braintree.h in Headers */ = {isa = PBXBuildFile; fileRef = BEBC6E5D2927CF59004E25A0 /* Braintree.h */; };
 		BECE564928F99FD2001B0F25 /* BTAnalyticsMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECE564828F99FD2001B0F25 /* BTAnalyticsMetadata.swift */; };
 		BECE564B28F9B306001B0F25 /* BTAnalyticsMetadata_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECE564A28F9B306001B0F25 /* BTAnalyticsMetadata_Tests.swift */; };
 		BED00CAE28A5419900D74AEC /* BTBinData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED00CAD28A5419900D74AEC /* BTBinData.swift */; };
@@ -952,7 +953,6 @@
 		BEBC6F3429380BA6004E25A0 /* BTExceptionCatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTExceptionCatcher.h; sourceTree = "<group>"; };
 		BEC3F11028A43F500074DF0F /* BTHTTPError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTHTTPError.swift; sourceTree = "<group>"; };
 		BEC3F11228A4401E0074DF0F /* BTHTTPErrorCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTHTTPErrorCode.swift; sourceTree = "<group>"; };
-		BECA6F4F299AAAC70060FCFE /* BraintreeCore.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = BraintreeCore.modulemap; sourceTree = "<group>"; };
 		BECE564828F99FD2001B0F25 /* BTAnalyticsMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTAnalyticsMetadata.swift; sourceTree = "<group>"; };
 		BECE564A28F9B306001B0F25 /* BTAnalyticsMetadata_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTAnalyticsMetadata_Tests.swift; sourceTree = "<group>"; };
 		BED00CAD28A5419900D74AEC /* BTBinData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTBinData.swift; sourceTree = "<group>"; };
@@ -1380,7 +1380,6 @@
 				BE32ACBD2907753D00A61FED /* BTViewControllerPresentingDelegate.swift */,
 				BE7FA4C5291AC9B6003C6B63 /* Info.plist */,
 				BEBC6E5D2927CF59004E25A0 /* Braintree.h */,
-				BECA6F4F299AAAC70060FCFE /* BraintreeCore.modulemap */,
 			);
 			path = BraintreeCore;
 			sourceTree = "<group>";
@@ -1970,6 +1969,7 @@
 				A7C889821B5EF62C007A0E9C /* BTApplePayCardNonce.h in Headers */,
 				412FE0571B9799EE008AAABE /* BTApplePayClient_Internal.h in Headers */,
 				A7C889871B5EF65C007A0E9C /* BraintreeApplePay.h in Headers */,
+				BECA6F55299C11390060FCFE /* Braintree.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3918,7 +3918,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MODULEMAP_FILE = Sources/BraintreeCore/BraintreeCore.modulemap;
+				MODULEMAP_FILE = "";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.braintreepayments.BraintreeCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3981,7 +3981,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MODULEMAP_FILE = Sources/BraintreeCore/BraintreeCore.modulemap;
+				MODULEMAP_FILE = "";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.braintreepayments.BraintreeCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
