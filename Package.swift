@@ -62,7 +62,10 @@ let package = Package(
         .target(
             name: "BraintreeApplePay",
             dependencies: ["BraintreeCore"],
-            publicHeadersPath: "Public"
+            publicHeadersPath: "Public",
+            cSettings: [
+                .headerSearchPath("../")
+            ]
         ),
         .target(
             name: "BraintreeCard",
