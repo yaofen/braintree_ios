@@ -1,5 +1,4 @@
 #import <Foundation/Foundation.h>
-#import <BraintreeCore/BraintreeCore-Swift.h>
 @class BTAPIClient;
 @class BTApplePayCardNonce;
 @class PKPayment;
