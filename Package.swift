@@ -67,13 +67,7 @@ let package = Package(
         .target(
             name: "BraintreeCard",
             dependencies: ["BraintreeCore"],
-            publicHeadersPath: "Public",
-            swiftSettings: [
-                .unsafeFlags([
-                    "-import-objc-header",
-                    "Sources/BraintreeCore/BraintreeTest.h"
-                ])
-              ]
+            publicHeadersPath: "Public"
         ),
         .target(
             name: "BraintreeCore",
