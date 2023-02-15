@@ -1,11 +1,5 @@
 #import "Foundation/Foundation.h"
 
-#if __has_include(<Braintree/BraintreeApplePay.h>)
-#import <Braintree/BTApplePayCardNonce.h>
-#else
-#import <BraintreeApplePay/BTApplePayCardNonce.h>
-#endif
-
 // MARK: - Swift File Imports for Package Managers
 #if __has_include(<Braintree/Braintree-Swift.h>) // CocoaPods
 #import <Braintree/Braintree-Swift.h>
@@ -24,6 +18,12 @@
 
 #else                                            // Carthage
 #import <BraintreeCore/BraintreeCore-Swift.h>
+#endif
+
+#if __has_include(<Braintree/BraintreeApplePay.h>)
+#import <Braintree/BTApplePayCardNonce.h>
+#else
+#import <BraintreeApplePay/BTApplePayCardNonce.h>
 #endif
 
 @implementation BTApplePayCardNonce
