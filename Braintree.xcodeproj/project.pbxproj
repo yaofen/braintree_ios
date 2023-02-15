@@ -919,6 +919,7 @@
 		BE698EAA28B50F41001D9B10 /* BTClientToken_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTClientToken_Tests.swift; sourceTree = "<group>"; };
 		BE70A962284FA3F000F6D3F7 /* BTDataCollectorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTDataCollectorError.swift; sourceTree = "<group>"; };
 		BE70A964284FA9DE00F6D3F7 /* MockBTDataCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBTDataCollector.swift; sourceTree = "<group>"; };
+		BE7A9638299D2384009AB920 /* BraintreeCore.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = BraintreeCore.modulemap; sourceTree = "<group>"; };
 		BE7FA4C5291AC9B6003C6B63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE8E5CEE294B6937001BF017 /* BTPayPalCheckoutRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTPayPalCheckoutRequest.swift; sourceTree = "<group>"; };
 		BE9EC0972899CF040022EC63 /* BTAPIPinnedCertificates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTAPIPinnedCertificates.swift; sourceTree = "<group>"; };
@@ -1356,6 +1357,7 @@
 				BED7493528579BAC0074C818 /* BTURLUtils.swift */,
 				BE7FA4C5291AC9B6003C6B63 /* Info.plist */,
 				BEBC6E5D2927CF59004E25A0 /* Braintree.h */,
+				BE7A9638299D2384009AB920 /* BraintreeCore.modulemap */,
 			);
 			path = BraintreeCore;
 			sourceTree = "<group>";
@@ -3885,6 +3887,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULEMAP_FILE = "$(SRCROOT)/Sources/BraintreeCore/BraintreeCore.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.braintreepayments.BraintreeCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3947,6 +3950,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULEMAP_FILE = "$(SRCROOT)/Sources/BraintreeCore/BraintreeCore.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.braintreepayments.BraintreeCore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4696,6 +4700,7 @@
 					"@loader_path/Frameworks",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_CFLAGS = "-fmodule-map-file=$(SRCROOT)/Sources/BraintreeCore/BraintreeCore.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = com.braintreepayments.BraintreeApplePay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4750,6 +4755,7 @@
 					"@loader_path/Frameworks",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CFLAGS = "-fmodule-map-file=$(SRCROOT)/Sources/BraintreeCore/BraintreeCore.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = com.braintreepayments.BraintreeApplePay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
