@@ -64,7 +64,7 @@ let package = Package(
             dependencies: ["BraintreeCore"],
             publicHeadersPath: "Public",
             cSettings: [
-                .headerSearchPath("..")
+                .headerSearchPath(".")
             ]
         ),
         .target(
@@ -74,7 +74,8 @@ let package = Package(
         ),
         .target(
             name: "BraintreeCore",
-            exclude: ["Info.plist", "Braintree.h"]
+            exclude: ["Info.plist"],
+            path: "Sources/BraintreeCore"
         ),
         .target(
             name: "BraintreeDataCollector",
