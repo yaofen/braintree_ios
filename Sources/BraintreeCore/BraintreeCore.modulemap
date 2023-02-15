@@ -1,5 +1,5 @@
 framework module BraintreeCore {
-    umbrella header "BraintreeCore-Swift.h"
+    umbrella header "Braintree.h"
 
     export *
     module * { export * }
