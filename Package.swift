@@ -64,7 +64,7 @@ let package = Package(
             dependencies: ["BraintreeCore"],
             publicHeadersPath: "Public",
             cSettings: [
-                .headerSearchPath(".")
+                .headerSearchPath("$(SRCROOT)/Sources/BraintreeCore")
             ]
         ),
         .target(
