@@ -1,8 +1,13 @@
 #import <Foundation/Foundation.h>
+
+#if SWIFT_PACKAGE
+#import "BraintreeCore-Swift.h"
+#else
 @class BTAPIClient;
 @class BTApplePayCardNonce;
 @class PKPayment;
 @class PKPaymentRequest;
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

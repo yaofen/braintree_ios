@@ -1,7 +1,11 @@
-NS_ASSUME_NONNULL_BEGIN
-
+#if SWIFT_PACKAGE
+#import "BraintreeCore-Swift.h"
+#else
 @class BTJSON;
 @class BTBinData;
+#endif
+
+NS_ASSUME_NONNULL_BEGIN
 
 /**
  Contains information about a tokenized Apple Pay card.
