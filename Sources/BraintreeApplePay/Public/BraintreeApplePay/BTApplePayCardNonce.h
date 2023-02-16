@@ -1,5 +1,5 @@
 #if SWIFT_PACKAGE
-#import "BraintreeCore-Swift.h"
+#import "../BraintreeCore/BraintreeCore-Swift.h"
 #else
 @class BTJSON;
 @class BTBinData;

@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 
 #if SWIFT_PACKAGE
-#import "BraintreeCore-Swift.h"
+#import "../BraintreeCore/BraintreeCore-Swift.h"
 #else
 @class BTAPIClient;
 @class BTApplePayCardNonce;
