@@ -8,7 +8,7 @@
 
 #elif SWIFT_PACKAGE // SPM
 #import <BraintreeCard/BTCardRequest.h>
-#import "BraintreeCore-Swift.h"
+#import <BraintreeCore/BraintreeCore-Swift.h>
 
 #else // Carthage
 #import <BraintreeCard/BTCardRequest.h>
