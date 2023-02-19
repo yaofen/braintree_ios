@@ -71,7 +71,7 @@ let package = Package(
             swiftSettings: [
                 .unsafeFlags([
                     "-import-swift-header",
-                    "Sources/BraintreeCore/BraintreeCore-Swift.h"
+                    "BraintreeCore/BraintreeCore-Swift.h"
                 ])
             ]
         ),
