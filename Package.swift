@@ -70,7 +70,7 @@ let package = Package(
             publicHeadersPath: "Public",
             swiftSettings: [
                 .unsafeFlags([
-                    "-import-objc-header",
+                    "-import-swift-header",
                     "Sources/BraintreeCore/BraintreeCore-Swift.h"
                 ])
             ]
