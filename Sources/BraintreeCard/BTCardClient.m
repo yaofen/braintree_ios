@@ -22,6 +22,8 @@
 /* Use @import for SPM support
  * See https://forums.swift.org/t/using-a-swift-package-in-a-mixed-swift-and-objective-c-project/27348
  */
+#import <BraintreeCore/BraintreeCore-Swift.h>
+
 @import BraintreeCore;
 
 #elif __has_include("Braintree-Swift.h")         // CocoaPods for ReactNative
