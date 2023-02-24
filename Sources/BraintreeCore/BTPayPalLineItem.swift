@@ -27,6 +27,7 @@ import Foundation
     public let kind: BTPayPalLineItemKind
 
     /// Optional: Per-unit tax price of the item. Can include up to 2 decimal places. This value can't be negative or zero.
+    /// TODO: Shouldn't this be required, since GQL requires unitTaxAmount for PPLineItem?
     public let unitTaxAmount: String? = nil
 
     /// Optional: Item description. Maximum 127 characters.
