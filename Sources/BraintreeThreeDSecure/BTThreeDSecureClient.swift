@@ -46,24 +46,23 @@ import BraintreePaymentFlow
                 return
             }
 
-            var integrationError: Error?
-
             if configuration?.cardinalAuthenticationJWT == nil {
                 NSLog("%@ BTThreeDSecureRequest versionRequested is 2, but merchant account is not setup properly.", BTLogLevelDescription.string(for: .critical))
-                integrationError = BTThreeDSecureError.configuration("BTThreeDSecureRequest versionRequested is 2, but merchant account is not setup properly.")
+                let error = BTThreeDSecureError.configuration("BTThreeDSecureRequest versionRequested is 2, but merchant account is not setup properly.")
+                completion(nil, error)
+                return
             }
 
             if self.request?.amount?.decimalValue.isNaN == true || self.request?.amount == nil {
                 NSLog("%@ BTThreeDSecureRequest amount can not be nil or NaN.", BTLogLevelDescription.string(for: .critical))
-                integrationError = BTThreeDSecureError.configuration("BTThreeDSecureRequest amount can not be nil or NaN.")
+                let error = BTThreeDSecureError.configuration("BTThreeDSecureRequest amount can not be nil or NaN.")
+                completion(nil, error)
+                return
             }
 
             if self.request?.threeDSecureRequestDelegate == nil {
-                integrationError = BTThreeDSecureError.configuration("Configuration Error: threeDSecureRequestDelegate can not be nil when versionRequested is 2.")
-            }
-
-            if let integrationError {
-                completion(nil, integrationError)
+                let error = BTThreeDSecureError.configuration("Configuration Error: threeDSecureRequestDelegate can not be nil when versionRequested is 2.")
+                completion(nil, error)
                 return
             }
 
@@ -213,7 +212,7 @@ import BraintreePaymentFlow
     /// - Parameters:
     ///   - apiClient: The API client.
     ///   - completion: This completion will be invoked exactly once. If the error is nil then the preparation was successful.
-    func prepareLookup(
+    private func prepareLookup(
         apiClient: BTAPIClient,
         completion: @escaping (Error?) -> Void
     ) {
@@ -348,7 +347,7 @@ import BraintreePaymentFlow
                 "amount": request.amount ?? 0,
                 "customer": customer,
                 "requestedThreeDSecureVersion": "2",
-                "dfReferenceId": request.dfReferenceID, // TODO
+                "dfReferenceId": self.dfReferenceID, // TODO
                 "accountType": request.accountType.stringValue ?? "",
                 "challengeRequested": request.challengeRequested,
                 "exemptionRequested": request.exemptionRequested,
