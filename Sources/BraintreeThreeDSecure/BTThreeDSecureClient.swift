@@ -13,7 +13,6 @@ import BraintreePaymentFlow
     // MARK: - Private Properies
     
     private let apiClient: BTAPIClient
-    private let paymentFlowClient: BTPaymentFlowClient
     private var request: BTThreeDSecureRequest?
     private var threeDSecureV2Provider: BTThreeDSecureV2Provider?
     private var merchantCompletion: ((BTThreeDSecureResult?, Error?) -> Void)? = nil
@@ -28,7 +27,6 @@ import BraintreePaymentFlow
     @objc(initWithAPIClient:)
     public init(apiClient: BTAPIClient) {
         self.apiClient = apiClient
-        self.paymentFlowClient = BTPaymentFlowClient(apiClient: apiClient)
     }
     
     // MARK: - Public Methods
@@ -177,8 +175,6 @@ import BraintreePaymentFlow
 
         let jsonResponse = BTJSON(data: dataResponse)
         let lookupResult = BTThreeDSecureResult(json: jsonResponse)
-
-        request.paymentFlowClientDelegate = paymentFlowClient
 
         apiClient.fetchOrReturnRemoteConfiguration { configuration, error in
             guard let configuration, error == nil else {
