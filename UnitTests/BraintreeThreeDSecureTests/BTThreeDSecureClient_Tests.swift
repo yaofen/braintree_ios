@@ -225,4 +225,26 @@ class BTThreeDSecureClient_Tests: XCTestCase {
         
         XCTAssertTrue(mockAPIClient.postedAnalyticsEvents.contains("ios.three-d-secure.lookup.network-connection.failure"))
     }
+    
+    // MARK: - startPaymentFlow
+    
+    func testStartPaymentFlow_whenAmountIsNotANumber_throwsError() {
+        mockAPIClient.cannedConfigurationResponseBody = BTJSON(value: [
+            "threeDSecure": ["cardinalAuthenticationJWT": "FAKE_JWT"],
+            "assetsUrl": "http://assets.example.com"
+        ])
+        
+        let request =  BTThreeDSecureRequest()
+        request.amount = NSDecimalNumber.notANumber
+        
+        let expectation = self.expectation(description: "Callback envoked")
+
+        client.startPaymentFlow(request) { result, error in
+            XCTAssertNil(result)
+            XCTAssertEqual(error?.localizedDescription, "BTThreeDSecureRequest amount can not be nil or NaN.")
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 2)
+    }
 }

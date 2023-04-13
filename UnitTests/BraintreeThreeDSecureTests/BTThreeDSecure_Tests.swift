@@ -421,5 +421,37 @@ class BTThreeDSecure_UnitTests: XCTestCase {
         XCTAssertTrue(mockAPIClient.postedAnalyticsEvents.contains("ios.three-d-secure.start-payment.failed"))
     }
 
+    // MARK: - ThreeDSecure Prepare Lookup Tests
+
+    func testThreeDSecureRequest_prepareLookup_getsJsonString() {
+        mockAPIClient.cannedConfigurationResponseBody = BTJSON(value: [
+            "threeDSecure": ["cardinalAuthenticationJWT": "FAKE_JWT"],
+            "assetsUrl": "http://assets.example.com"
+        ])
+        let client = BTPaymentFlowClient(apiClient: mockAPIClient)
+
+        let expectation = expectation(description: "willCallCompletion")
+
+        threeDSecureRequest.nonce = "fake-card-nonce"
+        threeDSecureRequest.dfReferenceID = "fake-df-reference-id"
+
+        client.prepareLookup(threeDSecureRequest) { clientData, error in
+            XCTAssertNil(error)
+            XCTAssertNotNil(clientData)
+            if let data = clientData!.data(using: .utf8) {
+                let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                XCTAssertEqual(json!["dfReferenceId"] as! String, "fake-df-reference-id")
+                XCTAssertEqual(json!["nonce"] as! String, "fake-card-nonce")
+                XCTAssertNotNil(json!["braintreeLibraryVersion"] as! String)
+                XCTAssertNotNil(json!["authorizationFingerprint"] as! String)
+                let clientMetadata = json!["clientMetadata"] as! [String: Any]
+                XCTAssertEqual(clientMetadata["requestedThreeDSecureVersion"] as! String, "2")
+                XCTAssertEqual(clientMetadata["sdkVersion"] as! String, "iOS/\(BTCoreConstants.braintreeSDKVersion)")
+                expectation.fulfill()
+            }
+        }
+
+        waitForExpectations(timeout: 3)
+    }
 }
 
