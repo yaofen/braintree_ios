@@ -15,13 +15,13 @@ import BraintreePaymentFlow
     private let apiClient: BTAPIClient
     private let paymentFlowClient: BTPaymentFlowClient
     private var request: BTThreeDSecureRequest?
-    var threeDSecureV2Provider: BTThreeDSecureV2Provider?
-    var merchantCompletion: ((BTThreeDSecureResult?, Error?) -> Void)? = nil
+    private var threeDSecureV2Provider: BTThreeDSecureV2Provider?
+    private var merchantCompletion: ((BTThreeDSecureResult?, Error?) -> Void)? = nil
     
     /// The dfReferenceID for the session. Exposed for testing.
     var dfReferenceID: String? = nil
 
-    // MARK: - Public Methods
+    // MARK: - Initializer
     
     /// Initialize a new BTThreeDSecureClient instance.
     /// - Parameter apiClient: An API client
@@ -30,6 +30,8 @@ import BraintreePaymentFlow
         self.apiClient = apiClient
         self.paymentFlowClient = BTPaymentFlowClient(apiClient: apiClient)
     }
+    
+    // MARK: - Public Methods
     
     public func startPaymentFlow(_ request: BTThreeDSecureRequest, completion: @escaping (BTThreeDSecureResult?, Error?) -> Void) {
         self.request = request
@@ -85,6 +87,164 @@ import BraintreePaymentFlow
         }
         
 
+    }
+        
+    /// Creates a stringified JSON object containing the information necessary to perform a lookup.
+    /// - Parameters:
+    ///   - request: The `BTPaymentFlowRequest` object where prepareLookup was called.
+    ///   - completion: This completion will be invoked exactly once with the client payload string or an error.
+    @objc(prepareLookup:completion:)
+    public func prepareLookup(
+        _ request: BTThreeDSecureRequest,
+        completion: @escaping (String?, Error?) -> Void
+    ) {
+        guard apiClient.clientToken != nil else {
+            completion(nil, BTThreeDSecureError.configuration("A client token must be used for ThreeDSecure integrations."))
+            return
+        }
+
+        guard request.nonce != nil else {
+            completion(nil, BTThreeDSecureError.configuration("BTThreeDSecureRequest nonce can not be nil."))
+            return
+        }
+
+        prepareLookup(apiClient: apiClient) { error in
+            if let error {
+                completion(nil, error)
+                return
+            }
+
+            var requestParameters: [String: Any?] = [
+                "nonce": request.nonce,
+                "authorizationFingerprint": self.apiClient.clientToken?.authorizationFingerprint,
+                "braintreeLibraryVersion": "iOS-\(BTCoreConstants.braintreeSDKVersion)"
+            ]
+
+            if let dfReferenceID = request.dfReferenceID {
+                requestParameters["dfReferenceId"] = dfReferenceID
+            }
+
+            let clientMetadata: [String: String?] = [
+                "sdkVersion": "iOS/\(BTCoreConstants.braintreeSDKVersion)",
+                "requestedThreeDSecureVersion": "2"
+            ]
+
+            requestParameters["clientMetadata"] = clientMetadata
+
+            guard let jsonData = try? JSONSerialization.data(withJSONObject: requestParameters) else {
+                completion(nil, BTThreeDSecureError.jsonSerializationFailure)
+                return
+            }
+
+            let jsonString = String(data: jsonData, encoding: .utf8)
+            completion(jsonString, nil)
+            return
+        }
+    }
+
+    /// Creates a stringified JSON object containing the information necessary to perform a lookup.
+    /// - Parameters:
+    ///   - request: The `BTPaymentFlowRequest` object where prepareLookup was called.
+    /// - Returns: On success, you will receive a client payload string
+    /// - Throws: An `Error` describing the failure
+    public func prepareLookup(_ request: BTThreeDSecureRequest) async throws -> String {
+        try await withCheckedThrowingContinuation { continuation in
+            prepareLookup(request) { jsonString, error in
+                if let error {
+                    continuation.resume(throwing: error)
+                } else if let jsonString {
+                    continuation.resume(returning: jsonString)
+                }
+            }
+        }
+    }
+
+    /// Initialize a challenge from a server side lookup call.
+    /// - Parameters:
+    ///   - lookupResponse: The JSON string returned by the server side lookup.
+    ///   - request: The BTThreeDSecureRequest object where prepareLookup was called.
+    ///   - completion: This completion will be invoked exactly once when the payment flow is complete or an error occurs.
+    @objc(initializeChallengeWithLookupResponse:request:completion:)
+    public func initializeChallenge(
+        lookupResponse: String,
+        request: BTThreeDSecureRequest,
+        completion: @escaping (BTPaymentFlowResult?, Error?) -> Void
+    ) {
+        guard let dataResponse = lookupResponse.data(using: .utf8) else {
+            completion(nil, BTThreeDSecureError.failedLookup([NSLocalizedDescriptionKey: "Lookup response cannot be converted to Data type."]))
+            return
+        }
+
+        let jsonResponse = BTJSON(data: dataResponse)
+        let lookupResult = BTThreeDSecureResult(json: jsonResponse)
+
+        request.paymentFlowClientDelegate = paymentFlowClient
+
+        apiClient.fetchOrReturnRemoteConfiguration { configuration, error in
+            guard let configuration, error == nil else {
+                request.paymentFlowClientDelegate?.onPaymentComplete(nil, error: error)
+                return
+            }
+
+            self.process(lookupResult: lookupResult, configuration: configuration)
+        }
+    }
+
+    /// Initialize a challenge from a server side lookup call.
+    /// - Parameters:
+    ///   - lookupResponse: The JSON string returned by the server side lookup.
+    ///   - request: The BTThreeDSecureRequest object where prepareLookup was called.
+    /// - Returns: On success, you will receive an instance of `BTThreeDSecureResult`
+    /// - Throws: An `Error` describing the failure
+    public func initializeChallenge(
+        lookupResponse: String,
+        request: BTThreeDSecureRequest
+    ) async throws -> BTPaymentFlowResult {
+        try await withCheckedThrowingContinuation { continuation in
+            initializeChallenge(lookupResponse: lookupResponse, request: request) { result, error in
+                if let error {
+                    continuation.resume(throwing: error)
+                } else if let result {
+                    continuation.resume(returning: result)
+                }
+            }
+        }
+    }
+    
+    // MARK: - Internal Methods
+    
+    /// Prepare for a 3DS 2.0 flow.
+    /// - Parameters:
+    ///   - apiClient: The API client.
+    ///   - completion: This completion will be invoked exactly once. If the error is nil then the preparation was successful.
+    func prepareLookup(
+        apiClient: BTAPIClient,
+        completion: @escaping (Error?) -> Void
+    ) {
+        apiClient.fetchOrReturnRemoteConfiguration { [weak self] configuration, error in
+            guard let self else { return }
+
+            guard let configuration, error == nil else {
+                completion(error)
+                return
+            }
+
+            if configuration.cardinalAuthenticationJWT != nil {
+                self.threeDSecureV2Provider = BTThreeDSecureV2Provider(
+                    configuration: configuration,
+                    apiClient: apiClient,
+                    request: self.request! // TODO - avoid force
+                ) { lookupParameters in
+                    if let dfReferenceID = lookupParameters?["dfReferenceId"] {
+                        self.dfReferenceID = dfReferenceID
+                    }
+                    completion(nil)
+                }
+            } else {
+                completion(BTThreeDSecureError.configuration("Merchant is not configured for 3SD 2."))
+                return
+            }
+        }
     }
     
     // MARK: - Private Methods
@@ -166,11 +326,11 @@ import BraintreePaymentFlow
         apiClient.sendAnalyticsEvent("ios.three-d-secure.verification-flow.completed")
     }
     
-    func stringFor(_ boolean: Bool) -> String {
+    private func stringFor(_ boolean: Bool) -> String {
         boolean ? "true" : "false"
     }
     
-    func performThreeDSecureLookup(
+    private func performThreeDSecureLookup(
         _ request: BTThreeDSecureRequest,
         completion: @escaping (BTThreeDSecureResult?, Error?) -> Void
     ) {
@@ -263,166 +423,6 @@ import BraintreePaymentFlow
 
                 completion(BTThreeDSecureResult(json: body), nil)
                 return
-            }
-        }
-    }
-    
-    // MARK: - Internal Methods
-    
-    /// Prepare for a 3DS 2.0 flow.
-    /// - Parameters:
-    ///   - apiClient: The API client.
-    ///   - completion: This completion will be invoked exactly once. If the error is nil then the preparation was successful.
-    func prepareLookup(
-        apiClient: BTAPIClient,
-        completion: @escaping (Error?) -> Void
-    ) {
-        apiClient.fetchOrReturnRemoteConfiguration { [weak self] configuration, error in
-            guard let self else { return }
-
-            guard let configuration, error == nil else {
-                completion(error)
-                return
-            }
-
-            if configuration.cardinalAuthenticationJWT != nil {
-                self.threeDSecureV2Provider = BTThreeDSecureV2Provider(
-                    configuration: configuration,
-                    apiClient: apiClient,
-                    request: self.request! // TODO - avoid force
-                ) { lookupParameters in
-                    if let dfReferenceID = lookupParameters?["dfReferenceId"] {
-                        self.dfReferenceID = dfReferenceID
-                    }
-                    completion(nil)
-                }
-            } else {
-                completion(BTThreeDSecureError.configuration("Merchant is not configured for 3SD 2."))
-                return
-            }
-        }
-    }
-    
-    /// Creates a stringified JSON object containing the information necessary to perform a lookup.
-    /// - Parameters:
-    ///   - request: The `BTPaymentFlowRequest` object where prepareLookup was called.
-    ///   - completion: This completion will be invoked exactly once with the client payload string or an error.
-    @objc(prepareLookup:completion:)
-    public func prepareLookup(
-        _ request: BTThreeDSecureRequest,
-        completion: @escaping (String?, Error?) -> Void
-    ) {
-        let threeDSecureRequest = request as? BTThreeDSecureRequest
-
-        guard apiClient.clientToken != nil else {
-            completion(nil, BTThreeDSecureError.configuration("A client token must be used for ThreeDSecure integrations."))
-            return
-        }
-
-        guard let threeDSecureRequest, threeDSecureRequest.nonce != nil else {
-            completion(nil, BTThreeDSecureError.configuration("BTThreeDSecureRequest nonce can not be nil."))
-            return
-        }
-
-        prepareLookup(apiClient: apiClient) { error in
-            if let error {
-                completion(nil, error)
-                return
-            }
-
-            var requestParameters: [String: Any?] = [
-                "nonce": threeDSecureRequest.nonce,
-                "authorizationFingerprint": self.apiClient.clientToken?.authorizationFingerprint,
-                "braintreeLibraryVersion": "iOS-\(BTCoreConstants.braintreeSDKVersion)"
-            ]
-
-            if let dfReferenceID = threeDSecureRequest.dfReferenceID {
-                requestParameters["dfReferenceId"] = dfReferenceID
-            }
-
-            let clientMetadata: [String: String?] = [
-                "sdkVersion": "iOS/\(BTCoreConstants.braintreeSDKVersion)",
-                "requestedThreeDSecureVersion": "2"
-            ]
-
-            requestParameters["clientMetadata"] = clientMetadata
-
-            guard let jsonData = try? JSONSerialization.data(withJSONObject: requestParameters) else {
-                completion(nil, BTThreeDSecureError.jsonSerializationFailure)
-                return
-            }
-
-            let jsonString = String(data: jsonData, encoding: .utf8)
-            completion(jsonString, nil)
-            return
-        }
-    }
-
-    /// Creates a stringified JSON object containing the information necessary to perform a lookup.
-    /// - Parameters:
-    ///   - request: The `BTPaymentFlowRequest` object where prepareLookup was called.
-    /// - Returns: On success, you will receive a client payload string
-    /// - Throws: An `Error` describing the failure
-    public func prepareLookup(_ request: BTThreeDSecureRequest) async throws -> String {
-        try await withCheckedThrowingContinuation { continuation in
-            prepareLookup(request) { jsonString, error in
-                if let error {
-                    continuation.resume(throwing: error)
-                } else if let jsonString {
-                    continuation.resume(returning: jsonString)
-                }
-            }
-        }
-    }
-
-    /// Initialize a challenge from a server side lookup call.
-    /// - Parameters:
-    ///   - lookupResponse: The JSON string returned by the server side lookup.
-    ///   - request: The BTThreeDSecureRequest object where prepareLookup was called.
-    ///   - completion: This completion will be invoked exactly once when the payment flow is complete or an error occurs.
-    @objc(initializeChallengeWithLookupResponse:request:completion:)
-    public func initializeChallenge(
-        lookupResponse: String,
-        request: BTThreeDSecureRequest,
-        completion: @escaping (BTPaymentFlowResult?, Error?) -> Void
-    ) {
-        guard let dataResponse = lookupResponse.data(using: .utf8) else {
-            completion(nil, BTThreeDSecureError.failedLookup([NSLocalizedDescriptionKey: "Lookup response cannot be converted to Data type."]))
-            return
-        }
-
-        let jsonResponse = BTJSON(data: dataResponse)
-        let lookupResult = BTThreeDSecureResult(json: jsonResponse)
-
-        request.paymentFlowClientDelegate = paymentFlowClient
-
-        apiClient.fetchOrReturnRemoteConfiguration { configuration, error in
-            guard let configuration, error == nil else {
-                request.paymentFlowClientDelegate?.onPaymentComplete(nil, error: error)
-                return
-            }
-
-            self.process(lookupResult: lookupResult, configuration: configuration)
-        }
-    }
-
-    /// Initialize a challenge from a server side lookup call.
-    /// - Parameters:
-    ///   - lookupResponse: The JSON string returned by the server side lookup.
-    ///   - request: The BTThreeDSecureRequest object where prepareLookup was called.
-    /// - Returns: On success, you will receive an instance of `BTThreeDSecureResult`
-    /// - Throws: An `Error` describing the failure
-    public func initializeChallenge(
-        lookupResponse: String,
-        request: BTThreeDSecureRequest
-    ) async throws -> BTPaymentFlowResult {
-        try await withCheckedThrowingContinuation { continuation in
-            initializeChallenge(lookupResponse: lookupResponse, request: request) { result, error in
-                if let error {
-                    continuation.resume(throwing: error)
-                } else if let result {
-                    continuation.resume(returning: result)
-                }
             }
         }
     }
