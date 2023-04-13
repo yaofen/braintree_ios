@@ -116,8 +116,7 @@ import BraintreePaymentFlow
             DispatchQueue.main.async {
                 guard let lookupResult, error == nil else {
                     self.apiClient.sendAnalyticsEvent("ios.three-d-secure.verification-flow.failed")
-                    // TODO: - call merchant completion
-                    // self.paymentFlowClientDelegate?.onPayment(with: nil, error: error)
+                    self.merchantCompletion?(nil, error)
                     return
                 }
 
@@ -135,9 +134,7 @@ import BraintreePaymentFlow
     
     func process(lookupResult: BTThreeDSecureResult, configuration: BTConfiguration) {
         if lookupResult.lookup?.requiresUserAuthentication == false || lookupResult.lookup == nil {
-            // TODO: - call merchant completion
             merchantCompletion?(lookupResult, nil)
-            // paymentFlowClientDelegate?.onPaymentComplete(lookupResult, error: nil)
             return
         }
 
@@ -150,14 +147,12 @@ import BraintreePaymentFlow
         threeDSecureV2Provider?.process(lookupResult: lookupResult) { result, error in
             guard let result else {
                 self.apiClient.sendAnalyticsEvent("ios.three-d-secure.verification-flow.failed")
-                // TODO: - call merchant completion
-                //self.paymentFlowClientDelegate?.onPaymentComplete(nil, error: error)
+                self.merchantCompletion?(nil, error)
                 return
             }
 
             self.logThreeDSecureCompletedAnalytics(forResult: lookupResult, apiClient: self.apiClient)
-            // TODO: - call merchant completion
-            // self.paymentFlowClientDelegate?.onPaymentComplete(result, error: error)
+            self.merchantCompletion?(result, error)
         }
     }
     
@@ -191,7 +186,7 @@ import BraintreePaymentFlow
                 "amount": request.amount ?? 0,
                 "customer": customer,
                 "requestedThreeDSecureVersion": "2",
-                "dfReferenceId": request.dfReferenceID ?? "",
+                "dfReferenceId": self.dfReferenceID ?? "",
                 "accountType": request.accountType.stringValue ?? "",
                 "challengeRequested": request.challengeRequested,
                 "exemptionRequested": request.exemptionRequested,
