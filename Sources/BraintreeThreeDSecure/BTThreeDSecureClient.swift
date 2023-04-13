@@ -4,10 +4,6 @@ import Foundation
 import BraintreeCore
 #endif
 
-#if canImport(BraintreePaymentFlow)
-import BraintreePaymentFlow
-#endif
-
 @objcMembers public class BTThreeDSecureClient: NSObject {
     
     // MARK: - Private Properies
@@ -165,7 +161,7 @@ import BraintreePaymentFlow
     public func initializeChallenge(
         lookupResponse: String,
         request: BTThreeDSecureRequest,
-        completion: @escaping (BTPaymentFlowResult?, Error?) -> Void
+        completion: @escaping (BTThreeDSecureResult?, Error?) -> Void
     ) {
         guard let dataResponse = lookupResponse.data(using: .utf8) else {
             completion(nil, BTThreeDSecureError.failedLookup([NSLocalizedDescriptionKey: "Lookup response cannot be converted to Data type."]))
@@ -194,7 +190,7 @@ import BraintreePaymentFlow
     public func initializeChallenge(
         lookupResponse: String,
         request: BTThreeDSecureRequest
-    ) async throws -> BTPaymentFlowResult {
+    ) async throws -> BTThreeDSecureResult {
         try await withCheckedThrowingContinuation { continuation in
             initializeChallenge(lookupResponse: lookupResponse, request: request) { result, error in
                 if let error {
