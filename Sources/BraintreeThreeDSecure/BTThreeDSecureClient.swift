@@ -309,7 +309,7 @@ import BraintreePaymentFlow
     ///   - completion: This completion will be invoked exactly once with the client payload string or an error.
     @objc(prepareLookup:completion:)
     public func prepareLookup(
-        _ request: BTPaymentFlowRequest & BTPaymentFlowRequestDelegate,
+        _ request: BTThreeDSecureRequest,
         completion: @escaping (String?, Error?) -> Void
     ) {
         let threeDSecureRequest = request as? BTThreeDSecureRequest
@@ -363,7 +363,7 @@ import BraintreePaymentFlow
     ///   - request: The `BTPaymentFlowRequest` object where prepareLookup was called.
     /// - Returns: On success, you will receive a client payload string
     /// - Throws: An `Error` describing the failure
-    public func prepareLookup(_ request: BTPaymentFlowRequest & BTPaymentFlowRequestDelegate) async throws -> String {
+    public func prepareLookup(_ request: BTThreeDSecureRequest) async throws -> String {
         try await withCheckedThrowingContinuation { continuation in
             prepareLookup(request) { jsonString, error in
                 if let error {
@@ -383,11 +383,9 @@ import BraintreePaymentFlow
     @objc(initializeChallengeWithLookupResponse:request:completion:)
     public func initializeChallenge(
         lookupResponse: String,
-        request: BTPaymentFlowRequest & BTPaymentFlowRequestDelegate,
+        request: BTThreeDSecureRequest,
         completion: @escaping (BTPaymentFlowResult?, Error?) -> Void
     ) {
-        paymentFlowClient.setupPaymentFlow(request, completion: completion)
-
         guard let dataResponse = lookupResponse.data(using: .utf8) else {
             completion(nil, BTThreeDSecureError.failedLookup([NSLocalizedDescriptionKey: "Lookup response cannot be converted to Data type."]))
             return
@@ -395,13 +393,12 @@ import BraintreePaymentFlow
 
         let jsonResponse = BTJSON(data: dataResponse)
         let lookupResult = BTThreeDSecureResult(json: jsonResponse)
-        let threeDSecureRequest = request as? BTThreeDSecureRequest
 
-        threeDSecureRequest?.paymentFlowClientDelegate = paymentFlowClient
+        request.paymentFlowClientDelegate = paymentFlowClient
 
         apiClient.fetchOrReturnRemoteConfiguration { configuration, error in
             guard let configuration, error == nil else {
-                threeDSecureRequest?.paymentFlowClientDelegate?.onPaymentComplete(nil, error: error)
+                request.paymentFlowClientDelegate?.onPaymentComplete(nil, error: error)
                 return
             }
 
@@ -417,7 +414,7 @@ import BraintreePaymentFlow
     /// - Throws: An `Error` describing the failure
     public func initializeChallenge(
         lookupResponse: String,
-        request: BTPaymentFlowRequest & BTPaymentFlowRequestDelegate
+        request: BTThreeDSecureRequest
     ) async throws -> BTPaymentFlowResult {
         try await withCheckedThrowingContinuation { continuation in
             initializeChallenge(lookupResponse: lookupResponse, request: request) { result, error in
