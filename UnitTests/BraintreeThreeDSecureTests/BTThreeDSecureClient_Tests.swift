@@ -1,58 +1,228 @@
-import UIKit
 import XCTest
-@testable import BraintreeTestShared
 @testable import BraintreeCore
+@testable import BraintreeTestShared
+@testable import BraintreeCard
 @testable import BraintreeThreeDSecure
 
 class BTThreeDSecureClient_Tests: XCTestCase {
-    let tempClientToken = "eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiJmNTI0M2RkZGRmNzlkNGFiYmI5YjYwMDUzN2ZkZjQ0ZDViNDg0ODVkOWU0ZjJmYmI3YWM5ZTU2MGE3ZDVhZmM5fGNyZWF0ZWRfYXQ9MjAxNy0wNC0xM1QyMTozOTo0My40MjM4NzE4MTUrMDAwMFx1MDAyNmN1c3RvbWVyX2lkPTJENzJCNjQ4LUI0RkMtNDQ1My1BOURDLTI2QTYyMEVGNjQwNFx1MDAyNm1lcmNoYW50X2FjY291bnRfaWQ9aWRlYWxfZXVyXHUwMDI2bWVyY2hhbnRfaWQ9ZGNwc3B5MmJyd2RqcjNxblx1MDAyNnB1YmxpY19rZXk9OXd3cnpxazN2cjN0NG5jOCIsImNvbmZpZ1VybCI6Imh0dHBzOi8vYXBpLnNhbmRib3guYnJhaW50cmVlZ2F0ZXdheS5jb206NDQzL21lcmNoYW50cy9kY3BzcHkyYnJ3ZGpyM3FuL2NsaWVudF9hcGkvdjEvY29uZmlndXJhdGlvbiIsImNoYWxsZW5nZXMiOlsiY3Z2IiwicG9zdGFsX2NvZGUiXSwiZW52aXJvbm1lbnQiOiJzYW5kYm94IiwiY2xpZW50QXBpVXJsIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbTo0NDMvbWVyY2hhbnRzL2RjcHNweTJicndkanIzcW4vY2xpZW50X2FwaSIsImFzc2V0c1VybCI6Imh0dHBzOi8vYXNzZXRzLmJyYWludHJlZWdhdGV3YXkuY29tIiwiYXV0aFVybCI6Imh0dHBzOi8vYXV0aC52ZW5tby5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tIiwiYW5hbHl0aWNzIjp7InVybCI6Imh0dHBzOi8vY2xpZW50LWFuYWx5dGljcy5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tL2RjcHNweTJicndkanIzcW4ifSwidGhyZWVEU2VjdXJlRW5hYmxlZCI6ZmFsc2UsInBheXBhbEVuYWJsZWQiOmZhbHNlLCJjb2luYmFzZUVuYWJsZWQiOnRydWUsImNvaW5iYXNlIjp7ImNsaWVudElkIjoiN2U5NWUwZmRkYTE0ODQ2NjU4YjM4Zjc3MmJhMmQzMGNkNzhhOWYyMTQ0YzUzOTA4NmU1NzkwYmYzNzdmYmVlZCIsIm1lcmNoYW50QWNjb3VudCI6ImNvaW5iYXNlLXNhbmRib3gtc2hhcmVkLW1lcmNoYW50QGdldGJyYWludHJlZS5jb20iLCJzY29wZXMiOiJhdXRob3JpemF0aW9uczpicmFpbnRyZWUgdXNlciIsInJlZGlyZWN0VXJsIjoiaHR0cHM6Ly9hc3NldHMuYnJhaW50cmVlZ2F0ZXdheS5jb20vY29pbmJhc2Uvb2F1dGgvcmVkaXJlY3QtbGFuZGluZy5odG1sIiwiZW52aXJvbm1lbnQiOiJwcm9kdWN0aW9uIn0sImJyYWludHJlZV9hcGkiOnsiYWNjZXNzX3Rva2VuIjoic2FuZGJveF9mN2RyNWNfZHE2c3MyX2prczd4dF80aHNwc2hfcWI3IiwidXJsIjoiaHR0cHM6Ly9wYXltZW50cy5zYW5kYm94LmJyYWludHJlZS1hcGkuY29tIn0sIm1lcmNoYW50SWQiOiJkY3BzcHkyYnJ3ZGpyM3FuIiwidmVubW8iOiJvZmZsaW5lIiwiYXBwbGVQYXkiOnsic3RhdHVzIjoibW9jayIsImNvdW50cnlDb2RlIjoiVVMiLCJjdXJyZW5jeUNvZGUiOiJFVVIiLCJtZXJjaGFudElkZW50aWZpZXIiOiJtZXJjaGFudC5jb20uYnJhaW50cmVlcGF5bWVudHMuc2FuZGJveC5CcmFpbnRyZWUtRGVtbyIsInN1cHBvcnRlZE5ldHdvcmtzIjpbInZpc2EiLCJtYXN0ZXJjYXJkIiwiYW1leCIsImRpc2NvdmVyIl19LCJtZXJjaGFudEFjY291bnRJZCI6ImlkZWFsX2V1ciJ9"
-    var mockAPIClient : MockAPIClient!
-    var threeDSecureRequest : BTThreeDSecureRequest!
-    var mockThreeDSecureRequestDelegate : MockThreeDSecureRequestDelegate!
+
+    var mockAPIClient = MockAPIClient(authorization: TestClientTokenFactory.token(withVersion: 3))!
+    var threeDSecureRequest = BTThreeDSecureRequest()
+    var client: BTThreeDSecureClient!
 
     override func setUp() {
         super.setUp()
-        
-        threeDSecureRequest = BTThreeDSecureRequest()
         threeDSecureRequest.amount = 10.0
         threeDSecureRequest.nonce = "fake-card-nonce"
-        mockAPIClient = MockAPIClient(authorization: tempClientToken)!
-        mockThreeDSecureRequestDelegate = MockThreeDSecureRequestDelegate()
+        client = BTThreeDSecureClient(apiClient: mockAPIClient)
     }
 
-    // MARK: - ThreeDSecure Prepare Lookup Tests
+    // MARK: - performThreeDSecureLookup
 
-    func testThreeDSecureRequest_prepareLookup_getsJsonString() {
-        mockAPIClient.cannedConfigurationResponseBody = BTJSON(value: [
-            "threeDSecure": ["cardinalAuthenticationJWT": "FAKE_JWT"],
-            "assetsUrl": "http://assets.example.com"
-        ])
-        let client = BTThreeDSecureClient(apiClient: mockAPIClient)
-
-        let expectation = expectation(description: "willCallCompletion")
+    func testPerformThreeDSecureLookup_sendsAllParameters() {
+        let expectation = self.expectation(description: "willCallCompletion")
 
         threeDSecureRequest.nonce = "fake-card-nonce"
-        threeDSecureRequest.dfReferenceID = "fake-df-reference-id"
+        threeDSecureRequest.amount = 9.97
+        threeDSecureRequest.dfReferenceID = "df-reference-id"
+        threeDSecureRequest.accountType = .credit
+        threeDSecureRequest.challengeRequested = true
+        threeDSecureRequest.exemptionRequested = true
+        threeDSecureRequest.dataOnlyRequested = true
+        threeDSecureRequest.cardAddChallenge = .requested
 
-        client.prepareLookup(threeDSecureRequest) { clientData, error in
-            XCTAssertNil(error)
-            XCTAssertNotNil(clientData)
-            if let data = clientData!.data(using: .utf8) {
-                let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                XCTAssertEqual(json!["dfReferenceId"] as! String, "fake-df-reference-id")
-                XCTAssertEqual(json!["nonce"] as! String, "fake-card-nonce")
-                XCTAssertNotNil(json!["braintreeLibraryVersion"] as! String)
-                XCTAssertNotNil(json!["authorizationFingerprint"] as! String)
-                let clientMetadata = json!["clientMetadata"] as! [String: Any]
-                XCTAssertEqual(clientMetadata["requestedThreeDSecureVersion"] as! String, "2")
-                XCTAssertEqual(clientMetadata["sdkVersion"] as! String, "iOS/\(BTCoreConstants.braintreeSDKVersion)")
-                expectation.fulfill()
-            }
+        threeDSecureRequest.mobilePhoneNumber = "5151234321"
+        threeDSecureRequest.email = "tester@example.com"
+        threeDSecureRequest.shippingMethod = .priority
+
+        let billingAddress = BTThreeDSecurePostalAddress()
+        billingAddress.givenName = "Joe"
+        billingAddress.surname = "Guy"
+        billingAddress.phoneNumber = "12345678"
+        billingAddress.streetAddress = "555 Smith St."
+        billingAddress.extendedAddress = "#5"
+        billingAddress.line3 = "Suite A"
+        billingAddress.locality = "Oakland"
+        billingAddress.region = "CA"
+        billingAddress.countryCodeAlpha2 = "US"
+        billingAddress.postalCode = "54321"
+        threeDSecureRequest.billingAddress = billingAddress
+
+        client.performThreeDSecureLookup(threeDSecureRequest) { (lookup, error) in
+            XCTAssertEqual(self.mockAPIClient.lastPOSTParameters!["amount"] as! NSDecimalNumber, 9.97)
+            XCTAssertEqual(self.mockAPIClient.lastPOSTParameters!["requestedThreeDSecureVersion"] as! String, "2")
+            XCTAssertEqual(self.mockAPIClient.lastPOSTParameters!["dfReferenceId"] as! String, "df-reference-id")
+            XCTAssertEqual(self.mockAPIClient.lastPOSTParameters!["accountType"] as! String, "credit")
+            XCTAssertTrue(self.mockAPIClient.lastPOSTParameters!["challengeRequested"] as! Bool)
+            XCTAssertTrue(self.mockAPIClient.lastPOSTParameters!["exemptionRequested"] as! Bool)
+            XCTAssertTrue(self.mockAPIClient.lastPOSTParameters!["dataOnlyRequested"] as! Bool)
+            XCTAssertTrue(self.mockAPIClient.lastPOSTParameters!["cardAdd"] as! Bool)
+
+            let additionalInfo = self.mockAPIClient.lastPOSTParameters!["additionalInfo"] as! Dictionary<String, String>
+            XCTAssertEqual(additionalInfo["mobilePhoneNumber"], "5151234321")
+            XCTAssertEqual(additionalInfo["email"], "tester@example.com")
+            XCTAssertEqual(additionalInfo["shippingMethod"], "03")
+
+            XCTAssertEqual(additionalInfo["billingGivenName"], "Joe")
+            XCTAssertEqual(additionalInfo["billingSurname"], "Guy")
+            XCTAssertEqual(additionalInfo["billingPhoneNumber"], "12345678")
+            XCTAssertEqual(additionalInfo["billingLine1"], "555 Smith St.")
+            XCTAssertEqual(additionalInfo["billingLine2"], "#5")
+            XCTAssertEqual(additionalInfo["billingLine3"], "Suite A")
+            XCTAssertEqual(additionalInfo["billingCity"], "Oakland")
+            XCTAssertEqual(additionalInfo["billingState"], "CA")
+            XCTAssertEqual(additionalInfo["billingCountryCode"], "US")
+            XCTAssertEqual(additionalInfo["billingPostalCode"], "54321")
+
+            expectation.fulfill()
         }
 
-        waitForExpectations(timeout: 3)
+        waitForExpectations(timeout: 3, handler: nil)
+    }
+
+    func testPerformThreeDSecureLookup_whenCardAddChallengeNotRequested_sendsCardAddFalse() {
+        let expectation = self.expectation(description: "willCallCompletion")
+
+        threeDSecureRequest.nonce = "fake-card-nonce"
+        threeDSecureRequest.amount = 9.97
+        threeDSecureRequest.dfReferenceID = "df-reference-id"
+
+        threeDSecureRequest.cardAddChallenge = .notRequested
+
+        client.performThreeDSecureLookup(threeDSecureRequest) { (lookup, error) in
+            XCTAssertFalse(self.mockAPIClient.lastPOSTParameters!["cardAdd"] as! Bool)
+
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 3, handler: nil)
+    }
+
+    func testPerformThreeDSecureLookup_whenCardAddChallengeRequestedNotSet_doesNotSendCardAddParameter() {
+        let expectation = self.expectation(description: "willCallCompletion")
+
+        threeDSecureRequest.nonce = "fake-card-nonce"
+        threeDSecureRequest.amount = 9.97
+        threeDSecureRequest.dfReferenceID = "df-reference-id"
+
+        client.performThreeDSecureLookup(threeDSecureRequest) { (lookup, error) in
+            XCTAssertNil(self.mockAPIClient.lastPOSTParameters!["cardAdd"] as? Bool)
+
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 3, handler: nil)
+    }
+
+
+    func testPerformThreeDSecureLookup_whenSuccessful_callsBackWithResult() {
+        let responseBody =
+            """
+            {
+                "lookup": {
+                    "acsUrl": "www.someAcsUrl.com",
+                    "md": "someMd",
+                    "pareq": "somePareq",
+                    "termUrl": "www.someTermUrl.com",
+                    "threeDSecureVersion": "2.1.0",
+                    "transactionId": "someTransactionId"
+                },
+                "paymentMethod": {
+                    "nonce": "someLookupNonce",
+                    "threeDSecureInfo": {
+                        "liabilityShiftPossible": true,
+                        "liabilityShifted": false
+                    }
+                }
+            }
+            """
+
+        mockAPIClient.cannedResponseBody = BTJSON(data: responseBody.data(using: String.Encoding.utf8)!)
+        let expectation = self.expectation(description: "willCallCompletion")
+
+        client.performThreeDSecureLookup(threeDSecureRequest) { result, error in
+            XCTAssertNotNil(result)
+            XCTAssertNotNil(result?.lookup)
+            XCTAssertNotNil(result?.tokenizedCard)
+            XCTAssertNil(error)
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+
+    func testPerformThreeDSecureLookup_whenFetchingConfigurationFails_callsBackWithConfigurationError() {
+        mockAPIClient.cannedConfigurationResponseError = NSError(domain: "", code: 0, userInfo: nil)
+
+        let expectation = self.expectation(description: "lookup fails with errors")
+
+        client.performThreeDSecureLookup(threeDSecureRequest) { (lookup, error) in
+            XCTAssertEqual(error! as NSError, self.mockAPIClient.cannedConfigurationResponseError!)
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+
+    func testPerformThreeDSecureLookup_whenLookupFails_callsBackWithError() {
+        mockAPIClient.cannedResponseError = NSError(domain:"BTError", code: 0, userInfo: nil)
+
+        let expectation = self.expectation(description: "Post fails with error.")
+
+        client.performThreeDSecureLookup(threeDSecureRequest) { result, error in
+            XCTAssertEqual(error! as NSError, self.mockAPIClient.cannedResponseError!)
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 2, handler: nil)
+    }
+
+    func testPerformThreeDSecureLookup_whenLookupFailsWith422_callsBackWithError() {
+        let response = HTTPURLResponse(url: URL(string: "www.example.com")!, statusCode: 422, httpVersion: nil, headerFields: nil)
+
+        let errorBody =
+            """
+            {
+                "error" : {
+                    "message" : "testMessage"
+                }
+            }
+            """
+
+        let userInfo: [String : AnyObject] = [
+            BTCoreConstants.urlResponseKey: response as AnyObject,
+            BTCoreConstants.jsonResponseBodyKey: BTJSON(data: errorBody.data(using: String.Encoding.utf8)!)
+        ]
+
+        mockAPIClient.cannedResponseError = BTHTTPError.clientError(userInfo) as NSError?
+        let expectation = self.expectation(description: "Post fails with error code 422.")
+
+        client.performThreeDSecureLookup(threeDSecureRequest) { result, error in
+            let e = error! as NSError
+
+            XCTAssertEqual(e.domain, BTThreeDSecureError.errorDomain)
+            XCTAssertEqual(e.code, BTThreeDSecureError.failedLookup([:]).errorCode)
+            XCTAssertEqual(e.userInfo[NSLocalizedDescriptionKey] as? String, "testMessage")
+            XCTAssertEqual(e.userInfo["com.braintreepayments.BTThreeDSecureFlowValidationErrorsKey"] as? [String : String], ["message" : "testMessage"])
+            XCTAssertNil(result)
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 1, handler: nil)
     }
     
-    // TODO: - Add unit tests for `initializeChallenge` server-side lookup func
-}
+    func testPerformThreeDSecureLookup_whenNetworkConnectionLost_sendsAnalytics() {
+        mockAPIClient.cannedResponseError = NSError(domain: NSURLErrorDomain, code: -1005, userInfo: [NSLocalizedDescriptionKey: "The network connection was lost."])
+        
+        let expectation = self.expectation(description: "Callback envoked")
 
+        client.performThreeDSecureLookup(threeDSecureRequest) { result, error in
+            XCTAssertNotNil(error)
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 2)
+        
+        XCTAssertTrue(mockAPIClient.postedAnalyticsEvents.contains("ios.three-d-secure.lookup.network-connection.failure"))
+    }
+}

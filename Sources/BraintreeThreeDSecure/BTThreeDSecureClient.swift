@@ -224,12 +224,18 @@ import BraintreePaymentFlow
                 completion(error)
                 return
             }
+            
+            guard let request = self.request else {
+                completion(BTThreeDSecureError.invalidAPIClient) // some other error
+                return
+                // TODO
+            }
 
             if configuration.cardinalAuthenticationJWT != nil {
                 self.threeDSecureV2Provider = BTThreeDSecureV2Provider(
                     configuration: configuration,
                     apiClient: apiClient,
-                    request: self.request! // TODO - avoid force
+                    request: request // TODO - avoid force
                 ) { lookupParameters in
                     if let dfReferenceID = lookupParameters?["dfReferenceId"] {
                         self.dfReferenceID = dfReferenceID
@@ -326,7 +332,7 @@ import BraintreePaymentFlow
         boolean ? "true" : "false"
     }
     
-    private func performThreeDSecureLookup(
+    func performThreeDSecureLookup(
         _ request: BTThreeDSecureRequest,
         completion: @escaping (BTThreeDSecureResult?, Error?) -> Void
     ) {
@@ -342,7 +348,7 @@ import BraintreePaymentFlow
                 "amount": request.amount ?? 0,
                 "customer": customer,
                 "requestedThreeDSecureVersion": "2",
-                "dfReferenceId": self.dfReferenceID ?? "",
+                "dfReferenceId": request.dfReferenceID, // TODO
                 "accountType": request.accountType.stringValue ?? "",
                 "challengeRequested": request.challengeRequested,
                 "exemptionRequested": request.exemptionRequested,
