@@ -37,9 +37,7 @@ import Foundation
         [
             "integration": self.integrationString,
             "source": self.sourceString,
-            "sessionId": self.sessionID,
-            "platform": "iOS",
-            "version": BTCoreConstants.braintreeSDKVersion
+            "sessionId": self.sessionID
         ]
     }
     
