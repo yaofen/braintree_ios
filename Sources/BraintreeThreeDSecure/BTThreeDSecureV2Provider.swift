@@ -44,6 +44,11 @@ class BTThreeDSecureV2Provider {
         }
 
         cardinalConfiguration.deploymentEnvironment = cardinalEnvironment
+
+        if request.uiType != nil && request.uiType != .unspecified, let uiType = uiTypeToCardinalUIType(for: request) {
+            cardinalConfiguration.uiType = uiType
+        }
+
         cardinalSession.configure(cardinalConfiguration)
         cardinalSession.setup(
             jwtString: cardinalAuthenticationJWT,
@@ -101,6 +106,19 @@ class BTThreeDSecureV2Provider {
             return "timeout"
         @unknown default:
             return ""
+        }
+    }
+
+    func uiTypeToCardinalUIType(for request: BTThreeDSecureRequest) -> CardinalSessionUIType? {
+        switch request.uiType {
+        case .both:
+            return CardinalSessionUIType.both
+        case .native:
+            return CardinalSessionUIType.native
+        case .html:
+            return CardinalSessionUIType.native
+        default:
+            return nil
         }
     }
 }

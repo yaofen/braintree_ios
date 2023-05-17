@@ -4,6 +4,44 @@ import Foundation
 import BraintreeCore
 #endif
 
+/// The interface types that the device supports for displaying specific challenge user interfaces within the 3D Secure challenge.
+@objc public enum BTThreeDSecureUIType: Int {
+
+    /// Unspecified
+    case unspecified
+
+    /// Both
+    case both
+
+    /// Native
+    case native
+
+    /// HTML
+    case html
+}
+
+/// List of all the render types that the device supports for displaying specific challenge user interfaces within the 3D Secure challenge.
+///
+/// - Note: When using `BTThreeDSecureUIType.both` or `BTThreeDSecureUIType.html`, all `BTThreeDSecureRenderType` options must be set.
+/// When using `BTThreeDSecureUIType.native`, all `BTThreeDSecureRenderType` options except `BTThreeDSecureRenderType.html` must be set.
+@objc public enum BTThreeDSecureRenderType: Int {
+
+    /// OTP
+    case otp
+
+    /// HTML
+    case html
+
+    /// Single select
+    case singleSelect
+
+    /// Multi select
+    case multiSelect
+
+    /// OOB
+    case oob
+}
+
 /// Used to initialize a 3D Secure payment flow
 @objcMembers public class BTThreeDSecureRequest: NSObject {
     
@@ -61,6 +99,12 @@ import BraintreeCore
 
     /// Optional. UI Customization for 3DS2 challenge views.
     public var v2UICustomization: BTThreeDSecureV2UICustomization?
+
+    /// Optional. The interface types that the device supports for displaying specific challenge user interfaces within the 3D Secure challenge.
+    public var uiType: BTThreeDSecureUIType? = .unspecified
+
+    /// Optional. List of all the render types that the device supports for displaying specific challenge user interfaces within the 3D Secure challenge.
+    public var renderType: [BTThreeDSecureRenderType]? = []
 
     /// A delegate for receiving information about the ThreeDSecure payment flow.
     public weak var threeDSecureRequestDelegate: BTThreeDSecureRequestDelegate?
