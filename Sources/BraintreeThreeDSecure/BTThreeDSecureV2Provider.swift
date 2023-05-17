@@ -45,12 +45,12 @@ class BTThreeDSecureV2Provider {
 
         cardinalConfiguration.deploymentEnvironment = cardinalEnvironment
 
-        if request.uiType != nil && request.uiType != .unspecified, let uiType = uiTypeToCardinalUIType(for: request) {
+        if request.uiType != .unspecified, let uiType = uiTypeToCardinalUIType(for: request) {
             cardinalConfiguration.uiType = uiType
         }
 
-        if request.renderType != nil {
-            cardinalConfiguration.renderType = renderTypeToCardinalRenderType(for: request)
+        if let renderType = request.renderType {
+            cardinalConfiguration.renderType = renderType
         }
 
         cardinalSession.configure(cardinalConfiguration)
@@ -124,28 +124,6 @@ class BTThreeDSecureV2Provider {
         default:
             return nil
         }
-    }
-
-    private func renderTypeToCardinalRenderType(for request: BTThreeDSecureRequest) -> [String] {
-        var renderTypeResult: [String] = []
-
-        if let renderTypes = request.renderType {
-            renderTypes.forEach { renderType in
-                if renderType == BTThreeDSecureRenderType.otp {
-                    renderTypeResult.append("CardinalSessionRenderTypeOTP")
-                } else if renderType == BTThreeDSecureRenderType.html {
-                    renderTypeResult.append("CardinalSessionRenderTypeHTML")
-                } else if renderType == BTThreeDSecureRenderType.singleSelect {
-                    renderTypeResult.append("CardinalSessionRenderTypeSingleSelect")
-                } else if renderType == BTThreeDSecureRenderType.multiSelect {
-                    renderTypeResult.append("CardinalSessionRenderTypeMultiSelect")
-                } else if renderType == BTThreeDSecureRenderType.oob {
-                    renderTypeResult.append("CardinalSessionRenderTypeOOB")
-                }
-            }
-        }
-
-        return renderTypeResult
     }
 }
 
