@@ -194,7 +194,18 @@ NSInteger const BTThreeDSecureCancelCode = 5;
         [ui setLabelCustomization:labelCustomization];
 
         request.v2UICustomization = ui;
-        
+
+        // MARK: - UI and Render Type Customization
+
+        request.uiType = BTThreeDSecureUITypeBoth;
+        request.renderType = [[NSArray alloc] initWithObjects:
+                              BTThreeDSecureRenderType.otp,
+                              BTThreeDSecureRenderType.html,
+                              BTThreeDSecureRenderType.multiSelect,
+                              BTThreeDSecureRenderType.singleSelect,
+                              BTThreeDSecureRenderType.oob,
+                              nil];
+
         [self.threeDSecureClient startPaymentFlow:request completion:^(BTThreeDSecureResult * _Nonnull result, NSError * _Nonnull error) {
             self.callbackCount++;
             [self updateCallbackCount];

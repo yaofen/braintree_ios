@@ -22,33 +22,21 @@ import BraintreeCore
 
 @objcMembers public class BTThreeDSecureRenderType: NSObject {
 
-    public typealias BTThreeDSecureRenderType = String
+    public typealias StringValue = String
 
-    public static let otp: BTThreeDSecureRenderType = "CardinalSessionRenderTypeOTP"
+    public static let otp: StringValue = "CardinalSessionRenderTypeOTP"
 
-    public static let html: BTThreeDSecureRenderType = "CardinalSessionRenderTypeHTML"
+    public static let html: StringValue = "CardinalSessionRenderTypeHTML"
 
-    public static let singleSelect: BTThreeDSecureRenderType = "CardinalSessionRenderTypeSingleSelect"
+    public static let singleSelect: StringValue = "CardinalSessionRenderTypeSingleSelect"
 
-    public static let multiSelect: BTThreeDSecureRenderType = "CardinalSessionRenderTypeMultiSelect"
+    public static let multiSelect: StringValue = "CardinalSessionRenderTypeMultiSelect"
 
-    public static let oob: BTThreeDSecureRenderType = "CardinalSessionRenderTypeOOB"
+    public static let oob: StringValue = "CardinalSessionRenderTypeOOB"
 }
 
 /// Used to initialize a 3D Secure payment flow
 @objcMembers public class BTThreeDSecureRequest: NSObject {
-
-//    public typealias BTThreeDSecureRenderType = String
-//
-//    public let otp: BTThreeDSecureRenderType = "CardinalSessionRenderTypeOTP"
-//
-//    public let html: BTThreeDSecureRenderType = "CardinalSessionRenderTypeHTML"
-//
-//    public let singleSelect: BTThreeDSecureRenderType = "CardinalSessionRenderTypeSingleSelect"
-//
-//    public let multiSelect: BTThreeDSecureRenderType = "CardinalSessionRenderTypeMultiSelect"
-//
-//    public let oob: BTThreeDSecureRenderType = "CardinalSessionRenderTypeOOB"
     
     // MARK: - Public Properties
 
@@ -112,7 +100,7 @@ import BraintreeCore
     ///
     /// - Note: When using `BTThreeDSecureUIType.both` or `BTThreeDSecureUIType.html`, all `BTThreeDSecureRenderType` options must be set.
     /// When using `BTThreeDSecureUIType.native`, all `BTThreeDSecureRenderType` options except `BTThreeDSecureRenderType.html` must be set.
-    public var renderType: [BTThreeDSecureRenderType.BTThreeDSecureRenderType]?
+    public var renderType: [BTThreeDSecureRenderType.StringValue]?
 
     /// A delegate for receiving information about the ThreeDSecure payment flow.
     public weak var threeDSecureRequestDelegate: BTThreeDSecureRequestDelegate?
