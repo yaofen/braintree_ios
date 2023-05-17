@@ -20,30 +20,35 @@ import BraintreeCore
     case html
 }
 
-/// List of all the render types that the device supports for displaying specific challenge user interfaces within the 3D Secure challenge.
-///
-/// - Note: When using `BTThreeDSecureUIType.both` or `BTThreeDSecureUIType.html`, all `BTThreeDSecureRenderType` options must be set.
-/// When using `BTThreeDSecureUIType.native`, all `BTThreeDSecureRenderType` options except `BTThreeDSecureRenderType.html` must be set.
-@objc public enum BTThreeDSecureRenderType: Int {
+@objcMembers public class BTThreeDSecureRenderType: NSObject {
 
-    /// OTP
-    case otp
+    public typealias BTThreeDSecureRenderType = String
 
-    /// HTML
-    case html
+    public static let otp: BTThreeDSecureRenderType = "CardinalSessionRenderTypeOTP"
 
-    /// Single select
-    case singleSelect
+    public static let html: BTThreeDSecureRenderType = "CardinalSessionRenderTypeHTML"
 
-    /// Multi select
-    case multiSelect
+    public static let singleSelect: BTThreeDSecureRenderType = "CardinalSessionRenderTypeSingleSelect"
 
-    /// OOB
-    case oob
+    public static let multiSelect: BTThreeDSecureRenderType = "CardinalSessionRenderTypeMultiSelect"
+
+    public static let oob: BTThreeDSecureRenderType = "CardinalSessionRenderTypeOOB"
 }
 
 /// Used to initialize a 3D Secure payment flow
 @objcMembers public class BTThreeDSecureRequest: NSObject {
+
+//    public typealias BTThreeDSecureRenderType = String
+//
+//    public let otp: BTThreeDSecureRenderType = "CardinalSessionRenderTypeOTP"
+//
+//    public let html: BTThreeDSecureRenderType = "CardinalSessionRenderTypeHTML"
+//
+//    public let singleSelect: BTThreeDSecureRenderType = "CardinalSessionRenderTypeSingleSelect"
+//
+//    public let multiSelect: BTThreeDSecureRenderType = "CardinalSessionRenderTypeMultiSelect"
+//
+//    public let oob: BTThreeDSecureRenderType = "CardinalSessionRenderTypeOOB"
     
     // MARK: - Public Properties
 
@@ -101,10 +106,13 @@ import BraintreeCore
     public var v2UICustomization: BTThreeDSecureV2UICustomization?
 
     /// Optional. The interface types that the device supports for displaying specific challenge user interfaces within the 3D Secure challenge.
-    public var uiType: BTThreeDSecureUIType? = .unspecified
+    public var uiType: BTThreeDSecureUIType = .unspecified
 
-    /// Optional. List of all the render types that the device supports for displaying specific challenge user interfaces within the 3D Secure challenge.CardinalSessionRenderTypeOTP
-    public var renderType: [BTThreeDSecureRenderType]?
+    /// Optional. List of all the render types that the device supports for displaying specific challenge user interfaces within the 3D Secure challenge.
+    ///
+    /// - Note: When using `BTThreeDSecureUIType.both` or `BTThreeDSecureUIType.html`, all `BTThreeDSecureRenderType` options must be set.
+    /// When using `BTThreeDSecureUIType.native`, all `BTThreeDSecureRenderType` options except `BTThreeDSecureRenderType.html` must be set.
+    public var renderType: [BTThreeDSecureRenderType.BTThreeDSecureRenderType]?
 
     /// A delegate for receiving information about the ThreeDSecure payment flow.
     public weak var threeDSecureRequestDelegate: BTThreeDSecureRequestDelegate?
