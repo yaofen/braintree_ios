@@ -49,6 +49,10 @@ class BTThreeDSecureV2Provider {
             cardinalConfiguration.uiType = uiType
         }
 
+        if request.renderType != nil {
+            cardinalConfiguration.renderType = renderTypeToCardinalRenderType(for: request)
+        }
+
         cardinalSession.configure(cardinalConfiguration)
         cardinalSession.setup(
             jwtString: cardinalAuthenticationJWT,
@@ -109,17 +113,39 @@ class BTThreeDSecureV2Provider {
         }
     }
 
-    func uiTypeToCardinalUIType(for request: BTThreeDSecureRequest) -> CardinalSessionUIType? {
+    private func uiTypeToCardinalUIType(for request: BTThreeDSecureRequest) -> CardinalSessionUIType? {
         switch request.uiType {
         case .both:
             return CardinalSessionUIType.both
         case .native:
             return CardinalSessionUIType.native
         case .html:
-            return CardinalSessionUIType.native
+            return CardinalSessionUIType.HTML
         default:
             return nil
         }
+    }
+
+    private func renderTypeToCardinalRenderType(for request: BTThreeDSecureRequest) -> [String] {
+        var renderTypeResult: [String] = []
+
+        if let renderTypes = request.renderType {
+            renderTypes.forEach { renderType in
+                if renderType == BTThreeDSecureRenderType.otp {
+                    renderTypeResult.append("CardinalSessionRenderTypeOTP")
+                } else if renderType == BTThreeDSecureRenderType.html {
+                    renderTypeResult.append("CardinalSessionRenderTypeHTML")
+                } else if renderType == BTThreeDSecureRenderType.singleSelect {
+                    renderTypeResult.append("CardinalSessionRenderTypeSingleSelect")
+                } else if renderType == BTThreeDSecureRenderType.multiSelect {
+                    renderTypeResult.append("CardinalSessionRenderTypeMultiSelect")
+                } else if renderType == BTThreeDSecureRenderType.oob {
+                    renderTypeResult.append("CardinalSessionRenderTypeOOB")
+                }
+            }
+        }
+
+        return renderTypeResult
     }
 }
 

@@ -103,8 +103,8 @@ import BraintreeCore
     /// Optional. The interface types that the device supports for displaying specific challenge user interfaces within the 3D Secure challenge.
     public var uiType: BTThreeDSecureUIType? = .unspecified
 
-    /// Optional. List of all the render types that the device supports for displaying specific challenge user interfaces within the 3D Secure challenge.
-    public var renderType: [BTThreeDSecureRenderType]? = []
+    /// Optional. List of all the render types that the device supports for displaying specific challenge user interfaces within the 3D Secure challenge.CardinalSessionRenderTypeOTP
+    public var renderType: [BTThreeDSecureRenderType]?
 
     /// A delegate for receiving information about the ThreeDSecure payment flow.
     public weak var threeDSecureRequestDelegate: BTThreeDSecureRequestDelegate?
