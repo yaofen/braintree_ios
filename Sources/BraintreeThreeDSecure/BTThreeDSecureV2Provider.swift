@@ -49,7 +49,7 @@ class BTThreeDSecureV2Provider {
             jwtString: cardinalAuthenticationJWT,
             completed: { consumerSessionID in
                 completion(["dfReferenceId": consumerSessionID])
-            }, validated: { _ in
+            }, validated: { error in
                 completion([:])
             }
         )
