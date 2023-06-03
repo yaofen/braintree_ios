@@ -1,12 +1,15 @@
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BTMockUIApplication : NSObject
 
+//-(id)init; do i ned this
+
 - (void)stubCanOpenURLWith:(BOOL)canOpenURL;
 
-@property(readonly, nonatomic) UIApplication *mock;
+- (void)verifyOpenURLCalledWith:(NSURL *)url;
 
 @end
 

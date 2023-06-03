@@ -19,6 +19,7 @@ abstract_target 'Tests' do
 
   target 'IntegrationTests'
   target 'BraintreeCoreTests'
+  target 'BraintreeVenmoTests'
 end
 
 # Workaround required for Xcode 14.3 

@@ -170,15 +170,11 @@ import BraintreeCore
 
     /// Returns true if the proper Venmo app is installed and configured correctly, returns false otherwise.
     @objc public func isVenmoAppInstalled() -> Bool {
-        if let _ = application as? UIApplication {
-            guard let appSwitchURL = BTVenmoAppSwitchRedirectURL().baseAppSwitchURL else {
-                return false
-            }
-
-            return UIApplication.shared.canOpenURL(appSwitchURL)
-        } else {
-            return application.canOpenURL(BTVenmoAppSwitchRedirectURL().baseAppSwitchURL ?? URL(string: "")!)
+        guard let appSwitchURL = BTVenmoAppSwitchRedirectURL().baseAppSwitchURL else {
+            return false
         }
+        
+        return UIApplication.shared.canOpenURL(appSwitchURL)
     }
 
     /// Switches to the App Store to download the Venmo application.
@@ -273,15 +269,16 @@ import BraintreeCore
     }
 
     func performAppSwitch(with appSwitchURL: URL, shouldVault vault: Bool, completion: @escaping (BTVenmoAccountNonce?, Error?) -> Void) {
-        if let _ = application as? UIApplication {
+//        if let _ = application as? UIApplication {
             UIApplication.shared.open(appSwitchURL) { success in
                 self.invokedOpenURLSuccessfully(success, shouldVault: vault, completion: completion)
             }
-        } else {
-            application.open(appSwitchURL) { success in
-                self.invokedOpenURLSuccessfully(success, shouldVault: vault, completion: completion)
-            }
-        }
+        
+//        } else {
+//            application.open(appSwitchURL) { success in
+//                self.invokedOpenURLSuccessfully(success, shouldVault: vault, completion: completion)
+//            }
+//        }
     }
 
     func invokedOpenURLSuccessfully(_ success: Bool, shouldVault vault: Bool, completion: @escaping (BTVenmoAccountNonce?, Error?) -> Void) {
