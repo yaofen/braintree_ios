@@ -10,16 +10,17 @@ static NSString *BTWebViewControllerPopupCloseDummyURLScheme = @"com.braintreepa
 
 @end
 
-@interface BTWebViewController () <UIWebViewDelegate, BTThreeDSecurePopupDelegate>
+//@interface BTWebViewController () <UIWebViewDelegate, BTThreeDSecurePopupDelegate>
+@interface BTWebViewController ()
 
-@property (nonatomic, strong) UIWebView *webView;
+//@property (nonatomic, strong) UIWebView *webView;
 
 @property (nonatomic, weak) id<BTThreeDSecurePopupDelegate> delegate;
 
 @end
 
 @implementation BTWebViewController
-
+/*
 - (instancetype)initWithCoder:(__unused NSCoder *)decoder {
     @throw [[NSException alloc] initWithName:@"Invalid initializer" reason:@"Use designated initializer" userInfo:nil];
 }
@@ -200,5 +201,5 @@ static NSString *BTWebViewControllerPopupCloseDummyURLScheme = @"com.braintreepa
 - (void)popupWebViewViewControllerDidFinish:(BTWebViewController *)viewController {
     [viewController dismissViewControllerAnimated:YES completion:nil];
 }
-
+*/
 @end

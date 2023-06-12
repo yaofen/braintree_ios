@@ -9,14 +9,14 @@
 
 @implementation BTThreeDSecureAuthenticationViewController
 
-- (instancetype)initWithLookupResult:(BTThreeDSecureLookupResult *)lookupResult {
-    if (!lookupResult.requiresUserAuthentication) {
-        return nil;
-    }
-
-    NSURLRequest *acsRequest = [self acsRequestForLookupResult:lookupResult];
-    return [super initWithRequest:acsRequest];
-}
+//- (instancetype)initWithLookupResult:(BTThreeDSecureLookupResult *)lookupResult {
+//    if (!lookupResult.requiresUserAuthentication) {
+//        return nil;
+//    }
+//
+//    NSURLRequest *acsRequest = [self acsRequestForLookupResult:lookupResult];
+//    return [super initWithRequest:acsRequest];
+//}
 
 - (instancetype)initWithRequest:(NSURLRequest *)request {
     return [self initWithRequest:request];
@@ -75,41 +75,41 @@
 
 #pragma mark UIWebViewDelegate
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    if (navigationType == UIWebViewNavigationTypeFormSubmitted && [request.URL.path rangeOfString:@"authentication_complete_frame"].location != NSNotFound) {
-        
-        NSString *jsonAuthResponse = [BTURLUtils queryParametersForURL:request.URL][@"auth_response"];
-        BTJSON *authBody = [[BTJSON alloc] initWithValue:[NSJSONSerialization JSONObjectWithData:[jsonAuthResponse dataUsingEncoding:NSUTF8StringEncoding] options:0 error:NULL]];
-
-        BTThreeDSecureResponse *authResponse = [[BTThreeDSecureResponse alloc] init];
-        authResponse.success = [authBody[@"success"] isTrue];
-        authResponse.threeDSecureInfo = [authBody[@"threeDSecureInfo"] asDictionary];
-        authResponse.tokenizedCard = [BTThreeDSecureCardNonce cardNonceWithJSON:authBody[@"paymentMethod"]];
-        authResponse.errorMessage = [authBody[@"error"][@"message"] asString];
-
-        [self didCompleteAuthentication:authResponse];
-
-        return NO;
-    } else {
-        return [super webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
-    }
-}
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    if ([error.domain isEqualToString:@"WebKitErrorDomain"] && error.code == 102) {
-        // Not a real error; occurs when we return NO from webView:shouldStartLoadWithRequest:navigationType:
-        return;
-    } else if ([error.domain isEqualToString:BTThreeDSecureErrorDomain]) {
-        // Allow delegate to handle 3D Secure authentication errors
-        [self.delegate threeDSecureViewController:self didFailWithError:error];
-    } else {
-        // Otherwise, allow the WebViewController to display the error to the user
-        if ([self.delegate respondsToSelector:@selector(threeDSecureViewController:didPresentErrorToUserForURLRequest:)]) {
-            [self.delegate threeDSecureViewController:self didPresentErrorToUserForURLRequest:webView.request];
-        }
-        [super webView:webView didFailLoadWithError:error];
-    }
-}
+//- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+//    if (navigationType == UIWebViewNavigationTypeFormSubmitted && [request.URL.path rangeOfString:@"authentication_complete_frame"].location != NSNotFound) {
+//        
+//        NSString *jsonAuthResponse = [BTURLUtils queryParametersForURL:request.URL][@"auth_response"];
+//        BTJSON *authBody = [[BTJSON alloc] initWithValue:[NSJSONSerialization JSONObjectWithData:[jsonAuthResponse dataUsingEncoding:NSUTF8StringEncoding] options:0 error:NULL]];
+//
+//        BTThreeDSecureResponse *authResponse = [[BTThreeDSecureResponse alloc] init];
+//        authResponse.success = [authBody[@"success"] isTrue];
+//        authResponse.threeDSecureInfo = [authBody[@"threeDSecureInfo"] asDictionary];
+//        authResponse.tokenizedCard = [BTThreeDSecureCardNonce cardNonceWithJSON:authBody[@"paymentMethod"]];
+//        authResponse.errorMessage = [authBody[@"error"][@"message"] asString];
+//
+//        [self didCompleteAuthentication:authResponse];
+//
+//        return NO;
+//    } else {
+//        return [super webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
+//    }
+//}
+//
+//- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+//    if ([error.domain isEqualToString:@"WebKitErrorDomain"] && error.code == 102) {
+//        // Not a real error; occurs when we return NO from webView:shouldStartLoadWithRequest:navigationType:
+//        return;
+//    } else if ([error.domain isEqualToString:BTThreeDSecureErrorDomain]) {
+//        // Allow delegate to handle 3D Secure authentication errors
+//        [self.delegate threeDSecureViewController:self didFailWithError:error];
+//    } else {
+//        // Otherwise, allow the WebViewController to display the error to the user
+//        if ([self.delegate respondsToSelector:@selector(threeDSecureViewController:didPresentErrorToUserForURLRequest:)]) {
+//            [self.delegate threeDSecureViewController:self didPresentErrorToUserForURLRequest:webView.request];
+//        }
+//        [super webView:webView didFailLoadWithError:error];
+//    }
+//}
 
 #pragma mark User Interaction
 
