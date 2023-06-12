@@ -88,11 +88,11 @@
                               if (lookupResult.requiresUserAuthentication) {
                                   self.completionBlockAfterAuthenticating = [completionBlock copy];
 
-                                  BTThreeDSecureAuthenticationViewController *authenticationViewController = [[BTThreeDSecureAuthenticationViewController alloc] initWithLookupResult:lookupResult];
-                                  authenticationViewController.delegate = self;
-                                  UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:authenticationViewController];
-                                  [self informDelegateRequestsPresentationOfViewController:navigationController];
-                                  [self.apiClient sendAnalyticsEvent:@"ios.threedsecure.authentication-start"];
+//                                  BTThreeDSecureAuthenticationViewController *authenticationViewController = [[BTThreeDSecureAuthenticationViewController alloc] initWithLookupResult:lookupResult];
+//                                  authenticationViewController.delegate = self;
+//                                  UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:authenticationViewController];
+//                                  [self informDelegateRequestsPresentationOfViewController:navigationController];
+//                                  [self.apiClient sendAnalyticsEvent:@"ios.threedsecure.authentication-start"];
                               } else {
                                   completionBlock(lookupResult.tokenizedCard, nil);
                               }
